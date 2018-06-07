@@ -17,7 +17,9 @@
     </style>  
   </ScriptBlock> 
   
-  <SelectCommand CommandText="SELECT 1 AS Show_Address_By_Default, 1 AS Show_Phone_By_Default" />
+  <SelectCommand CommandText="SELECT @UserID AS UserID">
+    <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="Int32" />
+  </SelectCommand>
 
   <SubmitCommand CommandText="INSERT INTO [XMP_Classified_Seller] ([UserID], [Seller_Name], [Seller_Address], [Seller_Location], [Seller_Phone], [Seller_Email], [Show_Address_By_Default], [Show_Phone_By_Default], [Seller_Image], [Seller_Level], [Agree], [Banned]) VALUES(@UserID, @Seller_Name, @Seller_Address, @Seller_Location, @Seller_Phone, @Seller_Email, @Show_Address_By_Default, @Show_Phone_By_Default, @Seller_Image, @Seller_Level, @Agree, @Banned) " />
   
@@ -28,16 +30,6 @@
   <ControlDataSource Id="cds_Levels" CommandText="SELECT [LevelID], [Level_Name] FROM [XMP_Classified_Level] ORDER BY [LevelID] ASC" />
   
   <div class="form-horizontal">
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="UserID">Select User</Label>
-      <div class="col-sm-10">
-        <DropDownList Id="UserID" CssClass="form-control required-field" Width="250" DataField="UserID" DataSourceId="cds_Users" DataTextField="Username" DataValueField="UserID" AppendDataBoundItems="true" DataType="int32">
-          <ListItem Value="">- Please Select -</ListItem>
-        </DropDownList>
-      	<Validate Target="UserID" CssClass="validate-error" Type="required" Text="*" Message="User is required." />
-      </div>      
-    </div>
-    
     <div class="form-group">
       <Label CssClass="col-sm-2 control-label" For="Seller_Name">Seller Name</Label>
       <div class="col-sm-10">
@@ -156,6 +148,9 @@
     </div>
     
   </div>
+  
+  <TextBox ID="UserID" DataField="UserID" DataType="Int32" ReadOnly="True" Visible="False" />
+  
 </xmod:AddForm></AddItemTemplate><EditItemTemplate><xmod:EditForm runat="server">
 
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
