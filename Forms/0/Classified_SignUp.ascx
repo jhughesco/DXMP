@@ -21,13 +21,35 @@
     <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="Int32" />
   </SelectCommand>
 
-  <SubmitCommand CommandText="INSERT INTO [XMP_Classified_Seller] ([UserID], [Seller_Name], [Seller_Address], [Seller_Location], [Seller_Phone], [Seller_Email], [Show_Address_By_Default], [Show_Phone_By_Default], [Seller_Image], [Seller_Level], [Agree], [Banned]) VALUES(@UserID, @Seller_Name, @Seller_Address, @Seller_Location, @Seller_Phone, @Seller_Email, @Show_Address_By_Default, @Show_Phone_By_Default, @Seller_Image, @Seller_Level, @Agree, @Banned) " />
-  
-  <ControlDataSource Id="cds_Users" CommandText="SELECT [UserID], [Username] FROM [Users] u WHERE u.IsSuperUser = 0 AND NOT EXISTS ( SELECT * FROM XMP_Classified_Seller WHERE UserID = u.UserID ) ORDER BY [Username] ASC" />
+  <SubmitCommand CommandText="INSERT INTO [XMP_Classified_Seller] (
+                                [UserID]
+                                ,[Seller_Name]
+                                ,[Seller_Address]
+                                ,[Seller_Location]
+                                ,[Seller_Phone]
+                                ,[Seller_Email]
+                                ,[Show_Address_By_Default]
+                                ,[Show_Phone_By_Default]
+                                ,[Seller_Image]
+                                ,[Seller_Level]
+                                ,[Agree]
+                                )
+                              VALUES (
+                                @UserID
+                                ,@Seller_Name
+                                ,@Seller_Address
+                                ,@Seller_Location
+                                ,@Seller_Phone
+                                ,@Seller_Email
+                                ,@Show_Address_By_Default
+                                ,@Show_Phone_By_Default
+                                ,@Seller_Image
+                                ,3
+                                ,@Agree
+                                )" 
+	/>
   
   <ControlDataSource Id="cds_Locations" CommandText="SELECT [LocationID], [City] + ', ' + [State] AS CityState FROM [XMP_Classified_Location] ORDER BY [City] ASC" />
-  
-  <ControlDataSource Id="cds_Levels" CommandText="SELECT [LevelID], [Level_Name] FROM [XMP_Classified_Level] ORDER BY [LevelID] ASC" />
   
   <div class="form-horizontal">
     <div class="form-group">
@@ -52,6 +74,7 @@
         <DropDownList Id="Seller_Location" CssClass="form-control" Width="250" Nullable="true" DataField="Seller_Location" DataSourceId="cds_Locations" DataTextField="CityState" DataValueField="LocationID" AppendDataBoundItems="true" DataType="int32">
           <ListItem Value="">- Please Select -</ListItem>
         </DropDownList>
+        <Validate Target="Seller_Location" CssClass="validate-error" Type="required" Text="*" Message="Location is required." />
       </div>      
     </div>
     
@@ -114,16 +137,6 @@
     </div>
     
     <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Seller_Level">Level</Label>
-      <div class="col-sm-10">
-        <DropDownList Id="Seller_Level" CssClass="form-control required-field" Width="250" DataField="Seller_Level" DataSourceId="cds_Levels" DataTextField="Level_Name" DataValueField="LevelID" AppendDataBoundItems="true" DataType="int32">
-          <ListItem Value="">- Please Select -</ListItem>
-        </DropDownList>
-        <Validate Target="Seller_Level" CssClass="validate-error" Type="required" Text="*" Message="Level is required." />
-      </div>      
-    </div>
-    
-    <div class="form-group">
       <Label CssClass="col-sm-2 control-label" For="Agree">&nbsp;</Label>
       <div class="col-sm-10">
         <CheckBox Id="Agree" DataField="Agree" DataType="boolean" /> I Agree to the Terms and Conditions
@@ -131,23 +144,68 @@
       </div>      
     </div>
     
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Banned">&nbsp;</Label>
-      <div class="col-sm-10">
-        <CheckBox Id="Banned" DataField="Banned" DataType="boolean" /> Banned
-      </div>      
-    </div>
-    
     <ValidationSummary CssClass="col-sm-offset-2 col-sm-10 alert alert-info" Id="vsXMP_Classified_Seller" />
     
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <AddButton CssClass="btn btn-primary" Text="Create Seller" />  
-        <CancelButton CssClass="btn btn-default" Text="Cancel" Visible="true" />
+        <AddButton CssClass="btn btn-primary" Text="Create Seller" Redirect="/Dashboard?f=1" RedirectMethod="Get" />  
+        <CancelButton CssClass="btn btn-default" Text="Cancel" Visible="true" Redirect="/Dashboard" RedirectMethod="Get" />
       </div>
     </div>
     
   </div>
+  
+  <Email To='[[Seller_Email]]' From="jeff@hughesco.org" ReplyTo="jeff@hughesco.org" Subject="Your Seller account has been created." Format="html">
+    <center>
+      <table width="640" cellpadding="0" cellspacing="0" border="0" class="wrapper" bgcolor="#FFFFFF">
+        <tr>
+          <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center" valign="top">
+
+            <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
+              <tr>
+                <td align="center" valign="top" style="font-family: Arial, sans-serif; font-size:18px; font-weight:bold;">
+                  Congratulations [[Seller_Name]]
+                </td>
+              </tr>
+              <tr>
+                <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="left" valign="top" style="font-family: Arial, sans-serif; font-size:12px; font-weight:bold;">
+                  <p> You can post ads or make changes to your seller profile from your dashboard: <br /><br />
+
+                    http://acich.org/Dashboard <br /><br />
+
+                    If you have any questions, feel free to reply to this email. <br /><br />
+
+                    ~ acich.org 
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td align="center" valign="middle" height="44" style="font-family: Arial, sans-serif; font-size:14px; font-weight:bold;">
+                  <a href="http://acich.org/Dashboard/Post-Ad" target="_blank" style="font-family: Arial, sans-serif; color:#505050; display: inline-block; text-decoration: none; line-height:38px; width:160px; font-weight:bold; border: 3px solid #99CC99; border-radius: 10px;">Post Ad Now!</a>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+        <tr>
+          <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+        </tr>
+      </table>
+    </center>
+  </Email>
+  
+  <AddToRoles RoleNames="Sellers" UserId='[[UserID]]'></AddToRoles>
+
   
   <TextBox ID="UserID" DataField="UserID" DataType="Int32" ReadOnly="True" Visible="False" />
   
