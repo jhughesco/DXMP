@@ -7,7 +7,10 @@
       color: #fff !important;
       background-color: #337ab7 !important;
       border-color: #337ab7 !important;
-    }  
+    }
+    .search-spacing {
+     	margin-top: 15px; 
+    }
   </style>
 </xmod:ScriptBlock>
 
@@ -59,7 +62,7 @@
     SortButtonCssClass="btn btn-default"
     SortFieldListCssClass="form-control">
     
-    <div class="row">
+    <div class="row search-spacing">
       <div class="col-sm-6">
         <div class="input-group">
           {SearchBox}
@@ -320,8 +323,8 @@
           <td><%#Eval("Values")("CityState")%> (<%#Eval("Values")("Seller_Location")%>)</td>
           <td><%#Eval("Values")("Seller_Phone")%></td>
           <td><%#Eval("Values")("Seller_Email")%></td>
-          <td><%#Eval("Values")("Show_Address_By_Default")%></td>
-          <td><%#Eval("Values")("Show_Phone_By_Default")%></td>
+          <td><%#Eval("Values")("ShowAddress")%></td>
+          <td><%#Eval("Values")("ShowPhone")%></td>
           <td><%#Eval("Values")("Date_Created")%></td>
           <td><%#Eval("Values")("Date_Updated")%></td>
           <td><%#Eval("Values")("UpdatedByUsername")%> (<%#Eval("Values")("UpdatedBy")%>)</td>
