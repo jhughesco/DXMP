@@ -99,7 +99,7 @@
     
   </SelectCommand>
 
-    <SubmitCommand CommandText="XMP_Classified_Admin_PostAd" CommandType="StoredProcedure">
+    <SubmitCommand CommandText="XMP_Classified_Seller_PostAd" CommandType="StoredProcedure">
       <Parameter Name="SellerID" />
       <Parameter Name="LocationID" />
       <Parameter Name="Ad_Title" />
@@ -112,7 +112,6 @@
       <Parameter Name="Ad_Description" />
       <Parameter Name="CreatedBy" />
       <Parameter Name="Created_IP" />
-      <Parameter Name="Approved" />
       <Parameter Name="ShowAddress" />
       <Parameter Name="ShowPhone" />
       <Parameter Name="ShowEmail" />
@@ -276,8 +275,8 @@
     <div class="form-group">
       <Label class="col-sm-2 control-label">&nbsp;</Label>
       <div class="col-sm-10">
-        <AddButton CssClass="btn btn-primary" Text="Post Ad" Redirect="/Classifieds-Admin/Sellers" RedirectMethod="get" />
-        <CancelButton CssClass="btn btn-default" Text="Cancel" Redirect="/Classifieds-Admin/Sellers" RedirectMethod="get" />
+        <AddButton CssClass="btn btn-primary" Text="Post Ad" />
+        <CancelButton CssClass="btn btn-default" Text="Cancel" Redirect="/Dashboard" RedirectMethod="get" />
       </div>
 
     </div>
@@ -351,7 +350,31 @@
       statusbar: false });
   </jQueryReady>
   
-</xmod:AddForm></AddItemTemplate><EditItemTemplate><xmod:EditForm runat="server" Clientname="Ad">
+</xmod:AddForm></AddItemTemplate>
+
+<AddSuccessTemplate><xmod:AddSuccess runat="server">
+  <ItemTemplate>
+    <xmod:ScriptBlock runat="server" ScriptId="SuccessCSS" BlockType="HeadScript" RegisterOnce="true">
+      <style type="text/css">
+        .success-message {
+          max-width: 800px;
+          margin: auto;
+          margin-top: 25px;
+        }
+      </style>
+    </xmod:ScriptBlock>
+    
+    <div class="alert alert-success success-message">
+      <h1>Success!</h1>
+      <p>Your ad has been posted! What would you like to do next?</p>
+      <p>
+        <xmod:ContinueButton runat="server" CssClass="btn btn-default" Text="Post Another" />
+        <a class="btn btn-default" href="/Dashboard">Back to Dashboard</a>
+      </p>
+    </div>
+    
+  </ItemTemplate>
+</xmod:AddSuccess></AddSuccessTemplate><EditItemTemplate><xmod:EditForm runat="server" Clientname="Ad">
 
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
     <style type="text/css">
