@@ -448,7 +448,7 @@
 
 
   <SelectCommand CommandText="SELECT 
-                              [AdID]
+                               [AdID]
                               ,[Seller_Name]
                               ,[Seller_Email]
                               ,[SellerID]
@@ -667,7 +667,13 @@
         <CheckBox Id="Approved" DataField="Approved" DataType="boolean" />
         <strong>Approved</strong>
     </div>
-
+		
+    
+    <div class="checkbox">
+        <CheckBox Id="SendApprovalEmail" DataField="SendApprovalEmail" DataType="boolean" />
+        <strong>Send Approval Email</strong>
+    </div>
+    
     <div class="checkbox">
         <CheckBox Id="Active" DataField="Active" DataType="boolean" />
         <strong>Active</strong>
@@ -691,10 +697,46 @@
 
 
   <TextBox Id="SellerID" DataField="SellerID" DataType="int32" visible="False" />
+  <TextBox Id="Seller_Name" DataField="Seller_Name" DataType="String" visible="False" />
+  <TextBox Id="Seller_Email" DataField="Seller_Email" DataType="String" visible="False" />
   <TextBox Id="UpdatedBy" DataField="UpdatedBy" DataType="int32" visible="False" />
   <TextBox Id="Updated_IP" Width="200" Nullable="True" MaxLength="50" DataField="Updated_IP" DataType="string" visible="False" />
+	<TextBox Visible="False" Id="AdID" DataField="AdID" />
+  
+  <Email To='[[Seller_Email]]' SendIf='[[SendApprovalEmail]] = True' From="admin@acich.org" ReplyTo="admin@acich.org" Subject="Your ad has been approved." Format="HTML">
+		<body style="margin:0; padding:0; background-color:#F2F2F2;">
+      <center>
+        <table width="640" cellpadding="0" cellspacing="0" border="0" class="wrapper" bgcolor="#FFFFFF">
+          <tr>
+            <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="center" valign="top">
 
-  <TextBox Visible="False" Id="AdID" DataField="AdID" />
+              <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
+                <tr>
+                  <td align="center" valign="top" style="font-family: Arial, sans-serif; font-size:14px; font-weight:bold;">
+                    <p>Hello [[Seller_Name]]!</p>
+                    <p>The following ad has been approved:</p>
+                    <p>[[AdTitle]]</p>
+                    <p>You can view your ad directly at the following link:</p>
+                    <p>http://acich.org/Ads/Details/AdID/[[AdID]]</p>
+                    <p>Thanks for your support!</p>
+                    <p>~acich.org</p>
+
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+          <tr>
+            <td height="10" style="font-size:10px; line-height:10px;">&nbsp;</td>
+          </tr>
+        </table>
+      </center>
+    </body>
+  </Email>
 
   <script>
     $(document).ready(function () {
