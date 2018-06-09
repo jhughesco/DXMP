@@ -21,10 +21,11 @@
       .required-field {
       	border-left: 1px solid red; 
       }
-      .LabelHelp {
-      	font-weight: normal;
-        color: #898989;
-      }
+      .HeaderLabel_Small {
+            color: inherit;
+            opacity: 0.7;
+            font-weight: normal;
+        }
       .info_panel_spacing {
       	margin-top: 10px;
       }
@@ -35,6 +36,15 @@
        	margin-left: 0px !important; 
         position: relative !important;
       }
+      .Categories_Container {
+            list-style-type: none;
+            margin-left: 0px;
+        }
+
+            .Categories_Container ul {
+                list-style-type: none;
+                margin-left: 25px
+            }
     </style>  
   </ScriptBlock> 
   
@@ -81,19 +91,19 @@
     <div class="panel-body">
     
       <div class="form-group">
-        <Label For="Seller_Name">Seller Name | <small Class="LabelHelp"> This name can be your name, company name, or just a fun name like <em>The Ad King</em></small></Label>
+        <Label For="Seller_Name">Seller Name |<small Class="HeaderLabel_Small"> This name can be your name, company name, or just a fun name like <em>The Ad King</em></small></Label>
         <TextBox Id="Seller_Name" CssClass="form-control required-field" MaxLength="150" DataField="Seller_Name" DataType="string" />
         <Validate Target="Seller_Name" CssClass="validate-error" Type="required" Text="*" Message="Name is required." />
       </div>
       
       <div class="form-group">
-        <Label For="Seller_Address">Seller Address | <small Class="LabelHelp"> This will be displayed on your ads if you choose to make it public.</small></Label>
+        <Label For="Seller_Address">Seller Address |<small Class="HeaderLabel_Small"> This will be displayed on your ads if you choose to make it public.</small></Label>
         <TextBox Id="Seller_Address" CssClass="form-control required-field" MaxLength="150" DataField="Seller_Address" DataType="string" />
         <Validate Target="Seller_Address" CssClass="validate-error" Type="required" Text="*" Message="Address is required." />
       </div>      
     
       <div class="form-group">
-        <Label For="Seller_Location">Location | <small Class="LabelHelp"> This is your default location, which can be changed on each ad.</small></Label>
+        <Label For="Seller_Location">Location |<small Class="HeaderLabel_Small"> This is your default location, which can be changed on each ad.</small></Label>
         <DropDownList Id="Seller_Location" CssClass="form-control required-field" Nullable="true" DataField="Seller_Location" DataSourceId="cds_Locations" DataTextField="CityState" DataValueField="LocationID" AppendDataBoundItems="true" DataType="int32">
           <ListItem Value="">- Please Select -</ListItem>
         </DropDownList>
@@ -101,7 +111,7 @@
       </div>
 
       <div class="form-group">
-        <Label For="Seller_Image">Seller Image | <small Class="LabelHelp"> Optional picture/logo to be associated with your seller profile.</em></small></Label>
+        <Label For="Seller_Image">Seller Image |<small Class="HeaderLabel_Small"> Optional picture/logo to be associated with your seller profile.</em></small></Label>
         <rmg:Xile runat="server" 
                     Id="Seller_Image" 
                     Nullable="True" 
@@ -138,13 +148,13 @@
     <div class="panel-body">
     
       <div class="form-group">
-        <Label For="Seller_Phone">Seller Phone | <small Class="LabelHelp"> This is only displayed on your ads if you choose to make it public.</em></small></Label>
+        <Label For="Seller_Phone">Seller Phone |<small Class="HeaderLabel_Small"> This is only displayed on your ads if you choose to make it public.</em></small></Label>
         <TextBox Id="Seller_Phone" CssClass="form-control required-field" MaxLength="50" DataField="Seller_Phone" DataType="string" />
         <Validate Target="Seller_Phone" CssClass="validate-error" Type="required" Text="*" Message="Phone is required." />
       </div>
 
       <div class="form-group">
-        <Label For="Seller_Email">Seller Email | <small Class="LabelHelp"> Inquires will be sent to this email address.</small></Label>
+        <Label For="Seller_Email">Seller Email |<small Class="HeaderLabel_Small"> Inquires will be sent to this email address.</small></Label>
         <TextBox Id="Seller_Email" Value='<%#SelectData("Email")%>' CssClass="form-control required-field" MaxLength="100" DataField="Seller_Email" DataType="string" />
         <Validate Target="Seller_Email" CssClass="validate-error" Type="required" Text="*" Message="Email is required." />
         <Validate Target="Seller_Email" CssClass="validate-error" Type="email" Text="*" Message="Email is invalid." />
@@ -169,21 +179,21 @@
           You can always change your default options later if desired, as well as override these options on a per/ad basis.
         </p>
       </div>
-    
-      <div class="form-group">
-        <Label For="Show_Address_By_Default">&nbsp;</Label>
-        <CheckBox Id="Show_Address_By_Default" DataField="Show_Address_By_Default" DataType="boolean" /> <strong>Show Address by Default</strong>
-      </div>
 
-      <div class="form-group">
-        <Label For="Show_Phone_By_Default">&nbsp;</Label>
-        <CheckBox Id="Show_Phone_By_Default" DataField="Show_Phone_By_Default" DataType="boolean" /> <strong>Show Phone by Default</strong>
-      </div>
+      <ul class="Categories_Container">
+        <li>
+            <Label For="Show_Address_By_Default">&nbsp;</Label>
+            <CheckBox Id="Show_Address_By_Default" DataField="Show_Address_By_Default" DataType="boolean" /> <strong>Show Address by Default</strong>
+        </li>
+        <li>
+            <Label For="Show_Phone_By_Default">&nbsp;</Label>
+            <CheckBox Id="Show_Phone_By_Default" DataField="Show_Phone_By_Default" DataType="boolean" /> <strong>Show Phone by Default</strong>       
+        </li>
+      </ul>
+    </div>
       
     </div>
 
-	</div>
-    
   <div class="panel panel-warning">
     
     <div class="panel-heading">
@@ -212,14 +222,14 @@
       <p>
         By checking the box below, I fully understand and agree to the above noted terms and conditions and I promise to behave myself!
       </p>
-      <div class="checkbox">
-        <CheckBox Id="Agree" DataField="Agree" DataType="boolean" /> <strong>I Agree to the Terms and Conditions</strong>
-        <Validate Type="checkbox" CssClass="validate-error" Target="Agree" Text="*" Message="You must agree to the terms and conditions." />
-      </div>
-
+      <ul class="Categories_Container">
+        <li>
+            <CheckBox Id="Agree" DataField="Agree" DataType="boolean" /> <strong>I Agree to the Terms and Conditions</strong>
+            <Validate Type="checkbox" CssClass="validate-error" Target="Agree" Text="*" Message="You must agree to the terms and conditions." />
+        </li>
+      </ul>
     </div>
-
-	</div>
+  </div>
     
   
     
