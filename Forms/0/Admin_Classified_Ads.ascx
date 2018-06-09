@@ -449,8 +449,9 @@
 
   <SelectCommand CommandText="SELECT 
                               [AdID]
-                              ,s.[Seller_Name]
-                              ,s.[SellerID]
+                              ,[Seller_Name]
+                              ,[Seller_Email]
+                              ,[SellerID]
                               ,[LocationID]
                               ,[Ad_Title]
                               ,[Ad_Subtitle]
@@ -468,9 +469,8 @@
                               ,dbo.udf_XMP_GenerateDelimitedString (@AdID, 'cat', '|') AS Categories
                               ,dbo.udf_XMP_GenerateDelimitedString (@AdID, 'img', '|') AS AdditionalImages
 
-                              FROM XMP_Classified_Ad AS ca LEFT JOIN
-                              XMP_Classified_Seller AS s ON ca.SellerID = s.SellerID
-                              WHERE ca.AdID=@AdID">
+                              FROM vw_XMP_Classified_Ad_Detail
+                              WHERE AdID=@AdID">
 
     <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="int32" />
     <Parameter Name=UserIP Value='<%#RequestData("HostAddress")%>' DataType="string" />

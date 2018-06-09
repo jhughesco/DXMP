@@ -84,7 +84,7 @@
     <SelectCommand CommandText="SELECT SellerID
                                 			,Seller_Name
                                 			,Seller_Level
-                                			,CASE WHEN Seller_Level = 1 THEN 'You will receive an email confirmation when your ad is approved.' ELSE 'Your ad has been instantly approved.' END 'ApprovalMessage'
+                                			,CASE WHEN Seller_Level = 3 THEN 'You will receive an email confirmation when your ad is approved.' ELSE 'Your ad has been instantly approved.' END 'ApprovalMessage'
                                       ,LocationID
                                       ,ShowAddress
                                       ,ShowPhone
@@ -95,6 +95,7 @@
                                   FROM vw_XMP_Classified_Seller_Detail
                                   WHERE UserID = @UserID">
       
+      	
       	<Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="int32" />
         <Parameter Name=UserIP Value='<%#RequestData("HostAddress")%>' DataType="string" />
     
@@ -102,6 +103,7 @@
 
     <SubmitCommand CommandText="XMP_Classified_Seller_PostAd" CommandType="StoredProcedure">
       <Parameter Name="SellerID" />
+      <Parameter Name="Seller_Level" />
       <Parameter Name="LocationID" />
       <Parameter Name="Ad_Title" />
       <Parameter Name="Ad_Subtitle" />
@@ -198,11 +200,25 @@
     <div class="form-group">
       <Label CssClass="col-sm-2 control-label" For="PrimaryImage">Primary Image</Label>
       <div class="col-sm-10">
-        <rmg:Xile runat="server" Id="PrimaryImage" Nullable="True" DataField="PrimaryImage" Dropzone="False" AcceptFileTypes="jpg,jpeg,png" MaxNumberOfFiles="1"
-                  MaxFileSize="2097152" AutoUpload="True" AutoCreateFolder="True" FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/Ads/{1}/", PortalData("ID"), SelectData("SellerID"))%>'
+        <rmg:Xile runat="server" Id="PrimaryImage" 
+                  Nullable="True" 
+                  DataField="PrimaryImage" 
+                  Dropzone="False" 
+                  AcceptFileTypes="jpg,jpeg,png" 
+                  MaxNumberOfFiles="1"
+                  MaxFileSize="2097152" 
+                  AutoUpload="True" 
+                  AutoCreateFolder="True" 
+                  FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/Ads/{1}/", PortalData("ID"), SelectData("SellerID"))%>'
                   ResizeVersions="width=800;height=600;mode=max, md_:width=400;height=400; sm_:width=200;height=200;mode=max;mode=max, thm_:width=80;height=80;mode=max"
-                  UniqueFileName="True" UploadMode="Single" AddFilesButtonText="Add Image" WrapperClass="rmg-singleupload"
-                  ShowTopCancelButton="False" ShowTopCheckBox="False" ShowTopProgressBar="False" ShowTopDeleteButton="False">
+                  UniqueFileName="True" 
+                  UploadMode="Single" 
+                  AddFilesButtonText="Add Image" 
+                  WrapperClass="rmg-singleupload"
+                  ShowTopCancelButton="False" 
+                  ShowTopCheckBox="False" 
+                  ShowTopProgressBar="False" 
+                  ShowTopDeleteButton="False">
         </rmg:Xile>
       </div>
     </div>
@@ -286,6 +302,7 @@
 
   <TextBox Id="SellerID" DataField="SellerID" DataType="int32" visible="false" />
   <TextBox Id="Seller_Level" DataField="Seller_Level" DataType="int32" visible="false" />
+  <TextBox Id="Seller_Name" DataField="Seller_Name" DataType="String" visible="false" />
   <TextBox Id="ApprovalMessage" DataField="ApprovalMessage" DataType="String" Visible="False" /> 
   <TextBox Id="CreatedBy" DataField="CreatedBy" DataType="int32" visible="false" />
   <TextBox Id="Created_IP" Width="200" Nullable="True" MaxLength="50" DataField="Created_IP" DataType="string" visible="false" />
@@ -366,6 +383,7 @@
           max-width: 800px;
           margin: auto;
           margin-top: 25px;
+          text-align: center;
         }
       </style>
     </xmod:ScriptBlock>
@@ -373,7 +391,7 @@
     <div class="alert alert-success success-message">
       <h1>Success!</h1>
       <p><%#Eval("Values")("ApprovalMessage")%></p>
-      <p>Your ad has been posted! What would you like to do next?</p>
+      <p>Your ad has been posted! What would you like to do next?</p><br />
       <p>
         <xmod:ContinueButton runat="server" CssClass="btn btn-default" Text="Post Another" />
         <a class="btn btn-default" href="/Dashboard">Back to Dashboard</a>
