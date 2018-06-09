@@ -84,6 +84,7 @@
     <SelectCommand CommandText="SELECT SellerID
                                 			,Seller_Name
                                 			,Seller_Level
+                                			,CASE WHEN Seller_Level = 1 THEN 'You will receive an email confirmation when your ad is approved.' ELSE 'Your ad has been instantly approved.' END 'ApprovalMessage'
                                       ,LocationID
                                       ,ShowAddress
                                       ,ShowPhone
@@ -285,8 +286,13 @@
 
   <TextBox Id="SellerID" DataField="SellerID" DataType="int32" visible="false" />
   <TextBox Id="Seller_Level" DataField="Seller_Level" DataType="int32" visible="false" />
+  <TextBox Id="ApprovalMessage" DataField="ApprovalMessage" DataType="String" Visible="False" /> 
   <TextBox Id="CreatedBy" DataField="CreatedBy" DataType="int32" visible="false" />
   <TextBox Id="Created_IP" Width="200" Nullable="True" MaxLength="50" DataField="Created_IP" DataType="string" visible="false" />
+
+	<Email To="admin@hughesco.org" From="admin@acich.org" Format="text" Subject="New ad posted - Needs review!">
+    [[Seller_Name]] posted a new ad that needs approval.
+  </Email>  
 
   
   <script>
@@ -366,6 +372,7 @@
     
     <div class="alert alert-success success-message">
       <h1>Success!</h1>
+      <p><%#Eval("Values")("ApprovalMessage")%></p>
       <p>Your ad has been posted! What would you like to do next?</p>
       <p>
         <xmod:ContinueButton runat="server" CssClass="btn btn-default" Text="Post Another" />
