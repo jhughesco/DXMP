@@ -81,8 +81,10 @@
 	/>
   
   <ControlDataSource Id="cds_Locations" CommandText="SELECT [LocationID], [City] + ', ' + [State] AS CityState FROM [XMP_Classified_Location] ORDER BY [City] ASC" />
+  <div style="text-align: center;"><h2>Seller Sign-Up</h2></div>
   
   <div class="panel panel-primary info_panel_spacing">
+    
     
     <div class="panel-heading">
       <h3 class="panel-title">Primary Information</h3>

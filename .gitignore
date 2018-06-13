@@ -1,0 +1,5 @@
+
+.vs/**
+.vs/DXMP/v15/.suo
+*.json
+*.sqlite

@@ -1,9 +1,7 @@
 <%@ Control Language="vb" AutoEventWireup="false" Inherits="KnowBetter.XModPro.FormBase" %>
 <%@ Register Assembly="KnowBetter.XModPro.Web.Controls" Namespace="KnowBetter.XModPro.Web.Controls.Form" TagPrefix="xmod" %>
-<%@ Register TagPrefix="rmg" Namespace="reflect.xile" Assembly="reflect.xile" %>
-<xmod:FormView runat="server">
-    <AddItemTemplate>
-        <xmod:AddForm runat="server" ClientName="Ad">
+<%@ Register tagprefix="rmg" namespace="reflect.xile" assembly="reflect.xile" %>
+<xmod:FormView runat="server"><AddItemTemplate><xmod:AddForm runat="server" ClientName="Ad">
 
     <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
       <style type="text/css">
@@ -178,7 +176,7 @@
         ) AS Categories
       ORDER BY Categories.First_Level,Categories.Second_Level" />
 
-<div class="clearfix visible-xs-block"></div>
+<div style="text-align: center;"><h2>Post Classified Ad</h2></div>
 
 	<div class="panel panel-primary info_panel_spacing">
       <div class="panel-heading">
@@ -403,11 +401,11 @@
       statusbar: false });
   </jQueryReady>
   
-        </xmod:AddForm>
-    </AddItemTemplate>
+        </xmod:AddForm></AddItemTemplate>
+    
 
-    <AddSuccessTemplate>
-        <xmod:AddSuccess runat="server">
+    <AddSuccessTemplate><xmod:AddSuccess runat="server">
+        
             <ItemTemplate>
                 <xmod:ScriptBlock runat="server" ScriptId="SuccessCSS" BlockType="HeadScript" RegisterOnce="true">
                     <style type="text/css">
@@ -432,10 +430,8 @@
                 </div>
 
             </ItemTemplate>
-        </xmod:AddSuccess>
-    </AddSuccessTemplate>
-    <EditItemTemplate>
-        <xmod:EditForm runat="server" ClientName="Ad">
+        
+    </xmod:AddSuccess></AddSuccessTemplate><EditItemTemplate><xmod:EditForm runat="server" ClientName="Ad">
 
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
     <style type="text/css">
@@ -830,6 +826,4 @@
       statusbar: false });
   </jQueryReady>
 
-        </xmod:EditForm>
-    </EditItemTemplate>
-</xmod:FormView>
+        </xmod:EditForm></EditItemTemplate></xmod:FormView>
