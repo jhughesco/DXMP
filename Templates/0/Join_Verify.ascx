@@ -5,6 +5,8 @@
 	<style type="text/css">
     .dnnFormMessage.dnnFormWarning { display: none; }
     .alert.verification { margin-top: 20px }
+    .seller_SignUp { color: #990000; font-size: 110%; }
+    .SignUp { text-decoration: underline; }
   </style>
 </xmod:ScriptBlock>
 
@@ -18,4 +20,7 @@
   <h3>
     Be sure to check your junk mail folder if necessary. If you do not receive this email within 5 minutes, please <a href="/contact">contact us</a>.
   </h3>
+  <p class="seller_SignUp">
+    After verification you will be redirected to the <span class="SignUp">Seller Sign-Up</span> page.
+  </p>
 </div></xmod:masterview>

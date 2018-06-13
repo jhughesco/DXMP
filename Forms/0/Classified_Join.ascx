@@ -48,6 +48,28 @@
   <div class="join-form">
     
     <div class="form-group">
+      <label for="Displayname">Display Name <em>Others will see you by this alias...</em></label>
+      <Textbox ID="Displayname" DataField="Displayname" CssClass="form-control required-field" DataType="String" autocomplete="off" />
+      <Validate Type="required" CssClass="validate-error" Target="Displayname" Text="Required" Message="Display Name is required." />
+      <div class="alert alert-danger" id="displayname_exists" style="margin-top: 10px; ">
+        <p>This display name is already taken. Please try a new one.</p>          
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="EmailAddress">Email Address <em>A confirmation link will be sent to this email...</em></label>
+      <Textbox ID="EmailAddress" DataField="EmailAddress" CssClass="form-control required-field" DataType="String" autocomplete="off" />
+      <Validate Type="required" CssClass="validate-error" Target="EmailAddress" Text="Required" Message="Email Address is required." />
+      <Validate Type="email" CssClass="validate-error" Target="EmailAddress" Text="Invalid" Message="Your email address is invalid." />
+      <div class="alert alert-danger" id="email_exists" style="margin-top: 10px; ">
+        <p>This email is already registered. Did you forget your password?</p>
+        <p>
+          <a class="btn btn-sm btn-default" href="?ctl=sendpassword">Reset Password</a>
+        </p>
+      </div>
+    </div>
+    
+    <div class="form-group">
       <label for="Username">Username <em>5-30 characters - no spaces or special characters</em></label> 
       <Textbox ID="Username" DataField="Username" CssClass="form-control required-field" DataType="String" autocomplete="off" />
       <Validate Type="required" CssClass="validate-error" Target="Username" Text="Required" Message="Username is required." />
@@ -70,28 +92,6 @@
       <Password ID="ConfirmPassword" DataField="ConfirmPassword" CssClass="form-control required-field" DataType="String" autocomplete="off" />
       <Validate Type="required" CssClass="validate-error" Target="ConfirmPassword" Text="Required" Message="Confirm Password is required." />
       <Validate Type="compare" CssClass="validate-error" Target="ConfirmPassword" Text="Must match" Message="Your confirmation password does not match." Operator="Equal" CompareTarget="Password" />
-    </div>
-    
-    <div class="form-group">
-      <label for="Displayname">Display Name <em>Others will see you by this alias...</em></label>
-      <Textbox ID="Displayname" DataField="Displayname" CssClass="form-control required-field" DataType="String" autocomplete="off" />
-      <Validate Type="required" CssClass="validate-error" Target="Displayname" Text="Required" Message="Display Name is required." />
-      <div class="alert alert-danger" id="displayname_exists" style="margin-top: 10px; ">
-        <p>This display name is already taken. Please try a new one.</p>          
-      </div>
-    </div>
-    
-    <div class="form-group">
-      <label for="EmailAddress">Email Address <em>A confirmation link will be sent to this email...</em></label>
-      <Textbox ID="EmailAddress" DataField="EmailAddress" CssClass="form-control required-field" DataType="String" autocomplete="off" />
-      <Validate Type="required" CssClass="validate-error" Target="EmailAddress" Text="Required" Message="Email Address is required." />
-      <Validate Type="email" CssClass="validate-error" Target="EmailAddress" Text="Invalid" Message="Your email address is invalid." />
-      <div class="alert alert-danger" id="email_exists" style="margin-top: 10px; ">
-        <p>This email is already registered. Did you forget your password?</p>
-        <p>
-          <a class="btn btn-sm btn-default" href="?ctl=sendpassword">Reset Password</a>
-        </p>
-      </div>
     </div>
     
     
