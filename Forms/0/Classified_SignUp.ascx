@@ -330,9 +330,6 @@
             opacity: 0.7;
             font-weight: normal;
         }
-      .info_panel_spacing {
-      	margin-top: 10px;
-      }
       .fileupload-buttons {
         border-bottom: none !important;
       }
@@ -353,106 +350,191 @@
   </ScriptBlock>
 
 
-  <SelectCommand CommandText="SELECT @CurrentUser AS [UpdatedBy], [Seller_Name], [Seller_Address], [Seller_Location], [Seller_Phone], [Seller_Email], [Show_Address_By_Default], [Show_Phone_By_Default], [Seller_Image], [SellerID] FROM XMP_Classified_Seller WHERE [UserID]=@CurrentUser">
+  <SelectCommand CommandText="
+                  SELECT @CurrentUser AS [UpdatedBy]
+                    ,[Seller_Name]
+                    ,[Seller_Address]
+                    ,[Seller_Location]
+                    ,[Seller_Phone]
+                    ,[Seller_Email]
+                    ,[Show_Address_By_Default]
+                    ,[Show_Phone_By_Default]
+                    ,[Seller_Image]
+                    ,[SellerID]
+                  FROM XMP_Classified_Seller
+                  WHERE [UserID] = @CurrentUser">
     <Parameter Name="CurrentUser" Value='<%#UserData("ID")%>' DataType="int32" />
   </SelectCommand>
 
-  <SubmitCommand CommandText="UPDATE [XMP_Classified_Seller] SET [UpdatedBy]=@UpdatedBy, [Date_Updated]=getdate(), [Seller_Name]=@Seller_Name, [Seller_Address]=@Seller_Address, [Seller_Location]=@Seller_Location, [Seller_Phone]=@Seller_Phone, [Seller_Email]=@Seller_Email, [Show_Address_By_Default]=@Show_Address_By_Default, [Show_Phone_By_Default]=@Show_Phone_By_Default, [Seller_Image]=@Seller_Image WHERE [SellerID]=@SellerID" />
+  <SubmitCommand CommandText="
+                  UPDATE [XMP_Classified_Seller]
+                  SET [UpdatedBy] = @UpdatedBy
+                    ,[Date_Updated] = getdate()
+                    ,[Seller_Name] = @Seller_Name
+                    ,[Seller_Address] = @Seller_Address
+                    ,[Seller_Location] = @Seller_Location
+                    ,[Seller_Phone] = @Seller_Phone
+                    ,[Seller_Email] = @Seller_Email
+                    ,[Show_Address_By_Default] = @Show_Address_By_Default
+                    ,[Show_Phone_By_Default] = @Show_Phone_By_Default
+                    ,[Seller_Image] = @Seller_Image
+                  WHERE [SellerID] = @SellerID" />
   
-  <ControlDataSource Id="cds_Locations" CommandText="SELECT [LocationID], [City] + ', ' + [State] AS CityState FROM [XMP_Classified_Location] ORDER BY [City] ASC" />
+  <ControlDataSource Id="cds_Locations" 
+                     CommandText="
+											SELECT [LocationID],[City] + ', ' + [State] AS CityState
+                      FROM [XMP_Classified_Location]
+                      ORDER BY [City] ASC" />
   
-  <div class="form-horizontal">
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Seller_Name">Seller Name</Label>
-      <div class="col-sm-10">
-        <TextBox Id="Seller_Name" CssClass="form-control required-field" Width="250" MaxLength="150" DataField="Seller_Name" DataType="string" />
-        <Validate Target="Seller_Name" CssClass="validate-error" Type="required" Text="*" Message="Name is required." />
-      </div>      
+  <div class="panel panel-primary">
+    
+    
+    <div class="panel-heading">
+      <h3 class="panel-title">Primary Information</h3>
     </div>
     
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Seller_Address">Seller Address</Label>
-      <div class="col-sm-10">
-        <TextBox Id="Seller_Address" CssClass="form-control required-field" Width="250" MaxLength="150" DataField="Seller_Address" DataType="string" />
+    <div class="panel-body">
+    
+      <div class="form-group">
+        <Label For="Seller_Name">Seller Name |<small Class="HeaderLabel_Small"> This name can be your name, company name, or just a fun name like <em>The Ad King</em></small></Label>
+        <TextBox Id="Seller_Name" CssClass="form-control required-field" MaxLength="150" DataField="Seller_Name" DataType="string" />
+        <Validate Target="Seller_Name" CssClass="validate-error" Type="required" Text="*" Message="Name is required." />
+      </div>
+      
+      <div class="form-group">
+        <Label For="Seller_Address">Seller Address |<small Class="HeaderLabel_Small"> This will be displayed on your ads if you choose to make it public.</small></Label>
+        <TextBox Id="Seller_Address" CssClass="form-control required-field" MaxLength="150" DataField="Seller_Address" DataType="string" />
         <Validate Target="Seller_Address" CssClass="validate-error" Type="required" Text="*" Message="Address is required." />
       </div>      
-    </div>
     
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Seller_Location">Location</Label>
-      <div class="col-sm-10">
-        <DropDownList Id="Seller_Location" CssClass="form-control required-field" Width="250" Nullable="true" DataField="Seller_Location" DataSourceId="cds_Locations" DataTextField="CityState" DataValueField="LocationID" AppendDataBoundItems="true" DataType="int32">
+      <div class="form-group">
+        <Label For="Seller_Location">Location |<small Class="HeaderLabel_Small"> This is your default location, which can be changed on each ad.</small></Label>
+        <DropDownList Id="Seller_Location" CssClass="form-control required-field" Nullable="true" DataField="Seller_Location" DataSourceId="cds_Locations" DataTextField="CityState" DataValueField="LocationID" AppendDataBoundItems="true" DataType="int32">
           <ListItem Value="">- Please Select -</ListItem>
-          <Validate Target="Seller_Location" CssClass="validate-error" Type="required" Text="*" Message="Location is required." />
         </DropDownList>
-      </div>      
+        <Validate Target="Seller_Location" CssClass="validate-error" Type="required" Text="*" Message="Location is required." />
+      </div>
+
+      <div class="form-group">
+        <Label For="Seller_Image">Seller Image |<small Class="HeaderLabel_Small"> Optional picture/logo to be associated with your seller profile.</em></small></Label>
+        <rmg:Xile runat="server" 
+                    Id="Seller_Image" 
+                    Nullable="True" 
+                    DataField="Seller_Image" 
+                    Dropzone="False"
+                    AcceptFileTypes="jpg,jpeg,png"
+                    MaxNumberOfFiles="1"
+                    MaxFileSize="2097152"
+                    AutoUpload="True"
+                    AutoCreateFolder="True"
+                    FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/SellerImages/", PortalData("ID"))%>'
+                    ResizeVersions="width=800;height=600;mode=max, sm_:width=400;height=400;mode=max, thm_:width=80;height=80;mode=max"
+                    UniqueFileName="True"
+                    UploadMode="Single"
+                    AddFilesButtonText="Add Image"
+                    WrapperClass="rmg-singleupload"
+                    ShowTopCancelButton="False"
+                    ShowTopCheckBox="False"
+                    ShowTopProgressBar="False"
+                    ShowTopDeleteButton="False">
+        </rmg:Xile>        
+      </div>
+    </div>
+  
+  </div>
+  
+
+  <div class="panel panel-default">
+    
+    <div class="panel-heading">
+      <h3 class="panel-title">Contact Information</h3>
     </div>
     
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Seller_Phone">Seller Phone</Label>
-      <div class="col-sm-10">
-        <TextBox Id="Seller_Phone" CssClass="form-control required-field" Width="250" MaxLength="50" DataField="Seller_Phone" DataType="string" />
+    <div class="panel-body">
+    
+      <div class="form-group">
+        <Label For="Seller_Phone">Seller Phone |<small Class="HeaderLabel_Small"> This is only displayed on your ads if you choose to make it public.</em></small></Label>
+        <TextBox Id="Seller_Phone" CssClass="form-control required-field" MaxLength="50" DataField="Seller_Phone" DataType="string" />
         <Validate Target="Seller_Phone" CssClass="validate-error" Type="required" Text="*" Message="Phone is required." />
-      </div>      
-    </div>
-    
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Seller_Email">Seller Email</Label>
-      <div class="col-sm-10">
-        <TextBox Id="Seller_Email" CssClass="form-control required-field" Width="250" MaxLength="100" DataField="Seller_Email" DataType="string" />
+      </div>
+
+      <div class="form-group">
+        <Label For="Seller_Email">Seller Email |<small Class="HeaderLabel_Small"> Inquires will be sent to this email address.</small></Label>
+        <TextBox Id="Seller_Email" Value='<%#SelectData("Email")%>' CssClass="form-control required-field" MaxLength="100" DataField="Seller_Email" DataType="string" />
         <Validate Target="Seller_Email" CssClass="validate-error" Type="required" Text="*" Message="Email is required." />
         <Validate Target="Seller_Email" CssClass="validate-error" Type="email" Text="*" Message="Email is invalid." />
-      </div>      
+      </div>
+      
+    </div>
+
+	</div>
+ 
+
+	<div class="panel panel-default">
+    
+    <div class="panel-heading">
+      <h3 class="panel-title">Default Options</h3>
     </div>
     
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Show_Address_By_Default">&nbsp;</Label>
-      <div class="col-sm-10">
-        <CheckBox Id="Show_Address_By_Default" DataField="Show_Address_By_Default" DataType="boolean" /> Show Address by Default
-      </div>      
+    <div class="panel-body">
+      
+      <div class="alert alert-info">
+        <p>
+          Items that you check below will be visible on your seller profile, but only to authenticated users on the site who have created a user account. 
+          You can always change your default options later if desired, as well as override these options on a per/ad basis.
+        </p>
+      </div>
+
+      <ul class="Categories_Container">
+        <li>
+            <Label For="Show_Address_By_Default">&nbsp;</Label>
+            <CheckBox Id="Show_Address_By_Default" DataField="Show_Address_By_Default" DataType="boolean" /> <strong>Show Address by Default</strong>
+        </li>
+        <li>
+            <Label For="Show_Phone_By_Default">&nbsp;</Label>
+            <CheckBox Id="Show_Phone_By_Default" DataField="Show_Phone_By_Default" DataType="boolean" /> <strong>Show Phone by Default</strong>       
+        </li>
+      </ul>
+    </div>
+      
+    </div>
+
+  <div class="panel panel-warning">
+    
+    <div class="panel-heading">
+      <h3 class="panel-title">Terms and Conditions</h3>
     </div>
     
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Show_Phone_By_Default">&nbsp;</Label>
-      <div class="col-sm-10">
-        <CheckBox Id="Show_Phone_By_Default" DataField="Show_Phone_By_Default" DataType="boolean" /> Show Phone by Default
-      </div>      
+    <div class="panel-body">
+      
+      <ul>
+        <li>
+          <strong>Contact Information:</strong> I understand that including my contact information by utilizing the defaults or inserting them per/ad is my sole responsibility. I am also aware that this contact information will only be seen by registered members on this website unless I include my contact information in the description of my ad, in which case will be visible to unauthenticated visitors to the website. 
+        </li>
+        <li>
+          <strong>Adult Content:</strong> I agree to not post any ad that is adult-related in content, such as anything that would offend or be inappropriate for children under the age of 18.
+        </li>
+        <li>
+          <strong>Animals and Pets:</strong>I also understand that no animals are permitted, such as trade, free, adoption or otherwise. 
+        </li>
+        <li>
+          <strong>Your Responsibility:</strong> I also understand that utilizing the classifieds on this website is my full responsibility in every way, whether posting, viewing, inquiring, etc. I agree that aza-z.com will not be liable in any way for any Ad or communication of any part in relation to an Ad, including, but not limited to, for any errors or omissions in my ad(s) or other ads, or for any loss or damage of any kind incurred as a result of the use of this website.
+        </li>
+        <li>
+          <strong>The Hammer:</strong> I also understand that if I violate any of these guidelines my account may be terminated, IP address may be blocked, or ad may be removed if deemed inappropriate. 
+        </li>
+      </ul>
+      <p>
+        By checking the box below, I fully understand and agree to the above noted terms and conditions and I promise to behave myself!
+      </p>
+      <ul class="Categories_Container">
+        <li>
+            <CheckBox Id="Agree" DataField="Agree" DataType="boolean" /> <strong>I Agree to the Terms and Conditions</strong>
+            <Validate Type="checkbox" CssClass="validate-error" Target="Agree" Text="*" Message="You must agree to the terms and conditions." />
+        </li>
+      </ul>
     </div>
-    
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Seller_Image">Seller Image</Label>
-      <div class="col-sm-10">
-        <rmg:Xile runat="server" 
-                 Id="Seller_Image" 
-                 Nullable="True" 
-                 DataField="Seller_Image" 
-                 Dropzone="False"
-                 AcceptFileTypes="jpg,jpeg,png"
-                 MaxNumberOfFiles="1"
-                 MaxFileSize="2097152"
-                 AutoUpload="True"
-                 AutoCreateFolder="True"
-                 FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/SellerImages/", PortalData("ID"))%>'
-                 ResizeVersions="width=800;height=600;mode=max, sm_:width=400;height=400;mode=max, thm_:width=80;height=80;mode=max"
-                 UniqueFileName="True"
-                 UploadMode="Single"
-                 AddFilesButtonText="Add Image"
-                 WrapperClass="rmg-singleupload"
-                 ShowTopCancelButton="False"
-                 ShowTopCheckBox="False"
-                 ShowTopProgressBar="False"
-                 ShowTopDeleteButton="False">
-        </rmg:Xile>        
-      </div>      
-    </div>
-    
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Agree">&nbsp;</Label>
-      <div class="col-sm-10">
-        <CheckBox Id="Agree" DataField="Agree" DataType="boolean" /> I Agree to the Terms and Conditions
-        <Validate Type="checkbox" CssClass="validate-error" Target="Agree" Text="*" Message="You must agree to the terms and conditions." />
-      </div>      
-    </div>
+  </div>
     
     <ValidationSummary CssClass="col-sm-offset-2 col-sm-10 alert alert-info" Id="vsXMP_Classified_Seller" />
     
