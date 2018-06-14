@@ -5,7 +5,7 @@
 	<style type="text/css">
   	.dash-header { margin-bottom: 25px; }
     .dash-header h3 { margin: 0px 0px 15px; }
-    .btn-primary { color: white !important; }
+    .btn-success { color: white !important; }
 	</style>
 </ScriptBlock>
 
@@ -51,7 +51,7 @@
               <div class="text-center">
                 <h1><u>Dashboard</u></h1>
                 <h3>Manage your ads from this page.</h3>
-                <a href="/Dashboard/Post-Ad" class="btn btn-primary btn-lg">
+                <a href="/Dashboard/Post-Ad" class="btn btn-success btn-lg">
                   Post Ad
                 </a>
               </div>    
@@ -60,7 +60,7 @@
               <div class="text-center">
                 <h1><u>Private Messages</u></h1>
                 <h3>Manage inqueries from potential buyers, and other sellers.</h3>
-                <a href="/Dashboard/Post-Ad" class="btn btn-primary btn-lg">
+                <a href="/Dashboard/Post-Ad" class="btn btn-success btn-lg">
                   Post Ad
                 </a>
               </div>    
@@ -69,7 +69,7 @@
               <div class="text-center">
                 <h1><u>Profile</u></h1>
                 <h3>Manage your Seller Profile from this page.</h3>
-                <a href="/Dashboard/Post-Ad" class="btn btn-primary btn-lg">
+                <a href="/Dashboard/Post-Ad" class="btn btn-success btn-lg">
                   Post Ad
                 </a>
               </div>    

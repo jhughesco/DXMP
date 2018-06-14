@@ -1,7 +1,8 @@
 <%@ Control Language="vb" AutoEventWireup="false" Inherits="KnowBetter.XModPro.FormBase" %>
 <%@ Register Assembly="KnowBetter.XModPro.Web.Controls" Namespace="KnowBetter.XModPro.Web.Controls.Form" TagPrefix="xmod" %>
 <%@ Register tagprefix="rmg" namespace="reflect.xile" assembly="reflect.xile" %>
-<xmod:FormView runat="server"><AddItemTemplate><xmod:AddForm runat="server">
+<%@ Register tagprefix="rmg" namespace="reflect.xile" assembly="reflect.xile" %>
+<xmod:FormView runat="server">  <AddItemTemplate><xmod:AddForm runat="server">
 
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
     
@@ -307,6 +308,13 @@
 </xmod:AddForm></AddItemTemplate><EditItemTemplate><xmod:EditForm runat="server">
 
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>$1</title>
+    
     <style type="text/css">
       .validate-error {
         position: absolute;
@@ -317,6 +325,30 @@
       .required-field {
       	border-left: 1px solid red; 
       }
+      .HeaderLabel_Small {
+            color: inherit;
+            opacity: 0.7;
+            font-weight: normal;
+        }
+      .info_panel_spacing {
+      	margin-top: 10px;
+      }
+      .fileupload-buttons {
+        border-bottom: none !important;
+      }
+      .checkbox input[type=checkbox] {
+       	margin-left: 0px !important; 
+        position: relative !important;
+      }
+      .Categories_Container {
+            list-style-type: none;
+            margin-left: 0px;
+        }
+
+            .Categories_Container ul {
+                list-style-type: none;
+                margin-left: 25px
+            }
     </style>  
   </ScriptBlock>
 
@@ -349,8 +381,9 @@
     <div class="form-group">
       <Label CssClass="col-sm-2 control-label" For="Seller_Location">Location</Label>
       <div class="col-sm-10">
-        <DropDownList Id="Seller_Location" CssClass="form-control" Width="250" Nullable="true" DataField="Seller_Location" DataSourceId="cds_Locations" DataTextField="CityState" DataValueField="LocationID" AppendDataBoundItems="true" DataType="int32">
+        <DropDownList Id="Seller_Location" CssClass="form-control required-field" Width="250" Nullable="true" DataField="Seller_Location" DataSourceId="cds_Locations" DataTextField="CityState" DataValueField="LocationID" AppendDataBoundItems="true" DataType="int32">
           <ListItem Value="">- Please Select -</ListItem>
+          <Validate Target="Seller_Location" CssClass="validate-error" Type="required" Text="*" Message="Location is required." />
         </DropDownList>
       </div>      
     </div>
@@ -366,7 +399,7 @@
     <div class="form-group">
       <Label CssClass="col-sm-2 control-label" For="Seller_Email">Seller Email</Label>
       <div class="col-sm-10">
-        <TextBox Id="Seller_Email" Value='<%#UserData("Email")%>' CssClass="form-control required-field" Width="250" MaxLength="100" DataField="Seller_Email" DataType="string" />
+        <TextBox Id="Seller_Email" CssClass="form-control required-field" Width="250" MaxLength="100" DataField="Seller_Email" DataType="string" />
         <Validate Target="Seller_Email" CssClass="validate-error" Type="required" Text="*" Message="Email is required." />
         <Validate Target="Seller_Email" CssClass="validate-error" Type="email" Text="*" Message="Email is invalid." />
       </div>      
@@ -426,7 +459,7 @@
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <UpdateButton CssClass="btn btn-primary" Text="Save Changes" />  
-        <CancelButton CssClass="btn btn-default" Text="Cancel" Visible="true" />
+        <CancelButton CssClass="btn btn-default" Text="Cancel" Visible="true" Redirect="/Dashboard" RedirectMethod="Get" />
       </div>
     </div>
     
@@ -434,4 +467,16 @@
   
   <TextBox Visible="False" Id="SellerID" DataField="SellerID" DataType="int32" />
   <TextBox Id="UpdatedBy" Nullable="True" DataField="UpdatedBy" DataType="int32" Visible="False" />
-</xmod:EditForm></EditItemTemplate></xmod:FormView>
+</xmod:EditForm></EditItemTemplate>
+
+<EditSuccessTemplate><xmod:EditSuccess runat="server">
+  <ItemTemplate>
+    <div class="alert alert-success success-message text-center">
+      <h1>Success!</h1>
+      <p>Your changes have been saved.</p>
+      <p>
+        <xmod:ContinueButton runat="server" CssClass="btn btn-default" Text="Reload Form" />        
+      </p>
+    </div>    
+  </ItemTemplate>
+</xmod:EditSuccess></EditSuccessTemplate></xmod:FormView>
