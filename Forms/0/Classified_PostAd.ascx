@@ -318,12 +318,9 @@
     <ValidationSummary CssClass="col-sm-offset-2 col-sm-10 alert alert-danger" Id="vsXMP_Classified_Ad" />
 
     <div class="form-group">
-      <Label class="col-sm-2 control-label">&nbsp;</Label>
-      <div class="col-sm-10">
-        <AddButton CssClass="btn btn-primary" Text="Post Ad" />
-        <CancelButton CssClass="btn btn-default" Text="Cancel" Redirect="/Dashboard" RedirectMethod="get" />
-      </div>
-
+      <Label class="control-label">&nbsp;</Label>
+      <AddButton CssClass="btn btn-primary" Text="Post Ad" />
+      <CancelButton CssClass="btn btn-default" Text="Cancel" Redirect="/Dashboard" RedirectMethod="get" />
     </div>
   </div>
 

@@ -25,18 +25,18 @@
   
   <ItemTemplate>
     <div class="list-group">
-      <a href="/Dashboard" class="list-group-item active">
+      <a id="Menu_Dashboard" href="/Dashboard" class="list-group-item">
         My Ads <span class="badge"><%#Eval("Values")("AdCount")%></span>
       </a>
-      <a href="/Dashboard/Messages" class="list-group-item">
+      <a id="Menu_Messages" href="/Dashboard/Messages" class="list-group-item">
         My Messages <span class="badge">0</span>
       </a>
       
       <xmod:Select runat="server">
         <Case Comparetype="Boolean" Value='<%#Eval("Values")("IsSeller")%>' Operator="=" Expression="True">
-          <xmod:Select runat="server" Mode="Standard">
+          <xmod:Select runat="server">
 						<Case CompareType="Role" Operator="=" Expression="Sellers">
-            	<a href="/Dashboard/Profile" class="list-group-item">My Seller Profile</a>
+              <a id="Menu_Profile" href="/Dashboard/Profile" class="list-group-item">My Seller Profile</a>
             </Case>
           </xmod:Select>
         </Case>        
@@ -45,4 +45,12 @@
     </div>    
   </ItemTemplate>  
   
-</xmod:Template></xmod:masterview>
+</xmod:Template>
+
+<xmod:jQueryReady runat="server">
+	var currentPage = $(location).attr('href').split('/').pop().replace('?f=1', ''),
+      activeID = "#Menu_" + currentPage;
+  
+  $(activeID).addClass("active");
+
+</xmod:jQueryReady></xmod:masterview>

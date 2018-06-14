@@ -37,11 +37,35 @@
       </Case>
       
       <Else>
-      	<div class="text-center">
-          <h1>Welcome back, <%#Eval("Values")("Seller_Name")%>!</h1>
-          <h2>Manager your ads and seller settings.</h2>
-          <a style="color: white" href="/Dashboard/Post-Ad" class="btn btn-success btn-lg">Post Ad</a>
-        </div>
+      	<xmod:Select runat="server">
+          <Case Comparetype="Text" Value='<%#ModuleData("Menu")%>' Operator="=" Expression="Dashboard">
+            <div class="text-center">
+              <h1>Dashboard</h1>
+              <h2>Why not create a seller account and post some ads?</h2>
+              <a style="color: white" href="/Dashboard/Sign-Up" class="btn btn-primary btn-lg">
+                Create a Seller Account
+              </a>
+            </div>    
+          </Case>
+          <Case Comparetype="Text" Value='<%#ModuleData("Menu")%>' Operator="=" Expression="Messages">
+            <div class="text-center">
+              <h1>Private Messages</h1>
+              <h2>Manage your communications with sellers on this page.</h2>
+              <a style="color: white" href="/Dashboard/Sign-Up" class="btn btn-primary btn-lg">
+                Create a Seller Account
+              </a>
+            </div>    
+          </Case>
+          <Case Comparetype="Text" Value='<%#ModuleData("Menu")%>' Operator="=" Expression="Profile">
+            <div class="text-center">
+              <h1>Profile</h1>
+              <h2>Manage your Seller Profile on this page.</h2>
+              <a style="color: white" href="/Dashboard/Sign-Up" class="btn btn-primary btn-lg">
+                Edit Profile
+              </a>
+            </div>    
+          </Case>  
+        </xmod:Select>
       </Else>
     
     </xmod:Select>
@@ -50,11 +74,26 @@
   </ItemTemplate> 
 
   <NoItemsTemplate>
-    <div class="text-center">
-      <h1>Hello, <%#UserData("Displayname")%>!</h1>
-      <h2>You can manage your communications with sellers from this page.</h2>
-      <a style="color: white" href="/Dashboard/Sign-Up" class="btn btn-primary btn-lg">Create a Seller Account</a>
-    </div>  
+    <xmod:Select runat="server">
+      <Case Comparetype="Text" Value='<%#ModuleData("Menu")%>' Operator="=" Expression="Dashboard">
+        <div class="text-center">
+          <h1>Dashboard</h1>
+          <h2>Why not create a seller account and post some ads?</h2>
+          <a style="color: white" href="/Dashboard/Sign-Up" class="btn btn-primary btn-lg">
+            Create a Seller Account
+          </a>
+        </div>    
+      </Case>
+      <Case Comparetype="Text" Value='<%#ModuleData("Menu")%>' Operator="=" Expression="Messages">
+        <div class="text-center">
+          <h1>Private Messages</h1>
+          <h2>Manage your communications with sellers on this page.</h2>
+          <a style="color: white" href="/Dashboard/Sign-Up" class="btn btn-primary btn-lg">
+            Create a Seller Account
+          </a>
+        </div>    
+      </Case>
+    </xmod:Select>    
   </NoItemsTemplate>
   
 
