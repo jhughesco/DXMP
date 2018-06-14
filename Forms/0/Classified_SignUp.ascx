@@ -321,33 +321,15 @@
   </ScriptBlock>
 
 
-  <SelectCommand CommandText="SELECT [UserID], @CurrentUser AS [UpdatedBy], [Seller_Name], [Seller_Address], [Seller_Location], [Seller_Phone], [Seller_Email], [Show_Address_By_Default], [Show_Phone_By_Default], [Seller_Image], [Seller_Level], [Agree], [Banned], [SellerID] FROM XMP_Classified_Seller WHERE [SellerID]=@SellerID">
+  <SelectCommand CommandText="SELECT @CurrentUser AS [UpdatedBy], [Seller_Name], [Seller_Address], [Seller_Location], [Seller_Phone], [Seller_Email], [Show_Address_By_Default], [Show_Phone_By_Default], [Seller_Image], [SellerID] FROM XMP_Classified_Seller WHERE [UserID]=@CurrentUser">
     <Parameter Name="CurrentUser" Value='<%#UserData("ID")%>' DataType="int32" />
-    <Parameter Name="SellerID" Value='<%#FormData("SellerID")%>' DataType="int32" />
   </SelectCommand>
 
-  <SubmitCommand CommandText="UPDATE [XMP_Classified_Seller] SET [UserID]=@UserID, [UpdatedBy]=@UpdatedBy, [Date_Updated]=getdate(), [Seller_Name]=@Seller_Name, [Seller_Address]=@Seller_Address, [Seller_Location]=@Seller_Location, [Seller_Phone]=@Seller_Phone, [Seller_Email]=@Seller_Email, [Show_Address_By_Default]=@Show_Address_By_Default, [Show_Phone_By_Default]=@Show_Phone_By_Default, [Seller_Image]=@Seller_Image, [Seller_Level]=@Seller_Level, [Agree]=@Agree, [Banned]=@Banned WHERE [SellerID]=@SellerID" />
-  
-  <ControlDataSource Id="cds_Users" CommandText="SELECT [UserID], [Username] FROM [Users] u WHERE u.IsSuperUser = 0 AND NOT EXISTS ( SELECT * FROM XMP_Classified_Seller WHERE UserID = u.UserID ) OR u.UserID = @UserAccount ORDER BY [Username] ASC">
-    <Parameter Name="UserAccount" Value='<%#SelectData("UserID")%>' DataType="int32" />
-  </ControlDataSource>
+  <SubmitCommand CommandText="UPDATE [XMP_Classified_Seller] SET [UpdatedBy]=@UpdatedBy, [Date_Updated]=getdate(), [Seller_Name]=@Seller_Name, [Seller_Address]=@Seller_Address, [Seller_Location]=@Seller_Location, [Seller_Phone]=@Seller_Phone, [Seller_Email]=@Seller_Email, [Show_Address_By_Default]=@Show_Address_By_Default, [Show_Phone_By_Default]=@Show_Phone_By_Default, [Seller_Image]=@Seller_Image WHERE [SellerID]=@SellerID" />
   
   <ControlDataSource Id="cds_Locations" CommandText="SELECT [LocationID], [City] + ', ' + [State] AS CityState FROM [XMP_Classified_Location] ORDER BY [City] ASC" />
   
-  <ControlDataSource Id="cds_Levels" CommandText="SELECT [LevelID], [Level_Name] FROM [XMP_Classified_Level] ORDER BY [LevelID] ASC" />
-  
-  
   <div class="form-horizontal">
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="UserID">Select User</Label>
-      <div class="col-sm-10">
-        <DropDownList Id="UserID" CssClass="form-control required-field" Width="250" DataField="UserID" DataSourceId="cds_Users" DataTextField="Username" DataValueField="UserID" AppendDataBoundItems="true" DataType="int32">
-          <ListItem Value="">- Please Select -</ListItem>
-        </DropDownList>
-      	<Validate Target="UserID" CssClass="validate-error" Type="required" Text="*" Message="User is required." />
-      </div>      
-    </div>
-    
     <div class="form-group">
       <Label CssClass="col-sm-2 control-label" For="Seller_Name">Seller Name</Label>
       <div class="col-sm-10">
@@ -432,27 +414,10 @@
     </div>
     
     <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Seller_Level">Level</Label>
-      <div class="col-sm-10">
-        <DropDownList Id="Seller_Level" CssClass="form-control required-field" Width="250" DataField="Seller_Level" DataSourceId="cds_Levels" DataTextField="Level_Name" DataValueField="LevelID" AppendDataBoundItems="true" DataType="int32">
-          <ListItem Value="">- Please Select -</ListItem>
-        </DropDownList>
-        <Validate Target="Seller_Level" CssClass="validate-error" Type="required" Text="*" Message="Level is required." />
-      </div>      
-    </div>
-    
-    <div class="form-group">
       <Label CssClass="col-sm-2 control-label" For="Agree">&nbsp;</Label>
       <div class="col-sm-10">
         <CheckBox Id="Agree" DataField="Agree" DataType="boolean" /> I Agree to the Terms and Conditions
         <Validate Type="checkbox" CssClass="validate-error" Target="Agree" Text="*" Message="You must agree to the terms and conditions." />
-      </div>      
-    </div>
-    
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Banned">&nbsp;</Label>
-      <div class="col-sm-10">
-        <CheckBox Id="Banned" DataField="Banned" DataType="boolean" /> Banned
       </div>      
     </div>
     
