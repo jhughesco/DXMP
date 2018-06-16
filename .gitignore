@@ -2,3 +2,8 @@
 .vs/DXMP/v15/.suo
 *.json
 *.sqlite
+.vs/**
+.vs/slnx.sqlite
+.vs/DXMP/v15/.suo
+.vs/DXMP/v15/Server/sqlite3/storage.ide-shm
+.vs/DXMP/v15/Server/sqlite3/storage.ide-wal

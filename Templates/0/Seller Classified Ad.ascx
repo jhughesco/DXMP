@@ -96,7 +96,7 @@
 
     <xmod:Template runat="server" UsePaging="True" Ajax="True" AddRoles="Sellers" EditRoles="Sellers" DeleteRoles="Sellers" DetailRoles="Sellers">
 
-        <ListDataSource CommandText="SELECT * FROM vw_XMP_Classified_Ad WHERE SellerUserID = @SellerUserID ORDER BY Approved, Date_Created">
+        <ListDataSource CommandText="SELECT * FROM vw_XMP_Seller_Ad WHERE SellerUserID = @SellerUserID ORDER BY Approved, Date_Created">
       		<Parameter Name="SellerUserID" Value='<%#UserData("ID")%>' DataType="Int32" />
       	</ListDataSource>
 
