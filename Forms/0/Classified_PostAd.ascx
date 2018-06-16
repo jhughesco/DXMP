@@ -248,33 +248,44 @@
             <div class="form-group">
                 <Label For="PrimaryImage">Primary Image |<small Class="HeaderLabel_Small"> This will be the first image shown.</small></Label>
                 <rmg:Xile runat="server" Id="PrimaryImage" 
-                            Nullable="True" 
-                            DataField="PrimaryImage" 
-                            Dropzone="False" 
-                            AcceptFileTypes="jpg,jpeg,png" 
-                            MaxNumberOfFiles="1"
-                            MaxFileSize="2097152" 
-                            AutoUpload="True" 
-                            AutoCreateFolder="True" 
-                            FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/Ads/{1}/", PortalData("ID"), SelectData("SellerID"))%>'
-                            ResizeVersions="width=800;height=600;mode=max, md_:width=400;height=400; sm_:width=200;height=200;mode=max;mode=max, thm_:width=80;height=80;mode=max"
-                            UniqueFileName="True" 
-                            UploadMode="Single" 
-                            AddFilesButtonText="Add Image" 
-                            WrapperClass="rmg-singleupload"
-                            ShowTopCancelButton="False" 
-                            ShowTopCheckBox="False" 
-                            ShowTopProgressBar="False" 
-                            ShowTopDeleteButton="False">
+                          Nullable="True" 
+                          DataField="PrimaryImage" 
+                          Dropzone="False" 
+                          AcceptFileTypes="jpg,jpeg,png" 
+                          MaxNumberOfFiles="1"
+                          MaxFileSize="2097152" 
+                          AutoUpload="True" 
+                          AutoCreateFolder="True" 
+                          FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/Ads/{1}/", PortalData("ID"), SelectData("SellerID"))%>'
+                          ResizeVersions="width=800;height=600;mode=max, md_:width=400;height=400; sm_:width=200;height=200;mode=max;mode=max, thm_:width=80;height=80;mode=max"
+                          UniqueFileName="True" 
+                          UploadMode="Single" 
+                          AddFilesButtonText="Add Image" 
+                          WrapperClass="rmg-singleupload"
+                          ShowTopCancelButton="False" 
+                          ShowTopCheckBox="False" 
+                          ShowTopProgressBar="False" 
+                          ShowTopDeleteButton="False"
+                          AllowedRoles="Sellers">
                 </rmg:Xile>
             </div>
 
             <div class="form-group">
                 <Label For="AdditionalImages">Additional Images |<small Class="HeaderLabel_Small"> Seen on your ads detail page.</small></Label>
-                <rmg:Xile runat="server" Id="AdditionalImages" Nullable="True" DataField="AdditionalImages" Dropzone="True" AcceptFileTypes="jpg,jpeg,png"
-                            MaxNumberOfFiles="20" AutoUpload="True" AutoCreateFolder="True" ResizeVersions="width=800;height=600;mode=max, md_:width=400;height=400; sm_:width=200;height=200;mode=max;mode=max, thm_:width=80;height=80;mode=max"
-                            FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/Ads/{1}/", PortalData("ID"), SelectData("SellerID"))%>' UniqueFileName="True"
-                            UploadMode="Multiple" AddFilesButtonText="Add Files...">
+                <rmg:Xile runat="server" Id="AdditionalImages" 
+                          Nullable="True" 
+                          DataField="AdditionalImages" 
+                          Dropzone="True" 
+                          AcceptFileTypes="jpg,jpeg,png"
+                          MaxNumberOfFiles="20" 
+                          AutoUpload="True" 
+                          AutoCreateFolder="True" 
+                          ResizeVersions="width=800;height=600;mode=max, md_:width=400;height=400; sm_:width=200;height=200;mode=max;mode=max, thm_:width=80;height=80;mode=max"
+                          FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/Ads/{1}/", PortalData("ID"), SelectData("SellerID"))%>' 
+                          UniqueFileName="True"
+                          UploadMode="Multiple" 
+                          AddFilesButtonText="Add Files..."
+                          AllowedRoles="Sellers">
                 </rmg:Xile>
             </div>
         </div>
