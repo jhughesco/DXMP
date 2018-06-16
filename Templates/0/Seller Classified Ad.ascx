@@ -187,7 +187,6 @@
                 <thead>
                     <tr>
                         <th>Image</th>
-                        <th>Seller</th>
                         <th>Location</th>
                         <th>Title</th>
                         <th>Price</th>
