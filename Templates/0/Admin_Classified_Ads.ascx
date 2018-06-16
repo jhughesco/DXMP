@@ -750,9 +750,7 @@
           </div>
           
           
-          <xmod:CommandLink runat="server" CssClass="btn btn-default" Text="&lt;&lt; Go Back">
-            <Command Type="list" />
-          </xmod:CommandLink>              
+          <xmod:ReturnLink runat="server" CssClass="btn btn-default" Text="&lt;&lt; Go Back" />
           
         </DetailTemplate>
 
