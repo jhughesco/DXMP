@@ -187,11 +187,19 @@
                 <thead>
                     <tr>
                         <th>Image</th>
-                      	<th>Title</th>
+                        <th>Seller</th>
+                        <th>Location</th>
+                        <th>Title</th>
                         <th>Price</th>
-                      	<th>Created</th>
+                        <th>Created</th>
+                        <th>Created By</th>
+                        <th>Updated</th>
+                        <th>Updated By</th>
+                        <th>IsSold</th>
                         <th>Ad Expires</th>
-                        <th width="auto">&nbsp;</th>
+                        <th>Approved</th>
+                        <th>Active</th>
+                        <th width="250">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -211,13 +219,92 @@
                       </xmod:DetailImage>
                     </xmod:IfNotEmpty>
                 </td>
-              	<td><%#Eval("Values")("Ad_Title")%></td>
+                <td style="white-space: nowrap;">
+                    <div class="btn-group" role="group">
+                      <xmod:Redirect runat="server"  CssClass="btn btn-xs btn-info" Display="LinkButton" Method="Post" Target="~/Classifieds-Admin/Sellers/Seller-Details" Text='<%#Eval("Values")("SellerUsername")%>'>
+												<Field Name="SellerID" Value='<%#Eval("Values")("SellerID")%>' />
+                      </xmod:Redirect>
+                    </div>
+                </td>
+                <td><%#Eval("Values")("Location")%></td>
+                <td><%#Eval("Values")("Ad_Title")%></td>
                 <td>
                     <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></td>
                 <td>
-                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" />
-              	</td>
+                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" /></td>
                 <td><%#Eval("Values")("CreatedByUsername")%></td>
+                <td>
+                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Updated")%>' Pattern="MM/dd/yyyy" /></td>
+                <td><%#Eval("Values")("UpdatedByUsername")%></td>
+                <td>
+                  <xmod:Select runat="server" Mode="Standard">
+                    <Case CompareType="Boolean" Value="True" Operator="=" Expression='<%#Eval("Values")("IsSold")%>'>
+                      <xmod:CommandLink runat="server" Text="True" CssClass="btn btn-xs btn-success">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="issold" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>    	
+                    </Case>
+                    <Else>
+                      <xmod:CommandLink runat="server" Text="False" CssClass="btn btn-xs btn-danger">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="issold" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>
+                    </Else>
+                  </xmod:Select>
+              </td>
+                <td>
+                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" /></td>
+                <td>
+									<xmod:Select runat="server" Mode="Standard">
+                    <Case CompareType="Boolean" Value="True" Operator="=" Expression='<%#Eval("Values")("Approved")%>'>
+                      <xmod:CommandLink runat="server" Text="True" CssClass="btn btn-xs btn-success">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="approved" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>    	
+                    </Case>
+                    <Else>
+                      <xmod:CommandLink runat="server" Text="False" CssClass="btn btn-xs btn-danger">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="approved" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>
+                    </Else>
+                  </xmod:Select>
+              	</td>
+                <td>
+              		<xmod:Select runat="server" Mode="Standard">
+                    <Case CompareType="Boolean" Value="True" Operator="=" Expression='<%#Eval("Values")("Active")%>'>
+                      <xmod:CommandLink runat="server" Text="True" CssClass="btn btn-xs btn-success">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="active" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>    	
+                    </Case>
+                    <Else>
+                      <xmod:CommandLink runat="server" Text="False" CssClass="btn btn-xs btn-danger">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="active" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>
+                    </Else>
+                  </xmod:Select>
+              	</td>
+
                 <td>
                     <div class="btn-group" role="group" id="AdRow">
                         <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
@@ -225,11 +312,41 @@
                         </xmod:EditLink>
                     </div>
                   	<div class="btn-group" role="group" id="AdRow">
-                        <xmod:CommandLink runat="server" Text="Delete" CssClass="btn btn-xs btn-danger" OnClientClick="return confirm('Are you sure, this is Permanent!?');">
+                        <xmod:CommandLink runat="server" Text="Delete" CssClass="btn btn-xs btn-danger unradius" OnClientClick="return confirm('Are you sure, this is Permanent!?');">
                           <Command Name="DeleteAd" Type="Custom">
                             <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
                           </Command>
                         </xmod:CommandLink>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default btn-xs nowrap">More</button>
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu unradius" role="group">
+                          <xmod:Select runat="server" Mode="Standard">
+                            <Case CompareType="Role" Operator="=" Expression="Administrators">
+                              <li>
+                                <xmod:CommandLink runat="server" Text="Renew Ad" CssClass="btn btn-xs btn-primary unradius" OnClientClick="return confirm('Renew the Ad for 30 Days?');">
+                                  <Command Name="RenewAd" Type="Custom">
+                                    <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                                    <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="Int32" />
+                                    <Parameter Name="Updated_IP" Value='<%#RequestData("HostAddress")%>' DataType="Int32" />
+                                  </Command>
+                                </xmod:CommandLink>
+                              </li>
+
+                              <li>
+                                <xmod:CommandLink runat="server" Text="Delete" CssClass="btn btn-xs btn-danger unradius" OnClientClick="return confirm('Are you sure, this is Permanent!?');">
+                                  <Command Name="DeleteAd" Type="Custom">
+                                    <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                                  </Command>
+                                </xmod:CommandLink>
+                              </li>
+                            </Case>
+                        </xmod:Select>
+                      </ul>
                     </div>
                 </td>
             </tr>
@@ -249,13 +366,92 @@
                       </xmod:DetailImage>
                     </xmod:IfNotEmpty>
                 </td>
-              	<td><%#Eval("Values")("Ad_Title")%></td>
+                <td style="white-space: nowrap;">
+                    <div class="btn-group" role="group">
+                      <xmod:Redirect runat="server"  CssClass="btn btn-xs btn-info" Display="LinkButton" Target="~/Classifieds-Admin/Sellers/Seller-Details" Text='<%#Eval("Values")("SellerUsername")%>'>
+												<Field Name="SellerID" Value='<%#Eval("Values")("SellerID")%>' />
+                      </xmod:Redirect>
+                    </div>
+                </td>
+                <td><%#Eval("Values")("Location")%></td>
+                <td><%#Eval("Values")("Ad_Title")%></td>
                 <td>
                     <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></td>
                 <td>
-                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" />
-              	</td>
+                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" /></td>
                 <td><%#Eval("Values")("CreatedByUsername")%></td>
+                <td>
+                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Updated")%>' Pattern="MM/dd/yyyy" /></td>
+                <td><%#Eval("Values")("UpdatedByUsername")%></td>
+                <td>
+                  <xmod:Select runat="server" Mode="Standard">
+                    <Case CompareType="Boolean" Value="True" Operator="=" Expression='<%#Eval("Values")("IsSold")%>'>
+                      <xmod:CommandLink runat="server" Text="True" CssClass="btn btn-xs btn-success">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="issold" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>    	
+                    </Case>
+                    <Else>
+                      <xmod:CommandLink runat="server" Text="False" CssClass="btn btn-xs btn-danger">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="issold" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>
+                    </Else>
+                  </xmod:Select>
+              </td>
+                <td>
+                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" /></td>
+                <td>
+									<xmod:Select runat="server" Mode="Standard">
+                    <Case CompareType="Boolean" Value="True" Operator="=" Expression='<%#Eval("Values")("Approved")%>'>
+                      <xmod:CommandLink runat="server" Text="True" CssClass="btn btn-xs btn-success">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="approved" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>    	
+                    </Case>
+                    <Else>
+                      <xmod:CommandLink runat="server" Text="False" CssClass="btn btn-xs btn-danger">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="approved" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>
+                    </Else>
+                  </xmod:Select>
+              	</td>
+                <td>
+              		<xmod:Select runat="server" Mode="Standard">
+                    <Case CompareType="Boolean" Value="True" Operator="=" Expression='<%#Eval("Values")("Active")%>'>
+                      <xmod:CommandLink runat="server" Text="True" CssClass="btn btn-xs btn-success">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="active" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>    	
+                    </Case>
+                    <Else>
+                      <xmod:CommandLink runat="server" Text="False" CssClass="btn btn-xs btn-danger">
+                        <Command Name="FlagToggle" Type="Custom">
+                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                          <Parameter Name="FlagType" Value="active" DataType="string" />
+                        </Command>
+                      </xmod:CommandLink>
+                    </Else>
+                  </xmod:Select>
+              	</td>
+
                 <td>
                     <div class="btn-group" role="group" id="AdRow">
                         <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
@@ -263,16 +459,45 @@
                         </xmod:EditLink>
                     </div>
                   	<div class="btn-group" role="group" id="AdRow">
-                        <xmod:CommandLink runat="server" Text="Delete" CssClass="btn btn-xs btn-danger" OnClientClick="return confirm('Are you sure, this is Permanent!?');">
+                        <xmod:CommandLink runat="server" Text="Delete" CssClass="btn btn-xs btn-danger unradius" OnClientClick="return confirm('Are you sure, this is Permanent!?');">
                           <Command Name="DeleteAd" Type="Custom">
                             <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
                           </Command>
                         </xmod:CommandLink>
                     </div>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default btn-xs nowrap">More</button>
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu unradius" role="group">
+                          <xmod:Select runat="server" Mode="Standard">
+                            <Case CompareType="Role" Operator="=" Expression="Administrators">
+                              <li>
+                                <xmod:CommandLink runat="server" Text="Renew Ad" CssClass="btn btn-xs btn-primary unradius" OnClientClick="return confirm('Renew the Ad for 30 Days?');">
+                                  <Command Name="RenewAd" Type="Custom">
+                                    <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                                    <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="Int32" />
+                                    <Parameter Name="Updated_IP" Value='<%#RequestData("HostAddress")%>' DataType="Int32" />
+                                  </Command>
+                                </xmod:CommandLink>
+                              </li>
+
+                              <li>
+                                <xmod:CommandLink runat="server" Text="Delete" CssClass="btn btn-xs btn-danger unradius" OnClientClick="return confirm('Are you sure, this is Permanent!?');">
+                                  <Command Name="DeleteAd" Type="Custom">
+                                    <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                                  </Command>
+                                </xmod:CommandLink>
+                              </li>
+                            </Case>
+                        </xmod:Select>
+                      </ul>
+                    </div>
                 </td>
             </tr>
         </AlternatingItemTemplate>
-
 
         <FooterTemplate>
             </tbody>
