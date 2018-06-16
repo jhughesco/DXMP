@@ -98,7 +98,7 @@
 
         <ListDataSource CommandText="SELECT * FROM vw_XMP_Admin_Ad ORDER BY Approved, Date_Created" />
 
-      	<DetailDataSource CommandText="SELECT * FROM vw_XMP_Classified_Ad_Detail WHERE [AdID] = @AdID">
+      	<DetailDataSource CommandText="SELECT * FROM vw_XMP_Admin_Ad_Detail WHERE [AdID] = @AdID">
             <parameter name="AdID" />
         </DetailDataSource>
       	

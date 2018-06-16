@@ -15,9 +15,9 @@
 </xmod:ScriptBlock>
 
 <xmod:Template runat="server" UsePaging="True" Ajax="True" AddRoles="Administrators" EditRoles="Administrators" DeleteRoles="Administrators" DetailRoles="Administrators">
-  <ListDataSource CommandText="SELECT * FROM vw_XMP_Classified_Seller"/>
+  <ListDataSource CommandText="SELECT * FROM vw_XMP_Admin_Seller"/>
   
-  <DetailDataSource CommandText="SELECT * FROM vw_XMP_Classified_Seller_Detail WHERE [SellerID] = @SellerID">
+  <DetailDataSource CommandText="SELECT * FROM vw_XMP_Admin_Seller_Detail WHERE [SellerID] = @SellerID">
     <Parameter Name="SellerID" />
   </DetailDataSource>  
 

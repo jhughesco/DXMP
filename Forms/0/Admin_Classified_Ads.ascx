@@ -469,7 +469,7 @@
                               ,dbo.udf_XMP_GenerateDelimitedString (@AdID, 'cat', '|') AS Categories
                               ,dbo.udf_XMP_GenerateDelimitedString (@AdID, 'img', '|') AS AdditionalImages
 
-                              FROM vw_XMP_Classified_Ad_Detail
+                              FROM vw_XMP_Admin_Ad_Detail
                               WHERE AdID=@AdID">
 
     <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="int32" />

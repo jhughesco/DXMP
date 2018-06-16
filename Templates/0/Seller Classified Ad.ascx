@@ -100,7 +100,7 @@
       		<Parameter Name="SellerUserID" Value='<%#UserData("ID")%>' DataType="Int32" />
       	</ListDataSource>
 
-      	<DetailDataSource CommandText="SELECT * FROM vw_XMP_Classified_Ad_Detail WHERE [AdID] = @AdID">
+      	<DetailDataSource CommandText="SELECT * FROM vw_XMP_Admin_Ad_Detail WHERE [AdID] = @AdID">
             <Parameter name="AdID" />
         </DetailDataSource>
       	

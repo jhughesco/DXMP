@@ -113,7 +113,7 @@
                                       ,@UserID AS CreatedBy
                                       ,@UserIP AS Created_IP
 
-                                  FROM vw_XMP_Classified_Seller_Detail
+                                  FROM vw_XMP_Admin_Seller_Detail
                                   WHERE UserID = @UserID">
       
       	
