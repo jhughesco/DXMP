@@ -203,147 +203,38 @@
         </HeaderTemplate>
 
         <ItemTemplate>
-            <tr class="approved-<%#Eval("Values")("Approved")%>">
-                <td class="text-center">
-                  <xmod:Select runat="server"  Mode="Standard">
-                    <Case CompareType="Boolean" Value="True" Operator="=" Expression='<%#Eval("Values")("IsSold")%>'>
-                      <h4 class="greentxt">SOLD</h4>
-                    </Case>
-                    <Else>
-                      <xmod:CommandLink runat="server"  Text="For Sale" CssClass="btn btn-xs btn-danger" ToolTip="Mark item/s SOLD">
-                        <Command Name="FlagToggle" Type="Custom">
-                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
-                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
-                          <Parameter Name="FlagType" Value="issold" DataType="string" />
-                        </Command>
-                      </xmod:CommandLink>
-                    </Else>
-                  </xmod:Select>
-              	</td>
-              	<td class="text-center">
-                    <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-                      <xmod:DetailImage runat="server" 
-                            	CssClass="img-thumbnail" 
-                              ToolTip='<%#Join("View Ad Details {0}{1}{2}", "(ID: ", Eval("Values")("AdID"), ")")%>' 
-                              ImageURL='<%#Join("/Portals/{0}/Classifieds/Ads/{1}/thm_{2}", PortalData("ID"), Eval("Values")("SellerID"), Eval("Values")("PrimaryImage"))%>' 
-                              AlternateText='<%#Eval("Values")("PrimaryImage")%>' 
-                              Style="max-width: 100px">
-                          <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' />
-                      </xmod:DetailImage>
-                    </xmod:IfNotEmpty>
-                </td>
-                <td><%#Eval("Values")("Ad_Title")%></td>
-                <td class="text-center">
-                    <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" />
-              	</td>
-                <td class="text-center">
-                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" />
-              	</td>
-                
-                <td class="text-center">
-                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" />
-              	</td>
-                <td class="text-center">
-                  <div class="btn-group" role="group">	
-                  	<xmod:Select runat="server">
-                      <Case Comparetype="Boolean" Value='<%#Eval("Values")("IsSold")%>' Operator="=" Expression="False">
-                      	<xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
-                          <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' />
-                        </xmod:EditButton>
-                        <xmod:CommandLink runat="server" Text="Renew" CssClass="btn btn-xs btn-primary" OnClientClick="return confirm('Renew the Ad for 30 Days?');">
-                          <Command Name="RenewAd" Type="Custom">
-                            <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
-                            <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="Int32" />
-                            <Parameter Name="Updated_IP" Value='<%#RequestData("HostAddress")%>' DataType="Int32" />
-                          </Command>
-                    		</xmod:CommandLink>   
-                      </Case>
-                    </xmod:Select>
-                    
-                    <xmod:CommandLink runat="server" Text="Delete" CssClass="btn btn-xs btn-danger" OnClientClick="return confirm('Are you sure, this is Permanent!?');">
-                      <Command Name="DeleteAd" Type="Custom">
-                        <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
-                      </Command>
-                    </xmod:CommandLink>
-                    
-                  </div>
-                </td>
-            </tr>
+          <tr class="approved-<%#Eval("Values")("Approved")%>">
+            <td>
+              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
+                <img src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
+              </xmod:IfNotEmpty>
+            </td>
+            <td><%#Eval("Values")("AdID")%></td>
+            <td><%#Eval("Values")("Ad_Title")%></td>
+            <td><xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></td>
+            <td><xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" /></td>
+            <td><xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" /></td>
+            <td>
+              <div class="btn-group" role="group">
+                <xmod:Select runat="server">
+                  <Case Comparetype="Boolean" Value='<%#Eval("Values")("IsSold")%>' Operator="=" Expression="False">
+                    <xmod:EditButton runat="server" CssClass="btn btn-xs btn-default" Text="Edit">
+                      <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' />
+                    </xmod:EditButton>
+                  </Case>
+                </xmod:Select> 
+                <xmod:DetailButton runat="server" CssClass="btn btn-xs btn-default" Text="Details">
+                  <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' />
+                </xmod:DetailButton>
+              </div>
+            </td>
+          </tr>
         </ItemTemplate>
 
-        <AlternatingItemTemplate>
-            <tr class="alt-row approved-alt-<%#Eval("Values")("Approved")%>">
-                <td>
-                  <xmod:Select runat="server"  Mode="Standard">
-                    <Case CompareType="Boolean" Value="True" Operator="=" Expression='<%#Eval("Values")("IsSold")%>'>
-                      <h4 class="text-center greentxt">SOLD</h4>
-                    </Case>
-                    <Else>
-                      <xmod:CommandLink runat="server"  Text="For Sale" CssClass="btn btn-xs btn-danger text-center" ToolTip="Mark item/s SOLD">
-                        <Command Name="FlagToggle" Type="Custom">
-                          <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
-                          <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
-                          <Parameter Name="FlagType" Value="issold" DataType="string" />
-                        </Command>
-                      </xmod:CommandLink>
-                    </Else>
-                  </xmod:Select>
-              	</td>
-              	<td class="text-center">
-                    <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-                      <xmod:DetailImage runat="server" 
-                            	CssClass="img-thumbnail" 
-                              ToolTip='<%#Join("View Ad Details {0}{1}{2}", "(ID: ", Eval("Values")("AdID"), ")")%>' 
-                              ImageURL='<%#Join("/Portals/{0}/Classifieds/Ads/{1}/thm_{2}", PortalData("ID"), Eval("Values")("SellerID"), Eval("Values")("PrimaryImage"))%>' 
-                              AlternateText='<%#Eval("Values")("PrimaryImage")%>' 
-                              Style="max-width: 100px">
-                          <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' />
-                      </xmod:DetailImage>
-                    </xmod:IfNotEmpty>
-                </td>
-                <td><%#Eval("Values")("Ad_Title")%></td>
-                <td class="text-center">
-                    <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" />
-              	</td>
-                <td class="text-center">
-                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" />
-              	</td>
-                
-                <td class="text-center">
-                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" />
-              	</td>
-                <td class="text-center">
-                  <div class="btn-group" role="group">	
-                  	<xmod:Select runat="server">
-                      <Case Comparetype="Boolean" Value='<%#Eval("Values")("IsSold")%>' Operator="=" Expression="False">
-                      	<xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
-                          <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' />
-                        </xmod:EditButton>
-                        <xmod:CommandLink runat="server" Text="Renew" CssClass="btn btn-xs btn-primary" OnClientClick="return confirm('Renew the Ad for 30 Days?');">
-                          <Command Name="RenewAd" Type="Custom">
-                            <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
-                            <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="Int32" />
-                            <Parameter Name="Updated_IP" Value='<%#RequestData("HostAddress")%>' DataType="Int32" />
-                          </Command>
-                    		</xmod:CommandLink>   
-                      </Case>
-                    </xmod:Select>
-                    
-                    <xmod:CommandLink runat="server" Text="Delete" CssClass="btn btn-xs btn-danger" OnClientClick="return confirm('Are you sure, this is Permanent!?');">
-                      <Command Name="DeleteAd" Type="Custom">
-                        <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
-                      </Command>
-                    </xmod:CommandLink>
-                    
-                  </div>
-                </td>
-            </tr>
-        </AlternatingItemTemplate>
-
         <FooterTemplate>
-            </tbody>
-    	</table>
-    </div>
+          </tbody>
+        </table>
+      </div>
  
         </FooterTemplate>
 
