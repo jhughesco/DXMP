@@ -26,9 +26,9 @@
           <td><%#Eval("Values")("Level_Description")%></td>
           <td><xmod:Format runat="server" type="Float" Value='<%#Eval("Values")("Level_Price")%>' Pattern="c" /></td>
           <td>
-            <xmod:EditLink runat="server" Text="Edit">
+            <xmod:EditButton runat="server" Text="Edit">
               <Parameter Name="LevelID" Value='<%#Eval("Values")("LevelID")%>' />
-            </xmod:EditLink>
+            </xmod:EditButton>
             <xmod:DeleteLink runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this?');">
               <Parameter Name="LevelID" Value='<%#Eval("Values")("LevelID")%>' />
             </xmod:DeleteLink>

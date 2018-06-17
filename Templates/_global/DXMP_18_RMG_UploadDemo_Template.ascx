@@ -39,9 +39,9 @@
           <td><%#Eval("Values")("Name")%></td>
           <td><img src="/Portals/<%#PortalData("ID")%>/RMG_FileUploadTest/<%#UserData("ID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" /></td>
           <td>
-            <xmod:EditLink runat="server" Text="Edit">
+            <xmod:EditButton runat="server" Text="Edit">
               <Parameter Name="ProductID" Value='<%#Eval("Values")("ProductID")%>' />
-            </xmod:EditLink>
+            </xmod:EditButton>
             <xmod:DeleteLink runat="server" Text="Delete">
               <Parameter Name="ProductID" Value='<%#Eval("Values")("ProductID")%>' />
             </xmod:DeleteLink>

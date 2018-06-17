@@ -25,9 +25,9 @@
           <td><%#Eval("Values")("City")%></td>
           <td><%#Eval("Values")("State")%></td>
           <td>
-            <xmod:EditLink runat="server" Text="Edit">
+            <xmod:EditButton runat="server" Text="Edit">
               <Parameter Name="LocationID" Value='<%#Eval("Values")("LocationID")%>' />
-            </xmod:EditLink>
+            </xmod:EditButton>
             <xmod:DeleteLink runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this?');">
               <Parameter Name="LocationID" Value='<%#Eval("Values")("LocationID")%>' />
             </xmod:DeleteLink>

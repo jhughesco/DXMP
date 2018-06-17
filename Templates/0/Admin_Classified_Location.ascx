@@ -36,9 +36,9 @@
         <td><%#Eval("Values")("SellersCount")%></td>
         <td>
           <div class="btn-group" role="group">
-            <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-success btn-xs">
+            <xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-success btn-xs">
               <Parameter Name="LocationID" Value='<%#Eval("Values")("LocationID")%>' />
-            </xmod:EditLink>
+            </xmod:EditButton>
           </div>
           <div class="btn-group" role="group">
 
@@ -88,9 +88,9 @@
         <td><%#Eval("Values")("SellersCount")%></td>
         <td>
           <div class="btn-group" role="group">
-            <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-success btn-xs">
+            <xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-success btn-xs">
               <Parameter Name="LocationID" Value='<%#Eval("Values")("LocationID")%>' />
-            </xmod:EditLink>
+            </xmod:EditButton>
           </div>
               <div class="btn-group" role="group">
 

@@ -73,9 +73,9 @@
           <td><%#Eval("Values")("Active")%></td>
           <td>
             <div class="btn-group" role="group">
-              <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
+              <xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
                 <Parameter Name="CategoryID" Value='<%#Eval("Values")("CategoryID")%>' />
-              </xmod:EditLink>
+              </xmod:EditButton>
             </div>
             <xmod:Select runat="server" Mode="Standard">
               <Case CompareType="Role" Operator="=" Expression="Administrators">
@@ -133,9 +133,9 @@
           <td><%#Eval("Values")("Active")%></td>
           <td>
             <div class="btn-group" role="group">
-              <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
+              <xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
                 <Parameter Name="CategoryID" Value='<%#Eval("Values")("CategoryID")%>' />
-              </xmod:EditLink>
+              </xmod:EditButton>
             </div>
             <xmod:Select runat="server" Mode="Standard">
               <Case CompareType="Role" Operator="=" Expression="Administrators">

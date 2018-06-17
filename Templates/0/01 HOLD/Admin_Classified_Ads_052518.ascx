@@ -211,9 +211,9 @@
 
                 <td>
                     <div class="btn-group" role="group" id="AdRow">
-                        <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
+                        <xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
                 <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' />
-              </xmod:EditLink>
+              </xmod:EditButton>
                     </div>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default btn-xs nowrap">More</button>
@@ -347,9 +347,9 @@
 
                 <td>
                     <div class="btn-group" role="group">
-                        <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
+                        <xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
                 <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' />
-              </xmod:EditLink>
+              </xmod:EditButton>
                     </div>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default btn-xs nowrap">More</button>

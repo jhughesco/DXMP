@@ -304,9 +304,9 @@
 
                 <td>
                     <div class="btn-group" role="group" id="AdRow">
-                        <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
+                        <xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
                           <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' />
-                        </xmod:EditLink>
+                        </xmod:EditButton>
                     </div>
                   	<div class="btn-group" role="group" id="AdRow">
                         <xmod:CommandLink runat="server" Text="Delete" CssClass="btn btn-xs btn-danger unradius" OnClientClick="return confirm('Are you sure, this is Permanent!?');">
@@ -451,9 +451,9 @@
 
                 <td>
                     <div class="btn-group" role="group" id="AdRow">
-                        <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
+                        <xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
                           <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' />
-                        </xmod:EditLink>
+                        </xmod:EditButton>
                     </div>
                   	<div class="btn-group" role="group" id="AdRow">
                         <xmod:CommandLink runat="server" Text="Delete" CssClass="btn btn-xs btn-danger unradius" OnClientClick="return confirm('Are you sure, this is Permanent!?');">

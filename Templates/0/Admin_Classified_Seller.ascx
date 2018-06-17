@@ -147,9 +147,9 @@
           <td><%#Eval("Values")("UserAuthorized")%></td>
           <td style="white-space:nowrap;">
             <div class="btn-group" role="group">                                                
-             	<xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
+             	<xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
                 <Parameter Name="SellerID" Value='<%#Eval("Values")("SellerID")%>' />
-              </xmod:EditLink>
+              </xmod:EditButton>
             </div>
             <xmod:Select runat="server" Mode="Standard">
 							<Case CompareType="Role" Operator="=" Expression="Administrators">
@@ -220,9 +220,9 @@
           <td><%#Eval("Values")("UserAuthorized")%></td>
           <td style="white-space:nowrap;">
             <div class="btn-group" role="group">                                                
-             	<xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
+             	<xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-xs btn-success">
                 <Parameter Name="SellerID" Value='<%#Eval("Values")("SellerID")%>' />
-              </xmod:EditLink>
+              </xmod:EditButton>
             </div>
             <xmod:Select runat="server" Mode="Standard">
 							<Case CompareType="Role" Operator="=" Expression="Administrators">
@@ -337,9 +337,9 @@
 
     <xmod:ReturnLink runat="server" CssClass="btn btn-default" Text="&lt;&lt; Go Back" />
     <div class="btn-group" role="group">                                                
-      <xmod:EditLink runat="server" Text="Edit" CssClass="btn btn-success">
+      <xmod:EditButton runat="server" Text="Edit" CssClass="btn btn-success">
         <Parameter Name="SellerID" Value='<%#Eval("Values")("SellerID")%>' />
-      </xmod:EditLink>
+      </xmod:EditButton>
     </div>
     
 		<hr />

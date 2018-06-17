@@ -69,9 +69,9 @@
           <td><%#Eval("Values")("Sort_Order")%></td>
           <td><%#Eval("Values")("Active")%></td>
           <td>
-            <xmod:EditLink runat="server" Text="Edit">
+            <xmod:EditButton runat="server" Text="Edit">
               <Parameter Name="CategoryID" Value='<%#Eval("Values")("CategoryID")%>' />
-            </xmod:EditLink>
+            </xmod:EditButton>
             <xmod:DeleteLink runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete this?');">
               <Parameter Name="CategoryID" Value='<%#Eval("Values")("CategoryID")%>' />
             </xmod:DeleteLink>
