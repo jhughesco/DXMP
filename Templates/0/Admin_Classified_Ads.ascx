@@ -617,10 +617,176 @@
         <li role="presentation"><a href="#addetails" aria-controls="addetails" role="tab" data-toggle="tab">Detailed Description</a></li>
         <li role="presentation"><a href="#seller" aria-controls="seller" role="tab" data-toggle="tab">Seller</a></li>
       </ul>
-
       
+      <div class="tab-content">
 
-		</div>
+        <div role="tabpanel" class="tab-pane active" id="adsummary">
+          <div class="summary-wrapper">
+            <div class="title-wrapper">
+              <h1><%#Eval("Values")("Ad_Title")%></h1>
+              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Subtitle")%>'>
+                <h2><%#Eval("Values")("Ad_Subtitle")%></h2>
+              </xmod:IfNotEmpty>
+              <h5>Item located in <%#Eval("Values")("Location")%></h5>
+            </div>
+            <div class="price-wrapper">
+              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+                <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" />
+              </xmod:IfNotEmpty>
+              <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+                FREE!
+              </xmod:IfEmpty>
+            </div>
+            <div class="contact-wrapper">
+              <xmod:Select runat="server" Mode="Inclusive">
+                <Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowPhone")%>' Operator="=" Expression="True">
+                  Phone: <%#Eval("Values")("Seller_Phone")%><br/>
+                </Case>
+                <Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowEmail")%>' Operator="=" Expression="True">
+                  Email: <a href="mailto:<%#Eval("Values")("Seller_Email")%>"><%#Eval("Values")("Seller_Email")%></a>
+                </Case>
+              </xmod:Select>
+            </div>
+            <div class="image-wrapper">
+              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
+                <img class="img-thumbnail" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/<%#Eval("Values")("PrimaryImage")%>" />
+              </xmod:IfNotEmpty>
+              <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
+                <img class="img-thumbnail" src="http://placehold.it/300&text=no+image" />
+              </xmod:IfEmpty>
+            </div>
+
+            <div class="adsummary-wrapper">
+              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Summary")%>'>
+                <p><%#Eval("Values")("Ad_Summary")%></p>
+              </xmod:IfNotEmpty>	
+            </div>
+            <div class="adinfo-wrapper">
+              <ul class="list-group" style="margin-left: 0px">
+                <li class="list-group-item">Posted by <%#Eval("Values")("Seller_Name")%> on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" /></li>
+                <li class="list-group-item">Expires on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" /></li>
+                <xmod:Select runat="server">
+                  <Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowAddress")%>' Operator="=" Expression="True">
+                    <li class="list-group-item">Address: <%#Eval("Values")("Seller_Address")%> - <%#Eval("Values")("SellerLocation")%></li>
+                  </Case>
+                </xmod:Select>
+              </ul>
+            </div>
+          </div>        
+        </div>
+ 
+        <div role="tabpanel" class="tab-pane" id="addetails">
+        	<div class="summary-wrapper">
+            <div class="title-wrapper">
+              <h1><%#Eval("Values")("Ad_Title")%></h1>
+              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Subtitle")%>'>
+              	<h2><%#Eval("Values")("Ad_Subtitle")%></h2>
+              </xmod:IfNotEmpty>
+              <h5>Item located in <%#Eval("Values")("Location")%></h5>
+            </div>
+            <div class="price-wrapper">
+              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+              	<xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" />
+              </xmod:IfNotEmpty>
+              <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+              	FREE!
+              </xmod:IfEmpty>
+            </div>
+            <div class="contact-wrapper">
+              <xmod:Select runat="server" Mode="Inclusive">
+              	<Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowPhone")%>' Operator="=" Expression="True">
+                	Phone: <%#Eval("Values")("Seller_Phone")%><br/>
+                </Case>
+                <Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowEmail")%>' Operator="=" Expression="True">
+                	Email: <a href="mailto:<%#Eval("Values")("Seller_Email")%>"><%#Eval("Values")("Seller_Email")%></a>
+                </Case>
+              </xmod:Select>
+            </div>
+            <div class="addetails-wrapper">
+              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Description")%>'>
+              	<div><%#Eval("Values")("Ad_Description")%></div>
+              </xmod:IfNotEmpty>	
+              <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Description")%>'>
+              	<div>Contact seller for details...</div>
+              </xmod:IfEmpty>
+            </div>
+            <div class="adinfo-wrapper">
+              <ul class="list-group" style="margin-left: 0px;">
+                <li class="list-group-item">Posted by <%#Eval("Values")("Seller_Name")%> on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" /></li>
+                <li class="list-group-item">Expires on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" /></li>
+                <xmod:Select runat="server">
+                	<Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowAddress")%>' Operator="=" Expression="True">
+                  	<li class="list-group-item">Address: <%#Eval("Values")("Seller_Address")%> - <%#Eval("Values")("SellerLocation")%></li>
+                  </Case>
+                </xmod:Select>
+              </ul>
+            </div>
+          </div> 
+        </div>
+     		
+        <div role="tabpanel" class="tab-pane" id="seller">
+          <div class="media" style="margin-top: 50px">
+            <a class="media-left" href="#">
+              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Seller_Image")%>'>
+                <img class="img-thumbnail" src="/Portals/<%#PortalData("ID")%>/Classifieds/SellerImages/thm_<%#Eval("Values")("Seller_Image")%>" style="max-width: 100px" alt="<%#Eval("Values")("Seller_Name")%>">
+              </xmod:IfNotEmpty>
+              <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Seller_Image")%>'>
+                <img class="img-thumbnail" src="/Portals/0/avatar.png" style="max-width: 100px" alt="<%#Eval("Values")("Seller_Name")%>">
+              </xmod:IfEmpty>
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading"><%#Eval("Values")("Seller_Name")%></h4>
+              <h5>SellerID: <%#Eval("Values")("SellerID")%></h5>
+              <h5>User: <%#Eval("Values")("SellerUsername")%> (<%#Eval("Values")("UserID")%>)</h5>
+              <h5>Level: <%#Eval("Values")("Level_Name")%> (<%#Eval("Values")("Seller_Level")%>)</h5>
+              <h5>Approved Ads: <%#Eval("Values")("Approved_Ads")%></h5>
+            </div>
+          </div>
+
+          <h4>Seller Profile</h4>
+          
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Location</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Show Address</th>
+                <th>Show Phone</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Updated By</th>
+                <th>Banned</th>
+                <th>Seller Deleted</th>
+                <th>User Deleted</th>
+                <th>User Authorized</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%#Eval("Values")("Seller_Address")%></td>
+                <td><%#Eval("Values")("SellerLocation")%> (<%#Eval("Values")("Seller_Location")%>)</td>
+                <td><%#Eval("Values")("Seller_Phone")%></td>
+                <td><%#Eval("Values")("Seller_Email")%></td>
+                <td><%#Eval("Values")("ShowAddress")%></td>
+                <td><%#Eval("Values")("ShowPhone")%></td>
+                <td><%#Eval("Values")("Date_Created")%></td>
+                <td><%#Eval("Values")("Date_Updated")%></td>
+                <td><%#Eval("Values")("UpdatedByUsername")%> (<%#Eval("Values")("UpdatedBy")%>)</td>
+                <td><%#Eval("Values")("Banned")%></td>
+                <td><%#Eval("Values")("SellerDeleted")%></td> 
+                <td><%#Eval("Values")("UserDeleted")%></td>
+                <td><%#Eval("Values")("UserAuthorized")%></td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>        
+        
+     </div>
+      
+   </div>
     
     
     
