@@ -207,6 +207,9 @@
                   <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
                     <img src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
                   </xmod:IfNotEmpty>
+                  <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
+                    <img class="img-thumbnail" src="http://placehold.it/80&text=no+image" />
+                  </xmod:IfEmpty>
                 </td>
                 <td style="white-space: nowrap;">
                     <div class="btn-group" role="group">
@@ -407,6 +410,9 @@
                   <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
                     <img src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
                   </xmod:IfNotEmpty>
+                  <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
+                    <img class="img-thumbnail" src="http://placehold.it/80&text=no+image" />
+                  </xmod:IfEmpty>
                 </td>
                 <td style="white-space: nowrap;">
                     <div class="btn-group" role="group">
@@ -731,7 +737,7 @@
                 <img class="img-thumbnail" src="/Portals/<%#PortalData("ID")%>/Classifieds/SellerImages/thm_<%#Eval("Values")("Seller_Image")%>" style="max-width: 100px" alt="<%#Eval("Values")("Seller_Name")%>">
               </xmod:IfNotEmpty>
               <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Seller_Image")%>'>
-                <img class="img-thumbnail" src="/Portals/0/avatar.png" style="max-width: 100px" alt="<%#Eval("Values")("Seller_Name")%>">
+                <img class="img-thumbnail" src="http://placehold.it/100&text=no+image" />
               </xmod:IfEmpty>
             </a>
             <div class="media-body">
