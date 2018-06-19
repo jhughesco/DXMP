@@ -305,7 +305,7 @@
             
     <div class="panel panel-warning">
         <div class="panel-heading">
-        <h3 class="panel-title">Visibility Options |<span class="HeaderLabel"> Control what is publicly seen on this ad. (seller preferences selected)</span></h3>
+        <h3 class="panel-title">Visibility Options |<span class="HeaderLabel"> Control what is publicly seen on this ad. (seller defaults selected)</span></h3>
         </div>
         <div class="panel-body">
             <ul class="Categories_Container">
