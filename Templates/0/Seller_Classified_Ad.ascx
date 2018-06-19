@@ -62,6 +62,7 @@
     .summary-wrapper .adsummary-wrapper p { font-size:16px; }
     .summary-wrapper .adinfo-wrapper { max-width: 600px; margin: 15px auto; }
     .summary-wrapper .adinfo-wrapper ul { margin-left: 0px !important; }
+    .summary-wrapper .addetails-wrapper { margin-top: 20px; }
     .summary-wrapper .addetails-wrapper p { font-size:16px; }
     .summary-wrapper .seller-wrapper { margin-top: 50px; }
     .seller_address { margin-left: 10px; }
@@ -70,11 +71,14 @@
   </style>
   
   <link href="/js/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <link href="/js/magnific/magnific-popup.css" rel="stylesheet">
+  
 	<script src="/js/bootstrap-toggle/js/bootstrap-toggle.min.js">
     $(function() {
       $('#toggle-one').bootstrapToggle();
     })
   </script>
+  <script src="/js/magnific/jquery.magnific-popup.min.js"></script>
   
 </xmod:ScriptBlock>
 
@@ -86,8 +90,12 @@
     <Parameter Name="SellerUserID" Value='<%#UserData("ID")%>' DataType="Int32" />
   </ListDataSource>
 
-  <DetailDataSource CommandText="SELECT * FROM vw_XMP_Admin_Ad_Detail WHERE [AdID] = @AdID">
+  <DetailDataSource CommandText="SELECT *,
+                                 				dbo.udf_XMP_GenerateImagesWithPath(AdID, '/Portals/' + CAST(@PortalID as nvarchar(10)) + '/Classifieds/Ads/' + CAST(SellerID as nvarchar(10)) + '/', '|') AS AdditionalImages
+                                 FROM vw_XMP_Admin_Ad_Detail 
+                                 WHERE [AdID] = @AdID">
     <Parameter name="AdID" />
+    <Parameter name="PortalID" Value='<%#PortalData("Id")%>' DataType="Int32" />
   </DetailDataSource>
 
   <customcommands>
@@ -311,7 +319,7 @@
     </table>
 	</FooterTemplate>
 
-        <DetailTemplate>
+  <DetailTemplate>
 
     <div role="tabpanel">
 
@@ -351,11 +359,22 @@
             </div>
             <div class="image-wrapper">
               <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-                <img class="img-thumbnail" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/<%#Eval("Values")("PrimaryImage")%>" />
+                <a href="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/<%#Eval("Values")("PrimaryImage")%>">
+                  <img class="img-thumbnail" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/<%#Eval("Values")("PrimaryImage")%>" />
+                </a>
               </xmod:IfNotEmpty>
               <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
                 <img class="img-thumbnail" src="http://placehold.it/300&text=no+image" />
               </xmod:IfEmpty>
+              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("AdditionalImages")%>'>
+                <div class="additional-images">
+                  <xmod:Each runat="server" Value='<%#Eval("Values")("AdditionalImages")%>' Delimiter="|">
+                    <ItemTemplate>
+                      {value}
+                    </ItemTemplate>
+                  </xmod:Each>
+                </div>              
+              </xmod:IfNotEmpty>
             </div>
 
             <div class="adsummary-wrapper">
@@ -445,4 +464,29 @@
     </div>
   </NoItemsTemplate>
 
-</xmod:Template></xmod:masterview>
+</xmod:Template>
+
+<script>
+	
+  function pageLoad(){
+    if ( $('.image-wrapper').length ) {
+      $('.image-wrapper').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        tLoading: 'Loading image #%curr%...',
+        mainClass: 'mfp-img-mobile',
+        gallery: {
+          enabled: true,
+          navigateByImgClick: true,
+          preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+        },
+        image: {
+          tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'        
+        }
+      });
+    } else {
+      $('.image-wrapper').unbind();
+    }  	
+  } 
+  
+</script></xmod:masterview>

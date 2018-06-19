@@ -81,21 +81,7 @@
   </ScriptBlock>
 
 
-  <SelectCommand CommandText="SELECT 
-                               [AdID]
-                              ,[Seller_Name]
-                              ,[Seller_Email]
-                              ,[SellerID]
-                              ,[LocationID]
-                              ,[Ad_Title]
-                              ,[Ad_Subtitle]
-                              ,[Ad_Price]
-                              ,[PrimaryImage]
-                              ,[Ad_Summary]
-                              ,[Ad_Description]
-                              ,[ShowAddress]
-                              ,[ShowPhone]
-                              ,[ShowEmail]
+  <SelectCommand CommandText="SELECT *
                               ,@UserID AS UpdatedBy
                               ,@UserIP AS Updated_IP
                               ,dbo.udf_XMP_GenerateDelimitedString (@AdID, 'cat', '|') AS Categories
