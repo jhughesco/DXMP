@@ -79,6 +79,7 @@
     })
   </script>
   <script src="/js/magnific/jquery.magnific-popup.min.js"></script>
+  <script src="/js/printThis/printThis.js"></script>
   
 </xmod:ScriptBlock>
 
@@ -467,6 +468,20 @@
 </xmod:Template>
 
 <script>
+  
+	$(document).ready(function() {
+
+  	$('body').on('click', '.magnific-print', function(e) {
+            
+      // Prevent any default behavior of the button
+      e.preventDefault();
+                          
+      var $img = $(this).closest('.mfp-figure').find('img');
+      $img.printThis();
+    
+    }); 
+  
+	});  
 	
   function pageLoad(){
     if ( $('.image-wrapper').length ) {
@@ -481,6 +496,15 @@
           preload: [0,1] // Will preload 0 - before current, and 1 after the current image
         },
         image: {
+          markup: '<div class="mfp-figure">'+
+          '<div class="mfp-close"></div>'+
+          '<div class="mfp-img"></div>'+
+          '<div class="mfp-bottom-bar">'+
+            '<div class="mfp-title"></div>'+
+            '<div class="mfp-counter"></div>'+
+            '<div class="print-me"><button class="magnific-print btn btn-default btn-xs">Print</button></div>' +
+          '</div>'+
+          '</div>',
           tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'        
         }
       });
