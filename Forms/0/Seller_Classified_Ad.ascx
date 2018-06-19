@@ -163,129 +163,154 @@
                                                       ) AS Categories
                                                       ORDER BY Categories.First_Level,Categories.Second_Level" />
   
-  <div class="form-horizontal post-ad-form">
-		<div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="LocationID">
-        Location
-      </Label>
-      <div class="col-sm-10">
-        <DropDownList Id="LocationID" CssClass="form-control required-field" Nullable="true" DataField="LocationID" DataSourceId="cds_Locations"
-                      DataTextField="CityState" DataValueField="LocationID" AppendDataBoundItems="true" DataType="int32">
-          <ListItem Value="">
+  <div class="panel panel-primary info_panel_spacing">
+      <div class="panel-heading">
+        <h3 class="panel-title">Primary Information</h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="form-group">
+          <Label For="LocationID">Location |<small Class="HeaderLabel_Small"> This is where the item is located.</small></Label>
+          <DropDownList Id="LocationID" CssClass="form-control required-field" Nullable="true" DataField="LocationID" DataSourceId="cds_Locations"
+                    DataTextField="CityState" DataValueField="LocationID" AppendDataBoundItems="true" DataType="int32">
+            <ListItem Value="">
             - Select Location -
-          </ListItem>
-        </DropDownList>
-        <Validate Target="LocationID" CssClass="validate-error" Type="required" Text="*" Message="Location is required." />
-      </div>
-    </div>
-
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Ad_Title">
-        Ad Title
-      </Label>
-      <div class="col-sm-10">
-        <TextBox Id="Ad_Title" CssClass="form-control required-field" Nullable="true" MaxLength="150" DataField="Ad_Title" DataType="string"
-                 />
-        <Validate Target="Ad_Title" CssClass="validate-error" Type="required" Text="*" Message="Ad Title is required." />
-      </div>
-
-    </div>
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Ad_Subtitle">
-        Ad Subtitle
-      </Label>
-      <div class="col-sm-10">
-        <TextBox Id="Ad_Subtitle" CssClass="form-control" Nullable="true" MaxLength="150" DataField="Ad_Subtitle" DataType="string" />
-      </div>
-    </div>
-
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Ad_Price">Ad Price</Label>
-      <div class="col-sm-10">
-        <div class="input-group">
-          <div class="input-group-addon">$</div>
-          <TextBox Id="Ad_Price" CssClass="form-control" Nullable="True" DataField="Ad_Price" DataType="decimal" />
-          <Validate Target="Ad_Price" CssClass="validate-error validate-error-addon" Type="regex" Message="Please enter price only (1234.00)" Text="*" ValidationExpression="^\d{0,10}(\.\d{1,2})?$" />
+            </ListItem>
+          </DropDownList>
+          <Validate Target="LocationID" CssClass="validate-error" Type="required" Text="*" Message="Location is required." />
         </div>
+
+        <div class="alert alert-warning" style="margin-top: 15px;">
+          <strong>Location not found?</strong> We currently service the Maricopa County area. We will consider expansion within reason. <a href="/Contact" target="_blank">Contact Us</a> to inquire.
+        </div>
+
+        <div class="form-group">
+          <Label For="Ad_Title">Ad Title |<small Class="HeaderLabel_Small"> The main title for your ad.</small></Label>
+          <TextBox Id="Ad_Title" CssClass="form-control required-field" Nullable="true" MaxLength="150" DataField="Ad_Title" DataType="string"/>
+          <Validate Target="Ad_Title" CssClass="validate-error" Type="required" Text="*" Message="Ad Title is required." />
+        </div>
+
+        <div class="form-group">
+          <Label For="Ad_Subtitle">Ad Subtitle |<small Class="HeaderLabel_Small"> You can use this like a <em>call-to-action</em> as well</small></Label>
+          <TextBox Id="Ad_Subtitle" CssClass="form-control" Nullable="true" MaxLength="150" DataField="Ad_Subtitle" DataType="string" />
+        </div>
+
+        <div class="form-group">
+          <Label For="Ad_Price">Ad Price |<small Class="HeaderLabel_Small"> Leave this blank if it's free.</small></Label>
+          <div class="input-group">
+            <div class="input-group-addon">$</div>
+                <TextBox Id="Ad_Price" CssClass="form-control" Width="150px" Nullable="True" DataField="Ad_Price" DataType="decimal" />
+                <Validate Target="Ad_Price" CssClass="validate-error validate-error-addon" Type="regex" Message="Please enter price only (1234.00)" Text="*" ValidationExpression="^\d{0,10}(\.\d{1,2})?$" />
+            </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="PrimaryImage">
-        Primary Image
-      </Label>
-      <div class="col-sm-10">
-        <rmg:Xile runat="server" Id="PrimaryImage" Nullable="True" DataField="PrimaryImage" Dropzone="False" AcceptFileTypes="jpg,jpeg,png" MaxNumberOfFiles="1"
-                  MaxFileSize="2097152" AutoUpload="True" AutoCreateFolder="True" FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/Ads/{1}/", PortalData("ID"), SelectData("SellerID"))%>'
-                  ResizeVersions="width=800;height=600;mode=max, md_:width=400;height=400; sm_:width=200;height=200;mode=max;mode=max, thm_:width=80;height=80;mode=max"
-                  UniqueFileName="True" UploadMode="Single" AddFilesButtonText="Add Image" WrapperClass="rmg-singleupload"
-                  ShowTopCancelButton="False" ShowTopCheckBox="False" ShowTopProgressBar="False" ShowTopDeleteButton="False">
-        </rmg:Xile>
-      </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        <h3 class="panel-title">Describe It</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+              <Label For="Ad_summary">Ad Summary |<small Class="HeaderLabel_Small"> Think of this like a short teaser.</small></Label>
+              <TextArea Id="Ad_summary" MaxLength="250" CharacterCount="CountDown" CharacterCountLabel="remaining" CssClass="form-control" Nullable="true" DataField="Ad_Summary" DataType="string" />
+            </div>
+
+            <div class="form-group">
+              <Label For="Ad_Description">Ad Description |<small Class="HeaderLabel_Small"> This will show on your ads detailed description.</small></Label>
+              <TextArea Id="Ad_Description" CssClass="form-control tinymce" Height="200" Nullable="true" DataField="Ad_Description" DataType="string" />
+            </div>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        <h3 class="panel-title">Panel title</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <Label For="PrimaryImage">Primary Image |<small Class="HeaderLabel_Small"> This will be the first image shown.</small></Label>
+                <rmg:Xile runat="server" Id="PrimaryImage" 
+                          Nullable="True" 
+                          DataField="PrimaryImage" 
+                          Dropzone="False" 
+                          AcceptFileTypes="jpg,jpeg,png" 
+                          MaxNumberOfFiles="1"
+                          MaxFileSize="2097152" 
+                          AutoUpload="True" 
+                          AutoCreateFolder="True" 
+                          FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/Ads/{1}/", PortalData("ID"), SelectData("SellerID"))%>'
+                          ResizeVersions="width=800;height=600;mode=max, md_:width=400;height=400; sm_:width=200;height=200;mode=max;mode=max, thm_:width=80;height=80;mode=max"
+                          UniqueFileName="True" 
+                          UploadMode="Single" 
+                          AddFilesButtonText="Add Image" 
+                          WrapperClass="rmg-singleupload"
+                          ShowTopCancelButton="False" 
+                          ShowTopCheckBox="False" 
+                          ShowTopProgressBar="False" 
+                          ShowTopDeleteButton="False"
+                          AllowedRoles="Sellers">
+                </rmg:Xile>
+            </div>
+
+            <div class="form-group">
+                <Label For="AdditionalImages">Additional Images |<small Class="HeaderLabel_Small"> Seen on your ads detail page.</small></Label>
+                <rmg:Xile runat="server" Id="AdditionalImages" 
+                          Nullable="True" 
+                          DataField="AdditionalImages" 
+                          Dropzone="True" 
+                          AcceptFileTypes="jpg,jpeg,png"
+                          MaxNumberOfFiles="20" 
+                          AutoUpload="True" 
+                          AutoCreateFolder="True" 
+                          ResizeVersions="width=800;height=600;mode=max, md_:width=400;height=400; sm_:width=200;height=200;mode=max;mode=max, thm_:width=80;height=80;mode=max"
+                          FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/Ads/{1}/", PortalData("ID"), SelectData("SellerID"))%>' 
+                          UniqueFileName="True"
+                          UploadMode="Multiple" 
+                          AddFilesButtonText="Add Files..."
+                          AllowedRoles="Sellers">
+                </rmg:Xile>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="AdditionalImages">
-        Additional Images
-      </Label>
-      <div class="col-sm-10">
-        <rmg:Xile runat="server" Id="AdditionalImages" Nullable="True" DataField="AdditionalImages" Dropzone="True" AcceptFileTypes="jpg,jpeg,png"
-                  MaxNumberOfFiles="20" AutoUpload="True" AutoCreateFolder="True" ResizeVersions="width=800;height=600;mode=max, md_:width=400;height=400; sm_:width=200;height=200;mode=max;mode=max, thm_:width=80;height=80;mode=max"
-                  FileUploadPath='<%#Join("~/Portals/{0}/Classifieds/Ads/{1}/", PortalData("ID"), SelectData("SellerID"))%>' UniqueFileName="True"
-                  UploadMode="Multiple" AddFilesButtonText="Add Files...">
-        </rmg:Xile>
-      </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        <h3 class="panel-title">Categories |<span Class="HeaderLabel"> Select at least one.</span></h3>
+        </div>
+        <div class="panel-body">
+            <ListBox Id="Categories" CssClass="form-control" Nullable="true" DataField="Categories" DataType="String" DataSourceId="cds_Categories"
+                        DataTextField="Category_Name" DataValueField="CategoryID" AppendDataBoundItems="true" Rows="4" SelectionMode="Multiple" />
+      	    <ul Id="Categories_Container"></ul>
+            <Validate Target="Categories" CssClass="validate-error validate-error-addon" Type="Required" Text="*" Message="Category is required" />
+        </div>
     </div>
-
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Ad_summary">Ad Summary</Label>
-      <div class="col-sm-10">
-        <TextArea Id="Ad_summary" MaxLength="250" CharacterCount="CountDown" CharacterCountLabel="remaining" CssClass="form-control" Nullable="true" DataField="Ad_Summary" DataType="string" />
-      </div>
+            
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+        <h3 class="panel-title">Visibility Options |<span class="HeaderLabel"> Control what is publicly seen on this ad. (seller defaults selected)</span></h3>
+        </div>
+        <div class="panel-body">
+            <ul class="Categories_Container">
+                <li>
+                    <CheckBox Id="ShowAddress" DataField="ShowAddress" DataType="boolean" />
+                <strong>Show Address</strong>
+                </li>
+                <li>
+                    <CheckBox Id="ShowPhone" DataField="ShowPhone" DataType="boolean" />
+                <strong>Show Phone</strong>
+                </li>
+                <li>
+                    <CheckBox Id="ShowEmail" DataField="ShowEmail" DataType="boolean" />
+                <strong>Show Email</strong>
+                </li>
+            </ul>
+         </div>
     </div>
-
-    <div class="form-group">
-      <Label CssClass="col-sm-2 control-label" For="Ad_Description">
-        Ad Description
-      </Label>
-      <div class="col-sm-10">
-        <TextArea Id="Ad_Description" CssClass="form-control tinymce" Height="200" Nullable="true" DataField="Ad_Description" DataType="string"
-                  />
-      </div>
-    </div>
-
-	<div class="well well-small col-sm-offset-2 col-sm-10 user-options">
-    <h3>Categories <span class="header-alt-text">Select at least one category.</span></h3>
-    <div class="checkbox">
-        <ListBox Id="Categories" CssClass="form-control" Nullable="true" DataField="Categories" DataType="String" DataSourceId="cds_Categories"
-                 DataTextField="Category_Name" DataValueField="CategoryID" AppendDataBoundItems="true" Rows="4" SelectionMode="Multiple"
-                 />
-      	<ul Id="Categories_Container"></ul>
-        <Validate Target="Categories" CssClass="validate-error validate-error-addon" Type="Required" Text="*" Message="Category is required" />
-    </div>
-  </div>
-
-	<div class="well well-small col-sm-offset-2 col-sm-10 user-options">
-    <h3>Visibility Options <span class="header-alt-text">Control what is publicly seen on this Ad.</span></h3>
-
-    <div class="checkbox">
-        <CheckBox Id="ShowAddress" DataField="ShowAddress" DataType="boolean" />
-        <strong>Show Address</strong>
-    </div>
-
-    <div class="checkbox">
-        <CheckBox Id="ShowPhone" DataField="ShowPhone" DataType="boolean" />
-        <strong>Show Phone</strong>
-    </div>
-
-    <div class="checkbox">
-        <CheckBox Id="ShowEmail" DataField="ShowEmail" DataType="boolean" />
-        <strong>Show Email</strong>
-    </div>
-		
-  </div>
-
-    <ValidationSummary CssClass="col-sm-offset-2 col-sm-10 alert alert-danger" Id="vsXMP_Classified_Ad" />
+  
+  	<ValidationSummary CssClass="col-sm-offset-2 col-sm-10 alert alert-danger" Id="vsXMP_Classified_Ad" />
 
     <div class="form-group">
       <Label class="col-sm-2 control-label">
@@ -295,10 +320,7 @@
         <UpdateButton CssClass="btn btn-primary" Text="Save Changes"  Redirect="/Dashboard" RedirectMethod="get" />
         <CancelButton CssClass="btn btn-default" Text="Cancel"  Redirect="/Dashboard" RedirectMethod="get" />
       </div>
-
-    </div>
-  </div>
-
+		</div>
 
   <TextBox Id="UpdatedBy" DataField="UpdatedBy" DataType="int32" visible="False" />
   <TextBox Id="Updated_IP" Width="200" Nullable="True" MaxLength="50" DataField="Updated_IP" DataType="string" visible="False" />
