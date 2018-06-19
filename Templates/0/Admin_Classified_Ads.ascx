@@ -94,7 +94,7 @@
 
 
 
-    <xmod:Template runat="server" UsePaging="True" Ajax="False" AddRoles="Administrators" EditRoles="Administrators" DeleteRoles="Administrators" DetailRoles="">
+    <xmod:Template runat="server" UsePaging="True" Ajax="True" AddRoles="Administrators" EditRoles="Administrators" DeleteRoles="Administrators" DetailRoles="">
 
         <ListDataSource CommandText="SELECT * FROM vw_XMP_Admin_Ad ORDER BY Approved, Date_Created" />
 
