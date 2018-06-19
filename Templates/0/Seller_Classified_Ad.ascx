@@ -18,17 +18,6 @@
     .alt-row {
       background-color: #e8e8e8;
     }
-    .approved-False, .approved-alt-False {
-      background-color: #fee2e2 !important;
-    }
-    
-    .approved-True {
-      background-color: #fff !important;
-    }
-    
-    .approved-alt-True {
-      background-color: #e8e8e8 !important;
-    }
     
     .detail_title {
       text-align: center;
@@ -58,7 +47,7 @@
       width: 75%; 
     }
     
-    
+    .status-row { border-bottom: 15px solid #ebebeb; }
     .summary-wrapper { margin-top:50px; }
     .summary-wrapper .title-wrapper { text-align:center; }
     .summary-wrapper .title-wrapper h1 { margin: 0px; }
@@ -117,7 +106,7 @@
     </DataCommand>
   </customcommands>
 
-  <Pager PageSize="5"
+  <Pager PageSize="10"
          ShowTopPager="False"
          ShowBottomPager="True"
          ShowFirstLast="True"
@@ -136,8 +125,8 @@
 
   <SearchSort FilterExpression="Ad_Title LIKE '%{0}%'"
               SearchLabelText="Search For:" SearchButtonText="GO"
-              SortFieldNames="Ad_Title,Seller_Name,Location,Date_Created"
-              SortFieldLabels="Title,Name,Location,Created"
+              SortFieldNames="Approved, Active, IsSold, Ad_Expires, Date_Created"
+              SortFieldLabels="Approved, Active, Sold, Expired, Created"
               SearchBoxCssClass="form-control"
               SearchButtonCssClass="btn btn-default"
               SortButtonText="Go"
@@ -180,12 +169,12 @@
 		<table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th class="text-center">Sold</th>
           <th class="text-center">Image</th>
+          <th class="text-center">ID</th>
           <th class="text-center">Title</th>
           <th class="text-center">Price</th>
           <th class="text-center">Created</th>
-          <th class="text-center">Ad Expires</th>
+          <th class="text-center">Expires</th>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -193,17 +182,7 @@
 	</HeaderTemplate>
 
   <ItemTemplate>
-        <tr class="approved-<%#Eval("Values")("Approved")%>">
-          <td class="text-center">
-            <xmod:Select runat="server"   Mode="Standard">
-              <Case CompareType="Boolean" Value="True" Operator="=" Expression='<%#Eval("Values")("IsSold")%>'>
-                <h4 style="color: green;">SOLD</h4>
-              </Case>
-              <Else>
-                <h4 style="color: red;"> NOT SOLD</h4>
-              </Else>
-            </xmod:Select>
-          </td>
+        <tr>
           <td>
             <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
               <img src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
@@ -212,7 +191,8 @@
               <img class="img-thumbnail" src="http://placehold.it/80&text=no+image" />
             </xmod:IfEmpty>
           </td>
-					<td><%#Eval("Values")("Ad_Title")%></td>
+					<td class="text-center"><%#Eval("Values")("AdID")%></td>
+          <td><%#Eval("Values")("Ad_Title")%></td>
           <td>
             <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" />
           </td>
@@ -268,7 +248,7 @@
                               </Case>
                               <Case Comparetype="Boolean" Value='<%#Eval("Values")("IsSold")%>' Operator="=" Expression="False">
                                 <li>
-                                  <xmod:CommandLink runat="server"   Text="For Sale" ToolTip="Mark item/s SOLD">
+                                  <xmod:CommandLink runat="server"   Text="Mark Sold" ToolTip="Mark item/s SOLD">
                                     <Command Name="FlagToggle" Type="Custom">
                                       <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
                                       <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
@@ -305,20 +285,28 @@
 						</div>
           </td>
     		</tr>
+    		<tr class="status-row">
+          <td colspan="7">
+            <xmod:Select runat="server" Mode="Inclusive">
+              <Case Comparetype="Boolean" Value='<%#Eval("Values")("Approved")%>' Operator="=" Expression="False">
+                <span class="label label-warning">Pending Approval</span>
+              </Case>
+              <Case Comparetype="Boolean" Value='<%#Eval("Values")("Expired")%>' Operator="=" Expression="True">
+                <span class="label label-danger">Expired</span>
+              </Case>
+              <Case Comparetype="Boolean" Value='<%#Eval("Values")("Active")%>' Operator="=" Expression="False">
+                <span class="label label-default">Inactive</span>
+              </Case>
+              <Case Comparetype="Boolean" Value='<%#Eval("Values")("IsSold")%>' Operator="=" Expression="True">
+                <span class="label label-success">Sold</span>
+              </Case>
+            </xmod:Select>
+          </td>
+        </tr>
   </ItemTemplate>
 
   <AlternatingItemTemplate>
-  	<tr class="alt-row approved-alt-<%#Eval("Values")("Approved")%>">
-          <td class="text-center">
-            <xmod:Select runat="server"   Mode="Standard">
-              <Case CompareType="Boolean" Value="True" Operator="=" Expression='<%#Eval("Values")("IsSold")%>'>
-                <h4 style="color: green;">SOLD</h4>
-              </Case>
-              <Else>
-                <h4 style="color: red;"> NOT SOLD</h4>
-              </Else>
-            </xmod:Select>
-          </td>
+  	<tr class="alt-row">
           <td>
             <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
               <img src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
@@ -327,7 +315,8 @@
               <img class="img-thumbnail" src="http://placehold.it/80&text=no+image" />
             </xmod:IfEmpty>
           </td>
-					<td><%#Eval("Values")("Ad_Title")%></td>
+					<td class="text-center"><%#Eval("Values")("AdID")%></td>
+          <td><%#Eval("Values")("Ad_Title")%></td>
           <td>
             <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" />
           </td>
@@ -383,7 +372,7 @@
                               </Case>
                               <Case Comparetype="Boolean" Value='<%#Eval("Values")("IsSold")%>' Operator="=" Expression="False">
                                 <li>
-                                  <xmod:CommandLink runat="server"   Text="For Sale" ToolTip="Mark item/s SOLD">
+                                  <xmod:CommandLink runat="server"   Text="Mark Sold" ToolTip="Mark item/s SOLD">
                                     <Command Name="FlagToggle" Type="Custom">
                                       <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
                                       <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
@@ -420,6 +409,24 @@
 						</div>
           </td>
     		</tr>
+    		<tr class="status-row">
+          <td colspan="7">
+            <xmod:Select runat="server" Mode="Inclusive">
+              <Case Comparetype="Boolean" Value='<%#Eval("Values")("Approved")%>' Operator="=" Expression="False">
+                <span class="label label-warning">Pending Approval</span>
+              </Case>
+              <Case Comparetype="Boolean" Value='<%#Eval("Values")("Expired")%>' Operator="=" Expression="True">
+                <span class="label label-danger">Expired</span>
+              </Case>
+              <Case Comparetype="Boolean" Value='<%#Eval("Values")("Active")%>' Operator="=" Expression="False">
+                <span class="label label-default">Inactive</span>
+              </Case>
+              <Case Comparetype="Boolean" Value='<%#Eval("Values")("IsSold")%>' Operator="=" Expression="True">
+                <span class="label label-success">Sold</span>
+              </Case>
+            </xmod:Select>
+          </td>
+        </tr>
   </AlternatingItemTemplate>
 
 
