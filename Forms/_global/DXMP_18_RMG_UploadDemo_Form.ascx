@@ -27,7 +27,7 @@
       .rmg-singleupload .fileupload-buttons { border: 0px;}
       .rmg-singleupload .rmg-filetable { border-top: 0px; }
     </style>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
       
   </ScriptBlock>
 
@@ -146,7 +146,7 @@
       .rmg-singleupload .fileupload-buttons { border: 0px;}
       .rmg-singleupload .rmg-filetable { border-top: 0px; }
     </style>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
   </ScriptBlock>
 
 

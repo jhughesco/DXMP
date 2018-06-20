@@ -80,7 +80,7 @@
 
   </style>
   
-  <link href="/js/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <link href="/js/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet" />
 	<script src="/js/bootstrap-toggle/js/bootstrap-toggle.min.js">
     $(function() {
       $('#toggle-one').bootstrapToggle();
