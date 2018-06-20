@@ -139,7 +139,7 @@
         <SearchSort
             FilterExpression="Ad_Title LIKE '%{0}%'"
             SearchLabelText="Search For:" SearchButtonText="GO"
-            SortFieldNames="Ad_Title,Seller_Name,Location,Date_Created"
+            SortFieldNames="Ad_Title,Seller_Name,CityState,Date_Created"
             SortFieldLabels="Title,Name,Location,Created"
             SearchBoxCssClass="form-control"
             SearchButtonCssClass="btn btn-default"
@@ -218,7 +218,7 @@
                       </xmod:Redirect>
                     </div>
                 </td>
-                <td><%#Eval("Values")("Location")%></td>
+                <td><%#Eval("Values")("CityState")%></td>
                 <td><%#Eval("Values")("Ad_Title")%></td>
                 <td>
                     <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></td>
@@ -421,7 +421,7 @@
                       </xmod:Redirect>
                     </div>
                 </td>
-                <td><%#Eval("Values")("Location")%></td>
+                <td><%#Eval("Values")("CityState")%></td>
                 <td><%#Eval("Values")("Ad_Title")%></td>
                 <td>
                     <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></td>
@@ -633,7 +633,7 @@
               <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Subtitle")%>'>
                 <h2><%#Eval("Values")("Ad_Subtitle")%></h2>
               </xmod:IfNotEmpty>
-              <h5>Item located in <%#Eval("Values")("Location")%></h5>
+              <h5>Item located in <%#Eval("Values")("CityState")%></h5>
             </div>
             <div class="price-wrapper">
               <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
@@ -673,7 +673,7 @@
                 <li class="list-group-item">Expires on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" /></li>
                 <xmod:Select runat="server">
                   <Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowAddress")%>' Operator="=" Expression="True">
-                    <li class="list-group-item">Address: <%#Eval("Values")("Seller_Address")%> - <%#Eval("Values")("SellerLocation")%></li>
+                    <li class="list-group-item">Address: <%#Eval("Values")("Seller_Address")%> - <%#Eval("Values")("SellerCityState")%></li>
                   </Case>
                 </xmod:Select>
               </ul>
@@ -688,7 +688,7 @@
               <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Subtitle")%>'>
               	<h2><%#Eval("Values")("Ad_Subtitle")%></h2>
               </xmod:IfNotEmpty>
-              <h5>Item located in <%#Eval("Values")("Location")%></h5>
+              <h5>Item located in <%#Eval("Values")("CityState")%></h5>
             </div>
             <div class="price-wrapper">
               <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
@@ -722,7 +722,7 @@
                 <li class="list-group-item">Expires on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" /></li>
                 <xmod:Select runat="server">
                 	<Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowAddress")%>' Operator="=" Expression="True">
-                  	<li class="list-group-item">Address: <%#Eval("Values")("Seller_Address")%> - <%#Eval("Values")("SellerLocation")%></li>
+                  	<li class="list-group-item">Address: <%#Eval("Values")("Seller_Address")%> - <%#Eval("Values")("SellerCityState")%></li>
                   </Case>
                 </xmod:Select>
               </ul>
@@ -772,7 +772,7 @@
             <tbody>
               <tr>
                 <td><%#Eval("Values")("Seller_Address")%></td>
-                <td><%#Eval("Values")("SellerLocation")%> (<%#Eval("Values")("Seller_Location")%>)</td>
+                <td><%#Eval("Values")("SellerCityState")%> (<%#Eval("Values")("Seller_Location")%>)</td>
                 <td><%#Eval("Values")("Seller_Phone")%></td>
                 <td><%#Eval("Values")("Seller_Email")%></td>
                 <td><%#Eval("Values")("ShowAddress")%></td>

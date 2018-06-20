@@ -14,7 +14,7 @@
   <ListDataSource CommandText="SELECT TOP 25
                                a.[AdID]
                                ,a.[SellerID]
-                               ,loc.City + ', ' + loc.State AS Location
+                               ,loc.City + ', ' + loc.State AS CityState
                                ,a.[Ad_Title]
                                ,a.[Ad_Summary]
                                ,a.[Ad_Price]
@@ -52,7 +52,7 @@
             <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
               FREE!
             </xmod:IfEmpty>
-             - <%#Eval("Values")("Location")%>
+             - <%#Eval("Values")("CityState")%>
           </h5>            
           <div>
             <%#Eval("Values")("Ad_Summary")%>

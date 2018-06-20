@@ -338,7 +338,7 @@
               <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Subtitle")%>'>
                 <h2><%#Eval("Values")("Ad_Subtitle")%></h2>
               </xmod:IfNotEmpty>
-              <h5>Item located in <%#Eval("Values")("Location")%></h5>
+              <h5>Item located in <%#Eval("Values")("CityState")%></h5>
             </div>
             <div class="price-wrapper">
               <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
@@ -389,7 +389,7 @@
                 <li class="list-group-item">Expires on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" /></li>
                 <xmod:Select runat="server">
                   <Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowAddress")%>' Operator="=" Expression="True">
-                    <li class="list-group-item">Address: <%#Eval("Values")("Seller_Address")%> - <%#Eval("Values")("SellerLocation")%></li>
+                    <li class="list-group-item">Address: <%#Eval("Values")("Seller_Address")%> - <%#Eval("Values")("SellerCityState")%></li>
                   </Case>
                 </xmod:Select>
               </ul>
@@ -404,7 +404,7 @@
               <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Subtitle")%>'>
               	<h2><%#Eval("Values")("Ad_Subtitle")%></h2>
               </xmod:IfNotEmpty>
-              <h5>Item located in <%#Eval("Values")("Location")%></h5>
+              <h5>Item located in <%#Eval("Values")("CityState")%></h5>
             </div>
             <div class="price-wrapper">
               <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
@@ -438,7 +438,7 @@
                 <li class="list-group-item">Expires on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" /></li>
                 <xmod:Select runat="server">
                 	<Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowAddress")%>' Operator="=" Expression="True">
-                  	<li class="list-group-item">Address: <%#Eval("Values")("Seller_Address")%> - <%#Eval("Values")("SellerLocation")%></li>
+                  	<li class="list-group-item">Address: <%#Eval("Values")("Seller_Address")%> - <%#Eval("Values")("SellerCityState")%></li>
                   </Case>
                 </xmod:Select>
               </ul>
