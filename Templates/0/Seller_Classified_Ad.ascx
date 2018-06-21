@@ -203,7 +203,12 @@
 					<td class="text-center"><%#Eval("Values")("AdID")%></td>
           <td><%#Eval("Values")("Ad_Title")%></td>
           <td>
-            <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" />
+            <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+              <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" />
+            </xmod:IfNotEmpty>
+            <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+              FREE!
+            </xmod:IfEmpty>
           </td>
           <td>
             <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" />

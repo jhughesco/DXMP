@@ -6,6 +6,122 @@
     #Popup_Modal .modal-body {
       background:url("/images/loading.gif") center no-repeat;
     }
+    #RecentAds {
+      margin-left: 0px;
+      border: 1px solid #ebebeb;
+      border-radius: 2px;
+      position: relative;
+    }
+    
+    #RecentAds li.media {
+      border-bottom: 1px solid #ebebeb;
+      margin-top: 0px;
+      position: relative;      
+    }
+    
+    #RecentAds li.media:nth-child(odd) { background: #f1f1f1; }
+    
+    #RecentAds li.media a {
+      text-decoration: none;
+    }
+    
+    #RecentAds li.media .fa-picture-o {
+      font-size: 28px;
+    	padding: 35px;
+    }
+    
+    #RecentAds li.media .fa-expand {
+      opacity: 0;      
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+    
+    #RecentAds li.media:hover .fa-expand {
+      opacity: 1;
+    }
+    
+    #RecentAds li.media .media-left {
+      padding: 0px;
+      background: white;
+    }
+    
+    #RecentAds li.media .media-body {
+      border-left: 1px dashed #ebebeb;
+      padding: 5px 0 5px 10px !important;
+    }
+    
+    #RecentAds li.media .media-body h4 {
+     	text-align: left !important; 
+    }
+    #RecentAds li.media .media-body h5 {
+     	text-align: left !important; 
+    }
+    
+    #RecentAds li.media .media-body div {
+     	text-align: left !important; 
+    }
+    
+    .media {
+      margin-top: 0px !important;
+      border-bottom: solid 1px #e4e4e4 !important; 
+    }
+    
+    .media-heading {
+     	margin-top: 2px !important; 
+    }
+    
+    .media-body {
+      padding: 0 !important;
+    }
+    .ribbon-box {
+      position: relative;
+      border: 1px solid transparent;
+    }
+    .ribbon {
+      position: absolute;
+      right: -5px; top: -5px;
+      z-index: 1;
+      overflow: hidden;
+      width: 75px; height: 75px;
+      text-align: right;
+    }
+    .ribbon span {
+      font-size: 10px;
+      font-weight: bold;
+      color: #FFF;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      width: 100px;
+      display: block;
+      background: #79A70A;
+      background: linear-gradient(#9BC90D 0%, #79A70A 100%);
+      box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+      position: absolute;
+      top: 19px; right: -21px;
+    }
+    .ribbon span::before {
+      content: "";
+      position: absolute; left: 0px; top: 100%;
+      z-index: -1;
+      border-left: 3px solid #79A70A;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #79A70A;
+    }
+    .ribbon span::after {
+      content: "";
+      position: absolute; right: 0px; top: 100%;
+      z-index: -1;
+      border-left: 3px solid transparent;
+      border-right: 3px solid #79A70A;
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid #79A70A;
+    }
+   	
   </style>
 </xmod:ScriptBlock>
 
@@ -16,7 +132,7 @@
                                ,a.[SellerID]
                                ,loc.City + ', ' + loc.State AS CityState
                                ,a.[Ad_Title]
-                               ,a.[Ad_Summary]
+                               ,left(a.[Ad_Summary],20) AS Ad_Summary
                                ,a.[Ad_Price]
                                ,a.[PrimaryImage]
 
@@ -26,44 +142,47 @@
   </ListDataSource>
   
   <HeaderTemplate>
-  	<ul class="media-list">
+  	<div class="ribbon-box">
+      <div class="ribbon"><span>RECENT ADs!</span></div>
+    	<ul id="RecentAds" class="media-list">
   </HeaderTemplate>
   
 	<ItemTemplate>
-    	<li class="media">
-        <div class="media-left">
-          <a data-toggle="modal" data-target="#Popup_Modal" data-id="<%#Eval("Values")("AdID")%>" data-title="<%#Eval("Values")("Ad_Title")%>" href="#">
-            <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-              <img class="media-object" alt="<%#Eval("Values")("Ad_Title")%>" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
-            </xmod:IfNotEmpty>
-            <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-              <img class="media-object" alt="<%#Eval("Values")("Ad_Title")%>" src="http://placehold.it/100x100?text=no+image" />
-            </xmod:IfEmpty>
-          </a>
+    <li class="media">
+      <div class="media-left media-middle">
+        <a data-toggle="modal" data-target="#Popup_Modal" data-id="<%#Eval("Values")("AdID")%>" data-title="<%#Eval("Values")("Ad_Title")%>" href="#">
+          <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
+            <img class="img-responsive center-block" alt="<%#Eval("Values")("Ad_Title")%>" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
+          </xmod:IfNotEmpty>
+          <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
+            <img class="img-responsive center-block" alt="<%#Eval("Values")("Ad_Title")%>" src="http://placehold.it/80?text=no+image" />
+          </xmod:IfEmpty>
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <a data-toggle="modal" data-target="#Popup_Modal" data-id="<%#Eval("Values")("AdID")%>" data-title="<%#Eval("Values")("Ad_Title")%>" href="#"><%#Eval("Values")("Ad_Title")%></a>
+        </h4>
+        <h5>
+          <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+            <span class="label label-success"><xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></span>
+          </xmod:IfNotEmpty>
+          <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+            <span class="label label-primary">FREE!</span>
+          </xmod:IfEmpty>
+            <small><%#Eval("Values")("CityState")%></small>
+        </h5>            
+        <div>
+          <%#Eval("Values")("Ad_Summary")%>
         </div>
-        <div class="media-body">
-          <h4 class="media-heading">
-            <a data-toggle="modal" data-target="#Popup_Modal" data-id="<%#Eval("Values")("AdID")%>" data-title="<%#Eval("Values")("Ad_Title")%>" href="#"><%#Eval("Values")("Ad_Title")%></a>
-          </h4>
-          <h5>
-            <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
-              <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" />
-            </xmod:IfNotEmpty>
-            <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
-              FREE!
-            </xmod:IfEmpty>
-             - <%#Eval("Values")("CityState")%>
-          </h5>            
-          <div>
-            <%#Eval("Values")("Ad_Summary")%>
-          </div>
-        </div>
-      </li>
-    
+      </div>
+    </li>
   </ItemTemplate>
   
   <FooterTemplate>
-  	</ul>
+  		</ul>
+    </div>
+    <a href="/Ads" class="btn btn-block btn-primary" style="color: white">See em' all!</a>
   </FooterTemplate>
   
 </xmod:Template>
