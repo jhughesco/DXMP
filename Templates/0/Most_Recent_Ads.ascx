@@ -98,7 +98,7 @@
       width: 100px;
       display: block;
       background: #79A70A;
-      background: linear-gradient(#9BC90D 0%, #79A70A 100%);
+      background: linear-gradient(#F70505 0%, #8F0808 100%);
       box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
       position: absolute;
       top: 19px; right: -21px;
@@ -107,19 +107,23 @@
       content: "";
       position: absolute; left: 0px; top: 100%;
       z-index: -1;
-      border-left: 3px solid #79A70A;
+      border-left: 3px solid #8F0808;
       border-right: 3px solid transparent;
       border-bottom: 3px solid transparent;
-      border-top: 3px solid #79A70A;
+      border-top: 3px solid #8F0808;
     }
     .ribbon span::after {
       content: "";
       position: absolute; right: 0px; top: 100%;
       z-index: -1;
       border-left: 3px solid transparent;
-      border-right: 3px solid #79A70A;
+      border-right: 3px solid #8F0808;
       border-bottom: 3px solid transparent;
-      border-top: 3px solid #79A70A;
+      border-top: 3px solid #8F0808;
+    }
+    
+    .marketing .col-lg-4 {
+      width: 33.33333333% !important;
     }
    	
   </style>
