@@ -131,18 +131,7 @@
 
 <xmod:Template runat="server" UsePaging="False">
 
-  <ListDataSource CommandText="SELECT TOP 25
-                               a.[AdID]
-                               ,a.[SellerID]
-                               ,loc.City + ', ' + loc.State AS CityState
-                               ,a.[Ad_Title]
-                               ,left(a.[Ad_Summary],20) AS Ad_Summary
-                               ,a.[Ad_Price]
-                               ,a.[PrimaryImage]
-
-                               FROM XMP_Classified_Ad a
-                               LEFT JOIN XMP_Classified_Location loc ON a.LocationID = loc.LocationID
-                               ORDER BY a.[Date_Created] DESC">
+  <ListDataSource CommandText="SELECT TOP 25 * FROM vw_XMP_All_Ads ORDER BY Date_Created DESC">
   </ListDataSource>
   
   <HeaderTemplate>
