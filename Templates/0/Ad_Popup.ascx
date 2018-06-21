@@ -9,66 +9,31 @@
     .summary-wrapper .title-wrapper h2 { margin: 0px; }
     .summary-wrapper .title-wrapper h5 { margin: 0px; }
     .summary-wrapper .image-wrapper { text-align: center; margin-top: 20px; }
+    .image-wrapper img { display: inherit!important; }
     .summary-wrapper .price-wrapper { text-align: center; font-size: 20px; color: darkgreen; }
     .summary-wrapper .contact-wrapper { text-align: center; margin-top: 10px; font-size: 16px; color: #555; }
-    .summary-wrapper .adsummary-wrapper { max-width: 600px; margin: 20px auto; }
-    .summary-wrapper .adsummary-wrapper p { font-size: 16px; color: #555; border: 4px solid #ebebeb; padding: 20px; border-radius: 10px; }
+    .summary-wrapper .adsummary-wrapper { max-width: 600px; margin: 20px auto; border: 4px solid #ebebeb; border-radius: 10px;}
+    .summary-wrapper .adsummary-wrapper p { font-size: 16px!important; color: #555 !important; padding: 10px !important; }
     .summary-wrapper .adinfo-wrapper { max-width: 600px; margin: 15px auto; }
     .summary-wrapper .addetails-wrapper { border: 4px solid #ebebeb; border-radius: 10px; padding: 20px; margin: 20px 0px;}
     .additional-images { margin-top: 10px; }
+    .img-thumbnail { display: inline-block !important; }
+    
   </style>
  
-  <link rel="stylesheet" href="/plugins/magnific/magnific-popup.css" type="text/css" />
+  <link href="/js/magnific/magnific-popup.css" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css?cdv=23" media="all" type="text/css" rel="stylesheet"/>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css?cdv=23" media="all" type="text/css" rel="stylesheet"/>
-  <script type="text/javascript" src="/plugins/magnific/jquery.magnific-popup.min.js"></script>
+  <script src="/js/magnific/jquery.magnific-popup.min.js"></script>
       
 </xmod:ScriptBlock>
 
 
 <xmod:Template runat="server" UsePaging="False">
-  <ListDataSource CommandText="SELECT 
-                                  
-                                  -- From XMP_Classified_Ad Table
-                                  a.[AdID]
-                                 ,a.[SellerID]
-                                 ,a.[LocationID]
-                                 ,a.[Ad_Title]
-                                 ,a.[Ad_Subtitle]
-                                 ,a.[Ad_Price]
-                                 ,a.[PrimaryImage]
-                                 ,dbo.udf_XMP_GenerateImagesWithPath(a.AdID, '/Portals/' + CAST(@PortalID as nvarchar(10)) + '/Classifieds/Ads/' + CAST(a.SellerID as nvarchar(10)) + '/', '|') AS AdditionalImages
-                                 ,a.[Ad_Summary]
-                                 ,a.[Ad_Description]
-                                 ,a.[Date_Created]
-                                 ,a.[Date_Updated]
-                                 ,a.[IsSold]
-                                 ,a.[DateSold]
-                                 ,a.[Ad_Expires]
-                                 ,a.[Approved]
-                                 ,a.[Active]
-                                 ,a.[ShowAddress]
-                                 ,a.[ShowPhone]
-                                 ,a.[ShowEmail] 
-                                 
-                                 -- From XMP_Classified_Seller Table
-                                 ,seller.[Seller_Name]
-                                 ,seller.[Seller_Location]
-                                 ,seller.[Seller_Address]
-                                 ,seller.[Seller_Phone]
-                                 ,seller.[Seller_Email]
-                                 
-                                 -- From XMP_Classified_Location Table
-                                 ,loc.City + ', ' + loc.State AS CityState
-                                 
-                                 -- From XMP_Classified_Location Table
-                                 ,loc2.City + ', ' + loc2.State AS SellerCityState
-                                 
-                                 FROM XMP_Classified_Ad a
-                                 INNER JOIN XMP_Classified_Seller seller ON a.SellerID = seller.SellerID
-                                 LEFT JOIN XMP_Classified_Location loc ON a.LocationID = loc.LocationID
-                                 LEFT JOIN XMP_Classified_Location loc2 ON seller.Seller_Location = loc2.LocationID
-                                 WHERE a.[AdID] = @AdID">
+  <ListDataSource CommandText="SELECT *,
+                               				dbo.udf_XMP_GenerateImagesWithPath(AdID, '/Portals/' + CAST(@PortalID as nvarchar(10)) + '/Classifieds/Ads/' + CAST(SellerID as nvarchar(10)) + '/', '|') AS AdditionalImages
+                               FROM vw_XMP_Admin_Ad_Detail 
+                               WHERE [AdID] = @AdID">
     <Parameter Name="AdID" Value='<%#UrlData("AdID")%>' DataType="Int32" />
     <Parameter Name="PortalID" Value='<%#PortalData("ID")%>' DataType="Int32" />
   </ListDataSource>
@@ -103,11 +68,11 @@
       <div class="image-wrapper">
         <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
           <a href="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/<%#Eval("Values")("PrimaryImage")%>">
-            <img class="img-thumbnail" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/<%#Eval("Values")("PrimaryImage")%>" />
+            <img class="img-responsive center-block" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/<%#Eval("Values")("PrimaryImage")%>" />
           </a>
         </xmod:IfNotEmpty>
         <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-          <img class="img-thumbnail" src="http://placehold.it/300x300&text=no+image" />
+          <img class="img-responsive center-block" src="http://placehold.it/300x300&text=no+image" />
         </xmod:IfEmpty>
         <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("AdditionalImages")%>'>
           <div class="additional-images">
