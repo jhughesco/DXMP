@@ -159,7 +159,7 @@
           <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
             <span class="label label-primary">FREE!</span>
           </xmod:IfEmpty>
-            <small><%#Eval("Values")("CityState")%></small>
+            <small><%#Eval("Values")("Location")%></small>
         </h5>            
         <div>
           <%#Eval("Values")("Ad_Summary")%>
