@@ -121,11 +121,7 @@
       border-bottom: 3px solid transparent;
       border-top: 3px solid #8F0808;
     }
-    
-    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      .marketing .col-lg-4 { width: 33.33333333%; }
-    }
-   	
+           	
   </style>
 </xmod:ScriptBlock>
 
