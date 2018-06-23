@@ -26,6 +26,26 @@
       
 </xmod:ScriptBlock>
 
+<xmod:Select runat="server">
+  <Case Comparetype="Role" Operator="<>" Expression="Sellers">
+    <div class="row">
+      <div class="col-xm-12 text-center">
+        <a href="/Join" class="btn btn-success btn-lg active" role="button">Join to become a Seller!</a>
+      </div>
+    </div>
+  </Case>
+</xmod:Select>
+
+<div class="row">
+  <div class="col-xm-12 text-center">
+    <div class="btn btn-group">
+      <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#Category_Modal">Categories &amp; Locations</a>
+      <a href="/Ads" class="btn btn-default">View All Ads</a>
+    </div>
+  </div>
+</div>
+
+<hr />
 
 <xmod:Template runat="server" UsePaging="False">
   <ListDataSource CommandText="SELECT *,
@@ -37,6 +57,12 @@
   </ListDataSource>
   
   <ItemTemplate>
+    
+    <xmod:metatags runat="server">
+      <Title><%#Eval("Values")("Ad_Title")%> in <%#Eval("Values")("CityState")%></Title>
+      <Description><%#Eval("Values")("Ad_Summary")%></Description>      
+    </xmod:metatags> 
+
     <div class="summary-wrapper">
       <div class="title-wrapper">
         <h1><%#Eval("Values")("Ad_Title")%></h1>
@@ -123,8 +149,12 @@
     <div class="row">
       <div class="col-sm-12 text-center">
         <i class="fa fa-warning" style="font-size: 5em; display: block"></i>
-        <h3>Bummer! No ads found.</h3>
-        <h4>Try changing your search, location, or category.</h4>
+        <h3>We're sorry. This ad no longer exists.</h3>
+        <h4>
+          It most likely expired by the time you got here. 
+          Feel free to browse our other ads by clicking one of 
+          the buttons above!
+        </h4>
       </div>
     </div>
   </NoItemsTemplate>
@@ -132,8 +162,17 @@
 </xmod:Template>
 
 <script>
-	
-  function pageLoad(){
+  $(document).ready(function() {
+    
+    $('.modal').appendTo('body');
+    var $cats = $('#Category_Modal');
+
+    ResizeModal($cats);
+    
+    $(window).resize(function() {
+      ResizeModal($cats);
+    });
+    
     if ( $('.image-wrapper').length ) {
       $('.image-wrapper').magnificPopup({
         delegate: 'a',
@@ -157,9 +196,19 @@
           }
         }
       });
-    } else {
-      $('.image-wrapper').unbind();
-    }  	
-  } 
+    }   
+    
+  });
   
+  function ResizeModal($modal) {
+    $modal.find('.modal-content').css('height', $(window).height()*0.8);
+            
+    var totalHeight = parseInt($modal.find('.modal-content').css("height")),
+        headerHeight = parseInt($modal.find('.modal-header').css("height")),
+        footerHeight = parseInt($modal.find('.modal-footer').css("height")),
+        bodyHeight = totalHeight - headerHeight - footerHeight;
+    
+    $modal.find('.modal-body').css("height", bodyHeight + "px");		
+    
+  }
 </script></xmod:masterview>

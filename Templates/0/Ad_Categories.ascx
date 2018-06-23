@@ -22,6 +22,9 @@
       list-style: none;
     }
     
+    .modal-content { height: auto !important; }
+    .modal-body { height: auto !important; }
+    
   </style>
 </xmod:ScriptBlock>
 
@@ -106,11 +109,11 @@
     <div class="modal fade" id="Category_Modal" tabindex="-1" role="dialog" aria-labelledby="Category_Modal">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header" style="height: 56px">
+          <div class="modal-header" style="height: 56px;">
             <select class="form-control" id="Ad_Locations"></select>
             <xmod:LoadFeed runat="server" FeedName="Ads_GetLocations" Target="#Ad_Locations" />
           </div>
-          <div class="modal-body" style="overflow: auto">
+          <div class="modal-body" style="overflow: auto;">
             <div class="text-center">
               <a style="color: white" id="view_all_ads" class="btn btn-warning" href="/Ads">View All Ads</a>
               <hr/>
