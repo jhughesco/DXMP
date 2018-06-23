@@ -5,6 +5,7 @@
   <style type="text/css">
     #Popup_Modal .modal-body {
       background:url("/images/loading.gif") center no-repeat;
+      overflow-y: hidden;
     }
     #RecentAds {
       margin-left: 0px;
@@ -123,6 +124,7 @@
          data-target="#Popup_Modal" 
          data-id="<%#Eval("Values")("AdID")%>" 
          data-title="<%#Eval("Values")("Ad_Title")%>" 
+         data-source="/Ads/Details/Popup?AdID=<%#Eval("Values")("AdID")%>"
          href="#">
         <span class="fa fa-expand"></span>
         <div class="media-left">
@@ -170,7 +172,7 @@
         <h4 class="modal-title">&nbsp;</h4>
       </div>
       <div class="modal-body">
-        <iframe style="overflow:hidden;height:100%;width:100%"></iframe>        
+                
       </div>
       <div class="modal-footer" style="height: 65px">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        
@@ -198,11 +200,18 @@
       // The invoker is the link that was clicked on where we hide data attributes
       var $invoker = $(e.relatedTarget),
           id = $invoker.data("id"),
-          title = $invoker.data("title");
+          title = $invoker.data("title"),
+          source = $invoker.data("source");
       
       // Now that we have the title of the ad, and id of the ad, we can populate:      
       $modal.find('.modal-title').html(title);
-      $modal.find('iframe').attr("src", "/Ads/Details/Popup?AdID=" + id);
+      
+      var iframe = $('<iframe />', {
+                     style: 'overflow-y:auto;height:100%;width:100%',
+                     src: source    						 
+                   });
+  
+      $modal.find('.modal-body').html(iframe);
 			
 		});
     
@@ -212,8 +221,8 @@
     });  
     
     $('.modal').on('hide.bs.modal', function(e) {
-      // When a modal is closed, we need to wipe out the src attribute.
-      $(this).find('iframe').removeAttr("src");      
+      // When a modal is closed, we need to destroy iframe.
+      $(this).find('iframe').remove();      
     });
     
     
