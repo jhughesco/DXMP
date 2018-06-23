@@ -137,40 +137,38 @@
     	<ul id="RecentAds" class="media-list">
   </HeaderTemplate>
   
-	<ItemTemplate>
+  <ItemTemplate>
     <li class="media">
-      <div class="media-left media-middle">
-        <a data-toggle="modal" 
-           data-target="#Popup_Modal" 
-           data-id="<%#Eval("Values")("AdID")%>" 
-           data-title="<%#Eval("Values")("Ad_Title")%>"
-           data-source="/Ads/Details/Popup?AdID=<%#Eval("Values")("AdID")%>"
-           href="#">
+      <a data-toggle="modal" 
+            data-target="#Popup_Modal" 
+            data-id="<%#Eval("Values")("AdID")%>" 
+            data-title="<%#Eval("Values")("Ad_Title")%>" 
+            data-source="/Ads/Details/Popup?AdID=<%#Eval("Values")("AdID")%>" 
+            href="#">
+        <div class="media-left">
           <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-            <img class="img-responsive center-block" alt="<%#Eval("Values")("Ad_Title")%>" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
+            <img class="media-object" alt="<%#Eval("Values")("Ad_Title")%>" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
           </xmod:IfNotEmpty>
           <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-            <img class="img-responsive center-block" alt="<%#Eval("Values")("Ad_Title")%>" src="http://placehold.it/80?text=no+image" />
+            <span class="fa fa-picture-o"></span>
           </xmod:IfEmpty>
-        </a>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">
-          <a data-toggle="modal" data-target="#Popup_Modal" data-id="<%#Eval("Values")("AdID")%>" data-title="<%#Eval("Values")("Ad_Title")%>" href="#"><%#Eval("Values")("Ad_Title")%></a>
-        </h4>
-        <h5>
-          <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
-            <span class="label label-success"><xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></span>
-          </xmod:IfNotEmpty>
-          <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
-            <span class="label label-primary">FREE!</span>
-          </xmod:IfEmpty>
-            <small><%#Eval("Values")("Location")%></small>
-        </h5>            
-        <div>
-          <%#Eval("Values")("Ad_Summary")%>
         </div>
-      </div>
+        <div class="media-body">
+          <h4 class="media-heading"><%#Eval("Values")("Ad_Title")%></h4>
+          <h5>
+            <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+              <span class="label label-success"><xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></span>
+            </xmod:IfNotEmpty>
+            <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+              <span class="label label-primary">FREE!</span>
+            </xmod:IfEmpty>
+             <span class="text text-muted"><small><%#Eval("Values")("Location")%></small></span>
+          </h5>            
+          <div>
+            <span><small><xmod:Format runat="server" Type="Text" Value='<%#Eval("Values")("Ad_Summary")%>' MaxLength="150" /></small></span>
+          </div>
+        </div>
+      </a>
     </li>
   </ItemTemplate>
   
