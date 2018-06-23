@@ -22,9 +22,6 @@
       list-style: none;
     }
     
-    .modal-content { height: auto !important; }
-    .modal-body { height: auto !important; }
-    
   </style>
 </xmod:ScriptBlock>
 
