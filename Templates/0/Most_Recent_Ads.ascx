@@ -31,8 +31,8 @@
     }
     
     #RecentAds li.media .fa-picture-o {
-      font-size: 28px;
-    	padding: 35px;
+      font-size: 36px;
+    	padding: 20px;
     }
     
     #RecentAds li.media .fa-expand {
@@ -132,7 +132,7 @@
             <img class="media-object" alt="<%#Eval("Values")("Ad_Title")%>" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
           </xmod:IfNotEmpty>
           <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-            <img class="media-object" alt="<%#Eval("Values")("Ad_Title")%>" src="http://placehold.it/80?text=no+image" />
+            <span class="fa fa-picture-o"></span>
           </xmod:IfEmpty>
         </div>
         <div class="media-body">

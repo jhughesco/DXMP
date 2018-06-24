@@ -120,7 +120,7 @@
                     Nullable="True" 
                     DataField="Seller_Image" 
                     Dropzone="False"
-                    AcceptFileTypes="jpg,jpeg,png"
+                    AcceptFileTypes="jpg,jpeg,jpe,gif,bmp,png"
                     MaxNumberOfFiles="1"
                     MaxFileSize="2097152"
                     AutoUpload="True"
@@ -134,7 +134,8 @@
                     ShowTopCancelButton="False"
                     ShowTopCheckBox="False"
                     ShowTopProgressBar="False"
-                    ShowTopDeleteButton="False">
+                    ShowTopDeleteButton="False"
+                  	AllowedRoles="Sellers">
         </rmg:Xile>        
       </div>
     </div>
@@ -305,7 +306,9 @@
   
   <TextBox ID="UserID" DataField="UserID" DataType="Int32" ReadOnly="True" Visible="False" />
   
-</xmod:AddForm></AddItemTemplate><EditItemTemplate><xmod:EditForm runat="server">
+</xmod:AddForm></AddItemTemplate>
+
+<EditItemTemplate><xmod:EditForm runat="server">
 
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
     
@@ -422,7 +425,7 @@
                     Nullable="True" 
                     DataField="Seller_Image" 
                     Dropzone="False"
-                    AcceptFileTypes="jpg,jpeg,png"
+                    AcceptFileTypes="jpg,jpeg,jpe,gif,bmp,png"
                     MaxNumberOfFiles="1"
                     MaxFileSize="2097152"
                     AutoUpload="True"
@@ -436,8 +439,9 @@
                     ShowTopCancelButton="False"
                     ShowTopCheckBox="False"
                     ShowTopProgressBar="False"
-                    ShowTopDeleteButton="False">
-        </rmg:Xile>        
+                    ShowTopDeleteButton="False"
+                  	AllowedRoles="Sellers">
+        </rmg:Xile>         
       </div>
     </div>
   
@@ -561,4 +565,6 @@
       </p>
     </div>    
   </ItemTemplate>
-</xmod:EditSuccess></EditSuccessTemplate></xmod:FormView>
+</xmod:EditSuccess></EditSuccessTemplate>
+
+</xmod:FormView>

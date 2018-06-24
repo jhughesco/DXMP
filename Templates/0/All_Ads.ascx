@@ -9,6 +9,7 @@
 
       #Popup_Modal .modal-body {
         background:url("/images/loading.gif") center no-repeat;
+        overflow-y: hidden;
       }
 
       #AllAds div.media.ad {
@@ -32,8 +33,8 @@
       }
 
       #AllAds div.media .fa-picture-o {
-        font-size: 28px;
-        padding: 35px;
+        font-size: 36px;
+        padding: 20px;
       }
 
       #AllAds div.media .fa-expand {
@@ -77,7 +78,7 @@
     <ListDataSource CommandText= "SELECT 
                                    a.[AdID]
                                   ,a.[SellerID]
-                                  ,loc.City + ', ' + loc.State AS Location
+                                  ,loc.City + ', ' + loc.State AS CityState
                                   ,a.[Ad_Title]
                                   ,a.[Ad_Summary]
                                   ,a.[Ad_Price]
@@ -175,37 +176,42 @@
       </div>
       
       <div id="AllAds" class="row">
-    </HeaderTemplate>
+  </HeaderTemplate>
 
-    <ItemTemplate>
-      <div class="col-md-4 col-sm-6">
-        <div class="media ad">
-          <a data-toggle="modal" data-target="#Popup_Modal" data-id="<%#Eval("Values")("AdID")%>" data-title="<%#Eval("Values")("Ad_Title")%>" href="#">
-            <span class="fa fa-expand"></span>
-            <div class="media-left middle">
-              <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-                <img class="media-object" alt="<%#Eval("Values")("Ad_Title")%>" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
-              </xmod:IfNotEmpty>
-              <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
-                <img class="media-object" alt="<%#Eval("Values")("Ad_Title")%>" src="http://placehold.it/80&text=no+image" />
-              </xmod:IfEmpty>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading"><%#Eval("Values")("Ad_Title")%></h4>
-              <h5>
-                <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
-                  <span class="label label-success"><xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></span>
+  <ItemTemplate>
+      	<div class="col-md-4 col-sm-6">
+        	<div class="media ad">
+            <a data-toggle="modal" 
+               data-target="#Popup_Modal" 
+               data-id="<%#Eval("Values")("AdID")%>" 
+               data-title="<%#Eval("Values")("Ad_Title")%>" 
+               data-source="/Ads/Details/Popup?AdID=<%#Eval("Values")("AdID")%>"
+               href="#">
+              <span class="fa fa-expand"></span>
+              <div class="media-left middle">
+                <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
+                  <img class="media-object" alt="<%#Eval("Values")("Ad_Title")%>" src="/Portals/<%#PortalData("ID")%>/Classifieds/Ads/<%#Eval("Values")("SellerID")%>/thm_<%#Eval("Values")("PrimaryImage")%>" />
                 </xmod:IfNotEmpty>
-                <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
-                  <span class="label label-primary">FREE!</span>
+                <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("PrimaryImage")%>'>
+                  <span class="fa fa-picture-o"></span>
                 </xmod:IfEmpty>
-                <span class="text text-muted"><small><%#Eval("Values")("Location")%></small></span>
-              </h5>            
-              <div>
-                <span><small><xmod:Format runat="server" Type="Text" Value='<%#Eval("Values")("Ad_Summary")%>' MaxLength="150" /></small></span>
               </div>
-            </div>
-          </a>
+              <div class="media-body">
+                <h4 class="media-heading"><%#Eval("Values")("Ad_Title")%></h4>
+                <h5>
+                  <xmod:IfNotEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+                    <span class="label label-success"><xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></span>
+                  </xmod:IfNotEmpty>
+                  <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
+                    <span class="label label-primary">FREE!</span>
+                  </xmod:IfEmpty>
+                  <span class="text text-muted"><small><%#Eval("Values")("CityState")%></small></span>
+                </h5>            
+                <div>
+                  <span><small><xmod:Format runat="server" Type="Text" Value='<%#Eval("Values")("Ad_Summary")%>' MaxLength="150" /></small></span>
+                </div>
+              </div>
+            </a>
         </div>
       </div>
   </ItemTemplate>
@@ -241,7 +247,7 @@
           <h4 class="modal-title">&nbsp;</h4>
         </div>
         <div class="modal-body">
-          <iframe style="overflow:hidden;height:100%;width:100%"></iframe>        
+
         </div>
         <div class="modal-footer" style="height: 65px">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        
@@ -271,10 +277,21 @@
       
       var $invoker = $(e.relatedTarget),
           id = $invoker.data("id"),
-          title = $invoker.data("title");
+          title = $invoker.data("title"),
+          source = $invoker.data("source");
       
       $modal.find('.modal-title').html(title);
-      $modal.find('iframe').attr("src", "/Ads/Details/Popup?AdID=" + id);			
+        var iframe = $('<iframe />', {
+                       style: 'overflow-y:auto;height:100%;width:100%',
+                       src: source    						 
+                     });
+  
+  		$modal.find('.modal-body').html(iframe);
+      
+      if (/iPhone|iPod|iPad/.test(navigator.userAgent)) {
+        $modal.find('.modal-body').css("overflow-y", "scroll");
+      }
+      
 		});
     
     $(window).resize(function() {
@@ -283,7 +300,7 @@
     });  
     
     $('.modal').on('hide.bs.modal', function(e) {
-      $(this).find('iframe').removeAttr("src");      
+      $(this).find('iframe').remove();      
     });
     
     

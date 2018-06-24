@@ -8,8 +8,8 @@
       background-color: #337ab7 !important;
       border-color: #337ab7 !important;
     }
-    .search-spacing {
-     	margin-top: 15px; 
+    .top10 {
+     	margin-top: 10px; 
     }
   </style>
 </xmod:ScriptBlock>
@@ -62,8 +62,8 @@
     SortButtonCssClass="btn btn-default"
     SortFieldListCssClass="form-control">
     
-    <div class="row search-spacing">
-      <div class="col-sm-6">
+    <div class="row">
+      <div class="col-sm-6 top10">
         <div class="input-group">
           {SearchBox}
           <span class="input-group-btn">
@@ -71,7 +71,7 @@
           </span>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-6 top10">
       	<div class="form-inline">
           <div class="form-group">
             <label class="control-label">Sort</label>
