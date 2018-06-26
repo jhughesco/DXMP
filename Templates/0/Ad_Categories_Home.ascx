@@ -1,7 +1,7 @@
 <%@ Control Language="vb" AutoEventWireup="false" Inherits="KnowBetter.XModPro.TemplateBase" %>
 <%@ Register Assembly="KnowBetter.XModPro.Web.Controls" Namespace="KnowBetter.XModPro.Web.Controls" TagPrefix="xmod" %>
 <xmod:masterview runat="server">
-<xmod:ScriptBlock runat="server" ScriptId="CategoriesScripts" BlockType="HeadScript" RegisterOnce="True">
+<xmod:ScriptBlock runat="server" ScriptId="CategoriesHome" BlockType="HeadScript" RegisterOnce="True">
   <style type="text/css">
     ul.ad-categories {
       overflow: auto;
@@ -103,39 +103,45 @@
 
   <HeaderTemplate>
 
-    <div class="modal fade" id="Category_Modal" tabindex="-1" role="dialog" aria-labelledby="Category_Modal">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header" style="height: 56px;">
-            <select class="form-control" id="Ad_Locations"></select>
-            <xmod:LoadFeed runat="server" FeedName="Ads_GetLocations" Target="#Ad_Locations" />
+    <div class="category_content">
+			<div class="row head" style="height: 56px;">
+      	<div class="col-md">
+          <select class="form-control" id="Ad_Locations"></select>
+              <xmod:LoadFeed runat="server" FeedName="Ads_GetLocations" Target="#Ad_Locations" />
+        </div>
+      </div>
+      
+      <div class="row body">
+      	<div class="col-md">
+          <div class="text-center">
+            <a style="color: white" id="view_all_ads" class="btn btn-warning" href="/Ads">View All Ads</a>
+            <hr/>
           </div>
-          <div class="modal-body" style="overflow: auto;">
-            <div class="text-center">
-              <a style="color: white" id="view_all_ads" class="btn btn-warning" href="/Ads">View All Ads</a>
-              <hr/>
-            </div>            
-            <ul class="ad-categories">
-
-  </HeaderTemplate>
+        </div>
+          <ul class="ad-categories">
+          
+</HeaderTemplate>
 
   <ItemTemplate>
-              <li id="cat-<%#Eval("Values")("CategoryID")%>" class="<%#Eval("Values")("Class")%>">
-                <a href="/Ads?Id=<%#Eval("Values")("CategoryID")%>&LocId=<%#Eval("Values")("LocId")%>"><%#Eval("Values")("Category_Name")%>&nbsp;&nbsp;
-                  <span class="text text-muted">(</span><%#Eval("Values")("AdCount")%><span class="text text-muted">)</span>
-                </a>
-              </li>
+            <li id="cat-<%#Eval("Values")("CategoryID")%>" class="<%#Eval("Values")("Class")%>">
+              <a href="/Ads?Id=<%#Eval("Values")("CategoryID")%>&LocId=<%#Eval("Values")("LocId")%>"><%#Eval("Values")("Category_Name")%>&nbsp;&nbsp;
+                <span class="text text-muted">(</span><%#Eval("Values")("AdCount")%><span class="text text-muted">)</span>
+              </a>
+            </li>
   </ItemTemplate>
 
   <FooterTemplate>
             </ul>
-          </div>
-          <div class="modal-footer" style="height: 65px">
-            <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button>
-            <a href="/Contact" class="btn btn-default">Suggest a Category</a>        
-          </div>          
-        </div>
       </div>
+    
+      <div class="row footer" style="height: 65px">
+        <div class="col-md">
+          <div class="text-center">
+            <hr/>
+          	<a href="/Contact" class="btn btn-default">Suggest a Category</a>        
+          </div>
+        </div>
+      </div>          
     </div>
   </FooterTemplate>
 
@@ -193,7 +199,7 @@
         locText = $('option:selected', $location_select).text(),
         
         // I'm creating another variable for the new link
-        var link;
+        link;
       
     // All locations is equal to -1, so if locId is greater than -1, then we need to do a few extra things:
     if (locId > 0) {
