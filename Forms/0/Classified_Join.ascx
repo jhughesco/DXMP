@@ -31,6 +31,8 @@
       
       #username_exists, #displayname_exists, #email_exists { display: none; }
       
+      .top10 { margin-top: 10px; }
+      
     </style>
     
     <script type="text/javascript" src="./js/pwstrength/pwstrength-bootstrap.min.js"></script>
@@ -46,6 +48,14 @@
   
 
   <div class="join-form">
+    
+    <div class="form-group">
+      <div id="join_message" class="alert alert-success text-center top10">
+        <h2>
+          Join us to Post Ads!
+        </h2>
+      </div>
+    </div>
     
     <div class="form-group">
       <label for="Displayname">Display Name <em>Others will see you by this alias...</em></label>
@@ -120,6 +130,12 @@
   </div>
   
   <jQueryReady>
+    
+    // jQuery Show / Hide Div based on URL parameter
+    if(location.search == "?postad=UnRegistered"){
+      $('#join_message').show();
+    }
+    else { $('#join_message').hide(); }
 		
     $('#' + Join.Firstname).closest('.form-group').hide();
     
@@ -173,4 +189,6 @@
   
   <DateInput Id="Start" DataField="Start" DataType="datetime" Visible="False" Readonly="True" />
   
-</xmod:AddForm></AddItemTemplate></xmod:FormView>
+</xmod:AddForm></AddItemTemplate>
+
+</xmod:FormView>
