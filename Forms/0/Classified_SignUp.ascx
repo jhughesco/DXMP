@@ -306,9 +306,7 @@
   
   <TextBox ID="UserID" DataField="UserID" DataType="Int32" ReadOnly="True" Visible="False" />
   
-</xmod:AddForm></AddItemTemplate>
-
-<EditItemTemplate><xmod:EditForm runat="server">
+</xmod:AddForm></AddItemTemplate><EditItemTemplate><xmod:EditForm runat="server">
 
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
     
@@ -400,7 +398,10 @@
     
       <div class="form-group">
         <Label For="Seller_Name">Seller Name |<small Class="HeaderLabel_Small"> This name can be your name, company name, or just a fun name like <em>The Ad King</em></small></Label>
-        <TextBox Id="Seller_Name" CssClass="form-control required-field" MaxLength="150" DataField="Seller_Name" DataType="string" />
+        <div class="input-group">
+  				<TextBox Id="Seller_Name" CssClass="form-control required-field" MaxLength="150" DataField="Seller_Name" DataType="string" aria-describedby="basic-addon2" />
+          <span class="input-group-addon" id="basic-addon2">SellerID: <%#SelectData("SellerID")%></span>
+        </div>
         <Validate Target="Seller_Name" CssClass="validate-error" Type="required" Text="*" Message="Name is required." />
       </div>
       
@@ -565,6 +566,4 @@
       </p>
     </div>    
   </ItemTemplate>
-</xmod:EditSuccess></EditSuccessTemplate>
-
-</xmod:FormView>
+</xmod:EditSuccess></EditSuccessTemplate></xmod:FormView>
