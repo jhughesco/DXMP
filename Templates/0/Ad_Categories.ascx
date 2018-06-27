@@ -193,7 +193,7 @@
         locText = $('option:selected', $location_select).text(),
         
         // I'm creating another variable for the new link
-        var link;
+        link;
       
     // All locations is equal to -1, so if locId is greater than -1, then we need to do a few extra things:
     if (locId > 0) {

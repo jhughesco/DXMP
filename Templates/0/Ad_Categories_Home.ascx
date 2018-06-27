@@ -21,6 +21,19 @@
       margin-left: 10px;
       list-style: none;
     }
+    #Ad_Locations {
+      width: 90%;
+    }
+    
+    select.catloc {
+      display: block;
+      margin: 0 auto;
+    }
+    
+    .title {
+      margin-bottom: 15px;
+      text-align: center;
+    }
     
   </style>
 </xmod:ScriptBlock>
@@ -104,14 +117,20 @@
   <HeaderTemplate>
 
     <div class="category_content">
-			<div class="row head" style="height: 56px;">
+			<div class="row title" style="height: 56px;">
       	<div class="col-md">
-          <select class="form-control" id="Ad_Locations"></select>
+          <h2>Ad Categories by Location</h2>
+        </div>
+      </div>
+      
+      <div class="row head" style="height: 56px;">
+      	<div class="col-md">
+          <select class="form-control catloc" id="Ad_Locations"></select>
               <xmod:LoadFeed runat="server" FeedName="Ads_GetLocations" Target="#Ad_Locations" />
         </div>
       </div>
       
-      <div class="row body">
+      <div class="rowb body">
       	<div class="col-md">
           <div class="text-center">
             <a style="color: white" id="view_all_ads" class="btn btn-warning" href="/Ads">View All Ads</a>

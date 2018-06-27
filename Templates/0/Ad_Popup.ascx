@@ -18,6 +18,7 @@
     .summary-wrapper .addetails-wrapper { border: 4px solid #ebebeb; border-radius: 10px; padding: 20px; margin: 20px 0px;}
     .additional-images { margin-top: 10px; }
     .img-thumbnail { display: inline-block !important; }
+    a.seller_link, a.seller_link:visited, a.seller_link:hover { color: #fff; font-size: 14px; }
     
   </style>
  
@@ -94,7 +95,9 @@
       </div>
       <div class="adinfo-wrapper">
         <ul class="list-group" style="margin-left: 0px">
-          <li class="list-group-item">Posted by <%#Eval("Values")("Seller_Name")%> on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" /></li>
+          <li class="list-group-item">
+            Posted by&nbsp;<a class="btn btn-primary btn-xs seller_link" href="/Sellers/Details/SellerID/<%#Eval("Values")("SellerID")%>" title="View seller's details and Ads."><%#Eval("Values")("Seller_Name")%></a>&nbsp;on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" />
+          </li>
           <li class="list-group-item">Expires on: <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Ad_Expires")%>' Pattern="MM/dd/yyyy" /></li>
           <xmod:Select runat="server">
             <Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowAddress")%>' Operator="=" Expression="True">
