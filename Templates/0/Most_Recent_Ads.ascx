@@ -3,10 +3,12 @@
 <xmod:masterview runat="server">
 <xmod:ScriptBlock runat="server" ScriptId="RecentAds" BlockType="HeadScript" RegisterOnce="True">
   <style type="text/css">
-    #Popup_Modal .modal-body {
+    #Popup_Modal .modal-body,
+    #Reply_Modal .modal-body {
       background:url("/images/loading.gif") center no-repeat;
       overflow-y: hidden;
     }
+    
     #RecentAds {
       margin-left: 0px;
       border: 1px solid #ebebeb;
@@ -144,13 +146,31 @@
             <xmod:IfEmpty runat="server" Value='<%#Eval("Values")("Ad_Price")%>'>
               <span class="label label-primary">FREE!</span>
             </xmod:IfEmpty>
-            <span class="text text-muted"><small><%#Eval("Values")("Location")%></small></span>
+            <span class="text text-muted"><small><%#Eval("Values")("CityState")%></small></span>
           </h5>            
           <div>
             <span><small><xmod:Format runat="server" Type="Text" Value='<%#Eval("Values")("Ad_Summary")%>' MaxLength="150" /></small></span>
           </div>
         </div>
     	</a>
+      
+      <xmod:Select runat="server">
+          <Case Comparetype="Role" Operator="=" Expression="Registered Users">
+            <xmod:Select runat="server">
+              <Case Comparetype="Numeric" Value='<%#UserData("ID")%>' Operator="<>" Expression='<%#Eval("Values")("SellerUserID")%>'>
+                <button style="display: none"
+                        type="button" 
+                        data-toggle="modal" 
+                        data-target="#Reply_Modal" 
+                        data-source="/Ads/Details/Reply?AdID=<%#Eval("Values")("AdID")%>" 
+                        data-title="Re: <%#Eval("Values")("Ad_Title")%>" 
+                        class="btn btn-warning reply-btn">Reply to Ad
+                </button>                          
+              </Case>
+            </xmod:Select>
+          </Case>            	
+        </xmod:Select>
+      
     </li>
     
     
@@ -181,63 +201,114 @@
   </div>
 </div>
 
+<div class="modal fade" id="Reply_Modal" tabindex="-1" role="dialog" aria-labelledby="Reply_Modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="height: 56px">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">&nbsp;</h4>
+      </div>
+      <div class="modal-body" style="min-height: 270px">
+
+      </div>
+      <div class="modal-footer" style="height: 65px">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function() {
 		
-    // Helps prevent styling conflict on certain browsers
     $('.modal').appendTo('body');
-    
-    // Caching the popup so we don't have to keep looking for it
     var $modal = $('#Popup_Modal');
+    var $replyModal = $('#Reply_Modal');
 
-    // Sizing it initially although hidden from view to prevent first load size jump
     ResizeModal($modal);
     
+    
     $modal.on('shown.bs.modal',function(e){
-      // Prevent any default behavior
       e.preventDefault();
       
-      // The invoker is the link that was clicked on where we hide data attributes
+      //  You'll see below that instead of climbing up a level to the parent, we just 
+      //  jump directly to the next element which is the reply button.
       var $invoker = $(e.relatedTarget),
           id = $invoker.data("id"),
           title = $invoker.data("title"),
-          source = $invoker.data("source");
+          source = $invoker.data("source"),
+          $replyBtn = $invoker.next('button').clone().show();
       
-      // Now that we have the title of the ad, and id of the ad, we can populate:      
       $modal.find('.modal-title').html(title);
+      
+      
+
+      if ($replyBtn.length) {
+      	$modal.find('.modal-footer').prepend($replyBtn);  
+      }
+      
       
       var iframe = $('<iframe />', {
                      style: 'overflow-y:auto;height:100%;width:100%',
-                     src: source    						 
+                     src: source
+        						 
                    });
-  
+      
+      
       $modal.find('.modal-body').html(iframe);
-			
-		});
-    
-    // In the event that the browser window is resized, we need to resize the modal on the fly
-    $(window).resize(function() {
-      ResizeModal($modal);
-    });  
-    
-    $('.modal').on('hide.bs.modal', function(e) {
-      // When a modal is closed, we need to destroy iframe.
-      $(this).find('iframe').remove();      
+      if (/iPhone|iPod|iPad/.test(navigator.userAgent)) {
+        $modal.find('.modal-body').css("overflow-y", "scroll");
+      }
+        
+      
     });
     
     
+
+    $replyModal.on('shown.bs.modal',function(e){
+      e.preventDefault();
+      
+      $modal.modal('hide');
+      
+      var $invoker = $(e.relatedTarget),
+          source = $invoker.data("source"),
+          title = $invoker.data("title");
+      
+      $replyModal.find('.modal-title').html(title);
+      
+      var iframe = $('<iframe />', {
+                     style: 'overflow-y:auto;width:100%',
+                     src: source,
+                     height: 235
+                   });
+      
+      $replyModal.find('.modal-body').html(iframe);
+    });
+    
+    
+    $(window).resize(function() {
+      ResizeModal($modal);
+    }); 
+    
+    
+    $modal.add($replyModal).on('hide.bs.modal', function(e) {
+      $(this).find('iframe').remove();
+      $(this).find('.reply-btn').remove();
+    });
+    
   });
   
+  
+  
   function ResizeModal($modal) {
+    
     $modal.find('.modal-content').css('height', $(window).height()*0.8);
             
-    // Simple math. Grab the total height and remove the header and footer from it, leaving us with the correct size for the body
     var totalHeight = parseInt($modal.find('.modal-content').css("height")),
         headerHeight = parseInt($modal.find('.modal-header').css("height")),
         footerHeight = parseInt($modal.find('.modal-footer').css("height")),
         bodyHeight = totalHeight - headerHeight - footerHeight;
     
-    // Finally, force sizing on the modal body
     $modal.find('.modal-body').css("height", bodyHeight + "px");		
     
   }

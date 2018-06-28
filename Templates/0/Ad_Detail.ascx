@@ -3,6 +3,10 @@
 <xmod:masterview runat="server">
 <xmod:ScriptBlock runat="server" ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="True">
   <style type="text/css">
+    #Reply_Modal .modal-body {
+      background:url("/images/loading.gif") center no-repeat;
+      overflow-y: hidden;
+    }
     .summary-wrapper { margin-top: 50px; }
     .summary-wrapper .title-wrapper { text-align: center; }
     .summary-wrapper .title-wrapper h1 { margin: 0px; }
@@ -142,6 +146,15 @@
           <Case Comparetype="Boolean" Value='<%#Eval("Values")("ShowEmail")%>' Operator="=" Expression="True">
             Email: <a href="mailto:<%#Eval("Values")("Seller_Email")%>"><%#Eval("Values")("Seller_Email")%></a>
           </Case>
+          <Case Comparetype="Numeric" Value='<%#UserData("ID")%>' Operator="<>" Expression='<%#Eval("Values")("SellerUserID")%>'>
+            <button type="button" 
+                    data-toggle="modal" 
+                    data-target="#Reply_Modal" 
+                    data-source="/Ads/Details/Reply?AdID=<%#Eval("Values")("AdID")%>" 
+                    data-title="Re: <%#Eval("Values")("Ad_Title")%>" 
+                    class="btn btn-warning reply-btn reply-btn-<%#Eval("Values")("AdID")%>">Reply to Ad
+            </button>                          
+          </Case>
         </xmod:Select>
       </div>      
     </div>        
@@ -164,11 +177,29 @@
 
 </xmod:Template>
 
+<div class="modal fade" id="Reply_Modal" tabindex="-1" role="dialog" aria-labelledby="Reply_Modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="height: 56px">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">&nbsp;</h4>
+      </div>
+      <div class="modal-body" style="min-height: 270px">
+
+      </div>
+      <div class="modal-footer" style="height: 65px">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function() {
     
     $('.modal').appendTo('body');
-    var $cats = $('#Category_Modal');
+    var $cats = $('#Category_Modal'),
+        $replyModal = $('#Reply_Modal');
 
     ResizeModal($cats);
     
@@ -202,6 +233,28 @@
     }   
     
   });
+  
+  $replyModal.on('shown.bs.modal',function(e){
+      e.preventDefault();
+      
+      var $invoker = $(e.relatedTarget),
+          source = $invoker.data("source"),
+          title = $invoker.data("title");
+      
+      $replyModal.find('.modal-title').html(title);
+      
+      var iframe = $('<iframe />', {
+                     style: 'overflow-y:auto;width:100%',
+                     src: source,
+                     height: 235
+                   });
+      
+      $replyModal.find('.modal-body').html(iframe);
+    });
+    
+    $replyModal.on('hide.bs.modal', function(e) {
+      $(this).find('iframe').remove();      
+    });
   
   function ResizeModal($modal) {
     $modal.find('.modal-content').css('height', $(window).height()*0.8);
