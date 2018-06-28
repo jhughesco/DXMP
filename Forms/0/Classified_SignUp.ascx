@@ -82,14 +82,6 @@
 	/>
   
   <ControlDataSource Id="cds_Locations" CommandText="SELECT [LocationID], [City] + ', ' + [State] AS CityState FROM [XMP_Classified_Location] ORDER BY [City] ASC" />
-  <div class="form-group">
-    <div id="join_message" class="alert alert-success text-center top10">
-      <h2>
-        Become a Seller!
-      </h2>
-    </div>
-  </div>
-
   <div style="text-align: center;"><h2>Seller Sign-Up</h2></div>
   
   <div class="panel panel-primary info_panel_spacing">
@@ -143,7 +135,7 @@
                     ShowTopCheckBox="False"
                     ShowTopProgressBar="False"
                     ShowTopDeleteButton="False"
-                  	AllowedRoles="Sellers">
+                  	AllowedRoles="Registered Users">
         </rmg:Xile>        
       </div>
     </div>

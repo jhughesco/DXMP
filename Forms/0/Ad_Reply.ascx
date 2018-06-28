@@ -8,9 +8,6 @@
         color: red;
         display: block;
       }
-      .txt_Count {
-      	color: #990000;
-      }
     </style>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css?cdv=23" media="all" type="text/css" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css?cdv=23" media="all" type="text/css" rel="stylesheet"/>
@@ -45,13 +42,13 @@
   
   <div class="form">
     <div class="form-group">
-      <TextArea Id="Message" MaxLength="500" DataField="Message" CssClass="form-control" CharacterCount="CountDown" CharacterCountLabel=" :Remaining" CharacterCountClass="txt_Count" Placeholder="Type your reply here..." Rows="7" autocomplete="off" DataType="String" />
-      <Validate Type="required" CssClass="validate-error" Target="Message" Text="Required" Message="Enter a message please." />
+      <TextArea Id="Message" MaxLength="500" DataField="Message" CssClass="form-control" Placeholder="Type your reply here..." Rows="7" autocomplete="off" DataType="String" />
+      <Validate Type="required" CssClass="validate-error" Target="Message" Text="Required" Message="Enter a message please." />          
     </div>      
     <AddButton class="btn btn-lg btn-primary btn-block" Text="Send Message" />    
   </div>
   
-  <Email To="[[To]]" From="noreply@acich.org" Format="text" Subject="Re: [[Ad_Title]]">
+  <Email To="[[To]]" From="noreply@aza-z.com" Format="text" Subject="Re: [[Ad_Title]]">
     You've received a response regarding: [[Ad_Title]]
 
     From: [[From]]
@@ -88,9 +85,7 @@
       Thank you <%#UserData("Username")%>! We've delivered your message to this seller.
     </div>
   </ItemTemplate>
-</xmod:AddSuccess></AddSuccessTemplate>
-
-<EditItemTemplate><xmod:EditForm runat="server">
+</xmod:AddSuccess></AddSuccessTemplate><EditItemTemplate><xmod:EditForm runat="server">
   <SelectCommand CommandText="" />
   <Submitcommand CommandText="" />
 
