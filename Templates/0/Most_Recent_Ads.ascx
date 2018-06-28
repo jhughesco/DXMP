@@ -58,7 +58,7 @@
     
     .ribbon-box {
       position: relative;
-      z-index: 90;
+      z-index: 10;
     }
     .ribbon {
       position: absolute;
