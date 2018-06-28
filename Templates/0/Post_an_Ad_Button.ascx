@@ -8,8 +8,36 @@
     .btn-success { color: white !important; }
     a.fix_link, a.fix_link:visited, a.fix_link:hover { color: #fff; font-size: 14px; }
     .topbot10 { margin: 10px 0; }
-    #Popup_Modal { height: 60% !important%; }
-       
+    
+    /*When the modal fills the screen it has an even 2.5% on top and bottom*/
+    /*Centers the modal*/
+    /*
+    .modal-dialog {
+      margin: 2.5vh auto;
+    }
+		*/
+    
+    /*Sets the maximum height of the entire modal to 95% of the screen height*/
+    /*
+    .modal-content {
+      max-height: 20vh;
+    }
+    */
+
+    /*Sets the maximum height of the modal body to 90% of the screen height*/
+    /*
+    .modal-body {
+      max-height: 13vh;
+    }
+    */
+    
+    /*Sets the maximum height of the modal image to 69% of the screen height*/
+    /*
+    .modal-body img {
+      max-height: 17vh;
+    }
+    */
+         
     
 	</style>
 </ScriptBlock>
@@ -75,6 +103,13 @@
 		
     <xmod:Select runat="server">
 
+      <Case CompareType="Text" Expression='<%#Eval("Values")("UserType")%>' Operator="=" Value="xSeller">
+        <div class="topbot10">
+            <a href="/Dashboard/Post-Ad" class="btn btn-success fix_link btn-block">
+              Post Ad
+            </a>
+        </div>
+      </Case>
       <Case CompareType="Text" Expression='<%#Eval("Values")("UserType")%>' Operator="=" Value="UnRegistered">
         <div class="topbot10">
             <a href="/Join?postad=UnRegistered" class="btn btn-success fix_link btn-block">
@@ -163,7 +198,7 @@
       $modal.find('.modal-title').html(title);
       
       var iframe = $('<iframe />', {
-                     style: 'overflow-y:auto;height:50%;width:50%',
+                     style: 'overflow-y:auto;height:100%;width:100%',
                      src: source    						 
                    });
   
