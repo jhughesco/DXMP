@@ -46,16 +46,11 @@
     <Parameter Name="ERROR" DataType="String" Size="250" Direction="Output" />
   </SubmitCommand>
   
+  
 
   <div class="join-form">
     
-    <div class="form-group">
-      <div id="join_message" class="alert alert-success text-center top10">
-        <h2>
-          Join us to Post Ads!
-        </h2>
-      </div>
-    </div>
+    <div style="text-align: center;"><h2>User Registration</h2><hr /></div>
     
     <div class="form-group">
       <label for="Displayname">Display Name <em>Others will see you by this alias...</em></label>
