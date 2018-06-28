@@ -103,9 +103,16 @@
 		
     <xmod:Select runat="server">
 
-      <Case CompareType="Text" Expression='<%#Eval("Values")("UserType")%>' Operator="=" Value="xSeller">
+      <Case CompareType="Text" Expression='<%#Eval("Values")("UserType")%>' Operator="=" Value="Seller">
         <div class="topbot10">
             <a href="/Dashboard/Post-Ad" class="btn btn-success fix_link btn-block">
+              Post Ad
+            </a>
+        </div>
+      </Case>
+      <Case CompareType="Text" Expression='<%#Eval("Values")("UserType")%>' Operator="=" Value="NotSeller">
+        <div class="topbot10">
+            <a href="/Dashboard/Sign-Up?postad=NotSeller" class="btn btn-success fix_link btn-block">
               Post Ad
             </a>
         </div>
@@ -120,13 +127,6 @@
       <Case CompareType="Role" Expression="Unverified Users" Operator="=">
         <div class="topbot10">
             <a href="/Join/Verify" class="btn btn-success fix_link btn-block">
-              Post Ad
-            </a>
-        </div>
-      </Case>
-      <Case CompareType="Text" Expression='<%#Eval("Values")("UserType")%>' Operator="=" Value="NotSeller">
-        <div class="topbot10">
-            <a href="/Dashboard/Sign-Up?postad=NotSeller" class="btn btn-success fix_link btn-block">
               Post Ad
             </a>
         </div>
