@@ -7,7 +7,8 @@
 
       #Body { background: #fff; }
 
-      #Popup_Modal .modal-body {
+      #Popup_Modal .modal-body,
+      #Reply_Modal .modal-body {
         background:url("/images/loading.gif") center no-repeat;
         overflow-y: hidden;
       }
@@ -83,6 +84,7 @@
                                   ,a.[Ad_Summary]
                                   ,a.[Ad_Price]
                                   ,a.[PrimaryImage]
+                                  ,s.[UserID] AS SellerUserID
                                  	
                                  FROM XMP_Classified_Ad a
                                  LEFT JOIN XMP_Classified_Location loc ON a.LocationID = loc.LocationID
@@ -213,6 +215,22 @@
               </div>
             </a>
         </div>
+        <xmod:Select runat="server">
+          <Case Comparetype="Role" Operator="=" Expression="Registered Users">
+            <xmod:Select runat="server">
+              <Case Comparetype="Numeric" Value='<%#UserData("ID")%>' Operator="<>" Expression='<%#Eval("Values")("SellerUserID")%>'>
+                <button style="display: none"
+                    type="button" 
+                    data-toggle="modal" 
+                    data-target="#Reply_Modal" 
+                    data-source="/Ads/Details/Reply?AdID=<%#Eval("Values")("AdID")%>" 
+                    data-title="Re: <%#Eval("Values")("Ad_Title")%>" 
+                    class="btn btn-warning reply-btn">Reply to Ad
+                </button>                          
+              </Case>
+            </xmod:Select>
+          </Case>            	
+        </xmod:Select>
       </div>
   </ItemTemplate>
 
@@ -257,6 +275,23 @@
   </div>
 </div>    
 
+<div class="modal fade" id="Reply_Modal" tabindex="-1" role="dialog" aria-labelledby="Reply_Modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="height: 56px">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">&nbsp;</h4>
+      </div>
+      <div class="modal-body" style="min-height: 270px">
+               
+      </div>
+      <div class="modal-footer" style="height: 65px">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function() {
     
@@ -267,6 +302,8 @@
     
     $('.modal').appendTo('body');
     var $modal = $('#Popup_Modal');
+    // We add our new reply modal to its own variable
+    var $replyModal = $('#Reply_Modal');
     var $cats = $('#Category_Modal');
 
     ResizeModal($modal);
@@ -275,39 +312,89 @@
     $modal.on('shown.bs.modal',function(e){
       e.preventDefault();
       
+      // We add the $replyBtn to the bottom of the list.
+      // We then not only clone() the button, but we also use show() to make it appear.
+      // We simply climb the DOM based on the $invoker, and from there we can find our button.
       var $invoker = $(e.relatedTarget),
           id = $invoker.data("id"),
+          seller = $invoker.data("seller"),
           title = $invoker.data("title"),
-          source = $invoker.data("source");
+          source = $invoker.data("source"),
+          $replyBtn = $invoker.parent().next('button').clone().show();
       
       $modal.find('.modal-title').html(title);
-        var iframe = $('<iframe />', {
-                       style: 'overflow-y:auto;height:100%;width:100%',
-                       src: source    						 
-                     });
-  
-  		$modal.find('.modal-body').html(iframe);
       
+      // We have cases where a reply button will not exist.
+      // We need to see if the above change resulted in a button.
+      // If it did, we prepend the button to our modal footer.
+      
+
+      if ($replyBtn.length) {
+      	$modal.find('.modal-footer').prepend($replyBtn);  
+      }
+      
+      
+      var iframe = $('<iframe />', {
+                     style: 'overflow-y:auto;height:100%;width:100%',
+                     src: source        						 
+                   });
+      
+      $modal.find('.modal-body').html(iframe);
       if (/iPhone|iPod|iPad/.test(navigator.userAgent)) {
         $modal.find('.modal-body').css("overflow-y", "scroll");
       }
       
-		});
+    });
+    
+    // When our reply button is clicked, we invoke the modal.
+    
+    
+    $replyModal.on('shown.bs.modal',function(e){
+      e.preventDefault();
+      
+      // We first hide our ad modal so our modals don't get cluttered
+      $modal.modal('hide');
+      
+      // We then show our reply modal, just like we've done with our others      
+      var $invoker = $(e.relatedTarget),
+          source = $invoker.data("source"),
+          title = $invoker.data("title");
+      
+      $replyModal.find('.modal-title').html(title);
+      
+      var iframe = $('<iframe />', {
+                     style: 'overflow-y:auto;width:100%',
+                     src: source,
+                     height: 235
+                   });
+      
+      $replyModal.find('.modal-body').html(iframe);
+    });
+    
+    
+    
     
     $(window).resize(function() {
       ResizeModal($modal);
       ResizeModal($cats);
-    });  
-    
-    $('.modal').on('hide.bs.modal', function(e) {
-      $(this).find('iframe').remove();      
     });
+    
+    // We use add() to strap our $replyModal onto the event listener
+    // When the modal closes, we destroy the iframe in either case
+    // and remove the button    
+    
+
+    $modal.add($replyModal).on('hide.bs.modal', function(e) {
+      $(this).find('iframe').remove();
+      $(this).find('.reply-btn').remove();
+    });
+    
     
     
   });
   
   function ResizeModal($modal) {
-    $modal.find('.modal-content').css('height', $(window).height()*0.8);
+    $modal.find('.modal-content').css('height', $(window).height()*0.9);
             
     var totalHeight = parseInt($modal.find('.modal-content').css("height")),
         headerHeight = parseInt($modal.find('.modal-header').css("height")),
@@ -317,5 +404,7 @@
     $modal.find('.modal-body').css("height", bodyHeight + "px");		
     
   }
+  
+  
   
 </script></xmod:masterview>
