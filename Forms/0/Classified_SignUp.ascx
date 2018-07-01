@@ -217,7 +217,7 @@
           <strong>Animals and Pets:</strong>I also understand that no animals are permitted, such as trade, free, adoption or otherwise. 
         </li>
         <li>
-          <strong>Your Responsibility:</strong> I also understand that utilizing the classifieds on this website is my full responsibility in every way, whether posting, viewing, inquiring, etc. I agree that aza-z.com will not be liable in any way for any Ad or communication of any part in relation to an Ad, including, but not limited to, for any errors or omissions in my ad(s) or other ads, or for any loss or damage of any kind incurred as a result of the use of this website.
+          <strong>Your Responsibility:</strong> I also understand that utilizing the classifieds on this website is my full responsibility in every way, whether posting, viewing, inquiring, etc. I agree that acich.org will not be liable in any way for any Ad or communication of any part in relation to an Ad, including, but not limited to, for any errors or omissions in my ad(s) or other ads, or for any loss or damage of any kind incurred as a result of the use of this website.
         </li>
         <li>
           <strong>The Hammer:</strong> I also understand that if I violate any of these guidelines my account may be terminated, IP address may be blocked, or ad may be removed if deemed inappropriate. 
@@ -535,7 +535,7 @@
           <strong>Animals and Pets:</strong>I also understand that no animals are permitted, such as trade, free, adoption or otherwise. 
         </li>
         <li>
-          <strong>Your Responsibility:</strong> I also understand that utilizing the classifieds on this website is my full responsibility in every way, whether posting, viewing, inquiring, etc. I agree that aza-z.com will not be liable in any way for any Ad or communication of any part in relation to an Ad, including, but not limited to, for any errors or omissions in my ad(s) or other ads, or for any loss or damage of any kind incurred as a result of the use of this website.
+          <strong>Your Responsibility:</strong> I also understand that utilizing the classifieds on this website is my full responsibility in every way, whether posting, viewing, inquiring, etc. I agree that acich.org will not be liable in any way for any Ad or communication of any part in relation to an Ad, including, but not limited to, for any errors or omissions in my ad(s) or other ads, or for any loss or damage of any kind incurred as a result of the use of this website.
         </li>
         <li>
           <strong>The Hammer:</strong> I also understand that if I violate any of these guidelines my account may be terminated, IP address may be blocked, or ad may be removed if deemed inappropriate. 

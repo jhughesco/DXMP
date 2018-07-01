@@ -48,7 +48,7 @@
     <AddButton class="btn btn-lg btn-primary btn-block" Text="Send Message" />    
   </div>
   
-  <Email To="[[To]]" From="noreply@aza-z.com" Format="text" Subject="Re: [[Ad_Title]]">
+  <Email To="[[To]]" From="noreply@acich.org" Format="text" Subject="Re: [[Ad_Title]]">
     You've received a response regarding: [[Ad_Title]]
 
     From: [[From]]
@@ -59,7 +59,7 @@
 
     ----------------------------
     Unless the inquirer has provided their email address or other contact information within this message, 
-    you can reply directly from your seller's dashboard: http://aza-z.com/Dashboard
+    you can reply directly from your seller's dashboard: http://acich.org/Dashboard
     
     Messages within your dashboard will automatically be removed after the associated ad is deleted.
   </Email>
@@ -94,6 +94,4 @@
 
   <UpdateButton Text="Update" /> &nbsp;<CancelButton Text="Cancel"/>
   <Textbox Id="txtKey" DataField="KeyFieldName" DataType="int32" Visible="False" />
-</xmod:EditForm></EditItemTemplate>
-
-</xmod:FormView>
+</xmod:EditForm></EditItemTemplate></xmod:FormView>

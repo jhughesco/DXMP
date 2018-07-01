@@ -289,7 +289,7 @@
   </FooterTemplate>
 
   <NoItemsTemplate>
-    <div class="row">
+    <div class="row top10">
       <div class="col-sm-12 text-center">
         <i class="fa fa-warning" style="font-size: 5em; display: block"></i>
         <h3>Bummer! No ads found.</h3>          

@@ -311,22 +311,24 @@
                   <xmod:Select runat="server" Mode="Standard">
                   	<Case Comparetype="Role" Operator="=" Expression="Administrators">
                     	<xmod:Select runat="server" Mode="Inclusive">
-                      	<Case Comparetype="Boolean" Value='<%#Eval("Values")("Approved")%>' Operator="=" Expression="False">
+                      	<Case Comparetype="Boolean" Expression="False" Operator="=" Value='<%#Eval("Values")("Approved")%>' >
                       		<li>
-                            <xmod:CommandLink runat="server" Text="Approve Ad" OnClientClick="return confirm('Are you sure?');">
-                              <Command Name="ApproveAd" Type="Custom">
-                                <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
-                                <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="Int32" />
+                            <xmod:CommandLink runat="server" Text="Approve Ad?">
+                              <Command Name="FlagToggle" Type="Custom">
+                                <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                                <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                                <Parameter Name="FlagType" Value="approved" DataType="string" />
                               </Command>
                             </xmod:CommandLink>
                           </li>  
                         </Case>
                         <Case Comparetype="Boolean" Value='<%#Eval("Values")("Approved")%>' Operator="=" Expression="True">
                       		<li>
-                            <xmod:CommandLink runat="server" Text="Unapprove Ad" OnClientClick="return confirm('Are you sure?');">
-                              <Command Name="UnapproveAd" Type="Custom">
-                                <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
-                                <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="Int32" />
+                            <xmod:CommandLink runat="server" Text="UnApprove Ad">
+                              <Command Name="FlagToggle" Type="Custom">
+                                <Parameter Name="ID1" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
+                                <Parameter Name="ID2" Value='<%#UserData("ID")%>' DataType="Int32" />
+                                <Parameter Name="FlagType" Value="approved" DataType="string" />
                               </Command>
                             </xmod:CommandLink>
                           </li>  
