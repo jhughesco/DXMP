@@ -5,6 +5,7 @@
   <style type="text/css">
     #Popup_Modal .modal-body,
     #Reply_Modal .modal-body {
+      background:url("/images/loading.gif") center no-repeat;
       overflow-y: auto;
     }
 
@@ -145,6 +146,7 @@
   <script type="text/javascript" src="/plugins/magnific/jquery.magnific-popup.min.js"></script>
   
 </xmod:ScriptBlock>
+
 
 <xmod:Template runat="server" UsePaging="False">
 

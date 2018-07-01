@@ -10,7 +10,7 @@
       #Popup_Modal .modal-body,
       #Reply_Modal .modal-body {
         background:url("/images/loading.gif") center no-repeat;
-        overflow-y: hidden;
+        overflow-y: auto;
       }
 
       #AllAds div.media.ad {

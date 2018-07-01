@@ -6,7 +6,7 @@
     #Popup_Modal .modal-body,
     #Reply_Modal .modal-body {
       background: url("/images/loading.gif") center no-repeat;
-      overflow-y: hidden;
+      overflow-y: auto;
     }
 
     #RecentAds {
@@ -118,12 +118,31 @@
       border-bottom: 3px solid transparent;
       border-top: 3px solid #8F0808;
     }
+    
+    .summary-wrapper { background: white; }
+    .summary-wrapper .title-wrapper { text-align: center; }
+    .summary-wrapper .title-wrapper h1, .summary-wrapper .title-wrapper h2, .summary-wrapper .title-wrapper h5 { margin: 0px; }
+    .summary-wrapper .image-wrapper { text-align: center; margin-top: 20px; }
+    .summary-wrapper .price-wrapper { text-align: center; font-size: 20px; color: darkgreen; }
+    .summary-wrapper .contact-wrapper { text-align: center; margin-top: 10px; font-size: 16px; color: #555; }
+    .summary-wrapper .adsummary-wrapper { margin: 20px auto; }
+		.summary-wrapper .adsummary-wrapper p { font-size: 16px!important; color: #555 !important; padding: 10px !important; }
+    .summary-wrapper .adinfo-wrapper { margin: 15px; }
+    .summary-wrapper .addetails-wrapper { border: 4px solid #ebebeb; border-radius: 10px; padding: 20px; margin: 20px 0px;}
+    .additional-images { margin-top: 10px; }
+    
+    a.seller_link { font-size: 14px; }
+    a.seller_link:visited, a.seller_link:hover { color: #fff; }
 
     #ad-share {
       position: absolute;
       bottom: 13px;
     }
   </style>
+  
+  <link rel="stylesheet" href="/plugins/magnific/magnific-popup.css" type="text/css" />
+  <script type="text/javascript" src="/plugins/magnific/jquery.magnific-popup.min.js"></script>
+  
 </xmod:ScriptBlock>
 
 <xmod:Template runat="server" UsePaging="False">
@@ -252,6 +271,11 @@
 
 <script>
   $(document).ready(function () {
+    
+    // I encountered an overflow error in the console due to a conflict
+    // with the modals. The below code solves the issue.
+    $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+    
 
     $('.modal').appendTo('body');
     var $modal = $('#Popup_Modal');
@@ -280,16 +304,39 @@
       }
 
 
-      var iframe = $('<iframe />', {
-        style: 'overflow-y:auto;height:100%;width:100%',
-        src: source,
-        class: 'ad-frame'
+      $.ajax({
+        url: "/DesktopModules/XModPro/Feed.aspx?pid=0&xfd=Ad_Popup&AdID=" + id,
+        type: "GET",
+        dataType: "HTML",
+        success: function(data) {
+          $modal.find('.modal-body').html(data);
+          if ( $('.image-wrapper').length ) {
+            $('.image-wrapper').magnificPopup({
+              delegate: 'a',
+              type: 'image',
+              tLoading: 'Loading image #%curr%...',
+              mainClass: 'mfp-fade',
+              gallery: {
+                enabled: true,
+                navigateByImgClick: true,
+                preload: [0,1]
+              },
+              image: {
+                tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'        
+              },
+              zoom: {
+                enabled: true, 
+                duration: 300, 
+                easing: 'ease-in-out', 
+                opener: function(openerElement) {
+                  return openerElement.is('img') ? openerElement : openerElement.find('img');
+                }
+              }
+            });
+          } 
+        }          
       });
-
-      $modal.find('.modal-body').html(iframe);
-      if (/iPhone|iPod|iPad/.test(navigator.userAgent)) {
-        $modal.find('.modal-body').css("overflow-y", "scroll");
-      }
+      
     });
 
     $replyModal.on('shown.bs.modal', function (e) {
@@ -321,7 +368,7 @@
 
 
     $modal.add($replyModal).on('hide.bs.modal', function (e) {
-      $(this).find('iframe.ad-frame, .reply-btn').remove();
+      $(this).find('#AdPopup, .ad-frame, .reply-btn').remove();
     });
 
   });
