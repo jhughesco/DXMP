@@ -270,40 +270,39 @@
 </div>
 
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     
+    
+
     // I encountered an overflow error in the console due to a conflict
     // with the modals. The below code solves the issue.
     $.fn.modal.Constructor.prototype.enforceFocus = function () {};
     
-
+    
+        
     $('.modal').appendTo('body');
     var $modal = $('#Popup_Modal');
     var $replyModal = $('#Reply_Modal');
 
     ResizeModal($modal);
-
-
-    $modal.on('shown.bs.modal', function (e) {
+    
+    $modal.on('shown.bs.modal',function(e){
       e.preventDefault();
-
+      
       var $invoker = $(e.relatedTarget),
-        id = $invoker.data("id"),
-        title = $invoker.data("title"),
-        source = $invoker.data("source"),
-        $replyBtn = $invoker.next('button').clone().show();
-
+          id = $invoker.data("id"),
+          title = $invoker.data("title"),
+          source = $invoker.data("source"),
+          $replyBtn = $invoker.next('button').clone().show();
+      
       $modal.find('.modal-title').html(title);
-
-
-
-      addthis.toolbox("#ad-share", null, { title: title, url: "https://acich.org/Ads/Details/AdID/" + id });
-
+      
+      addthis.toolbox("#ad-share", null, { title: title, url: "http://aza-z.com/Ads/Details/AdID/" + id });
+      
       if ($replyBtn.length) {
-        $modal.find('.modal-footer').prepend($replyBtn);
+      	$modal.find('.modal-footer').prepend($replyBtn);  
       }
-
-
+      
       $.ajax({
         url: "/DesktopModules/XModPro/Feed.aspx?pid=0&xfd=Ad_Popup&AdID=" + id,
         type: "GET",
@@ -337,57 +336,55 @@
         }          
       });
       
+      
     });
-
-    $replyModal.on('shown.bs.modal', function (e) {
+    
+    $replyModal.on('shown.bs.modal',function(e){
       e.preventDefault();
-
+      
       $modal.modal('hide');
-
+      
       var $invoker = $(e.relatedTarget),
-        source = $invoker.data("source"),
-        title = $invoker.data("title");
-
+          source = $invoker.data("source"),
+          title = $invoker.data("title");
+      
       $replyModal.find('.modal-title').html(title);
-
-
+      
+      
       var iframe = $('<iframe />', {
-        style: 'overflow-y:auto;width:100%',
-        src: source,
-        height: 235,
-        class: 'ad-frame'
-      });
-
+                     style: 'overflow-y:auto;width:100%',
+                     src: source,
+                     height: 235,
+                     class: "ad-frame"
+                   });
+      
       $replyModal.find('.modal-body').html(iframe);
     });
-
-
-    $(window).resize(function () {
+    
+    $(window).resize(function() {
       ResizeModal($modal);
-    });
-
-
-    $modal.add($replyModal).on('hide.bs.modal', function (e) {
+    });  
+    
+    $modal.add($replyModal).on('hide.bs.modal', function(e) {
       $(this).find('#AdPopup, .ad-frame, .reply-btn').remove();
     });
-
   });
-
-
-
+  
+  
+  
   function ResizeModal($modal) {
-
-    $modal.find('.modal-content').css('height', $(window).height() * 0.8);
-
+    
+    $modal.find('.modal-content').css('height', $(window).height()*0.8);
+            
     var totalHeight = parseInt($modal.find('.modal-content').css("height")),
-      headerHeight = parseInt($modal.find('.modal-header').css("height")),
-      footerHeight = parseInt($modal.find('.modal-footer').css("height")),
-      bodyHeight = totalHeight - headerHeight - footerHeight;
-
-    $modal.find('.modal-body').css("height", bodyHeight + "px");
-
+        headerHeight = parseInt($modal.find('.modal-header').css("height")),
+        footerHeight = parseInt($modal.find('.modal-footer').css("height")),
+        bodyHeight = totalHeight - headerHeight - footerHeight;
+    
+    $modal.find('.modal-body').css("height", bodyHeight + "px");		
+    
   }
-
+  
 </script>
 
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b382d93b5e09337" async="async"></script></xmod:masterview>
