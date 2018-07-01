@@ -629,7 +629,7 @@
         Ad Title
       </Label>
       <div class="col-sm-10">
-        <TextBox Id="Ad_Title" CssClass="form-control required-field" Nullable="true" MaxLength="150" DataField="Ad_Title" DataType="string"
+        <TextBox Id="Ad_Title" HtmlEncode="True" CssClass="form-control required-field" Nullable="true" MaxLength="150" DataField="Ad_Title" DataType="string"
                  />
         <Validate Target="Ad_Title" CssClass="validate-error" Type="required" Text="*" Message="Ad Title is required." />
       </div>
@@ -640,7 +640,7 @@
         Ad Subtitle
       </Label>
       <div class="col-sm-10">
-        <TextBox Id="Ad_Subtitle" CssClass="form-control" Width="200" Nullable="true" MaxLength="150" DataField="Ad_Subtitle" DataType="string"
+        <TextBox Id="Ad_Subtitle" HtmlEncode="True" CssClass="form-control" Width="200" Nullable="true" MaxLength="150" DataField="Ad_Subtitle" DataType="string"
                  />
       </div>
     </div>
@@ -686,7 +686,7 @@
     <div class="form-group">
       <Label CssClass="col-sm-2 control-label" For="Ad_summary">Ad Summary</Label>
       <div class="col-sm-10">
-        <TextArea Id="Ad_summary" MaxLength="250" CharacterCount="CountDown" CharacterCountLabel="remaining" CssClass="form-control" Nullable="true" DataField="Ad_Summary" DataType="string" />
+        <TextArea Id="Ad_summary" HtmlEncode="True" MaxLength="250" CharacterCount="CountDown" CharacterCountLabel="remaining" CssClass="form-control" Nullable="true" DataField="Ad_Summary" DataType="string" />
       </div>
     </div>
 

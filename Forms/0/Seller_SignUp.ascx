@@ -316,9 +316,7 @@
 
   </jQueryReady>
   
-</xmod:AddForm></AddItemTemplate>
-
-<EditItemTemplate><xmod:EditForm runat="server">
+</xmod:AddForm></AddItemTemplate><EditItemTemplate><xmod:EditForm runat="server">
 
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
     
@@ -411,7 +409,7 @@
       <div class="form-group">
         <Label For="Seller_Name">Seller Name |<small Class="HeaderLabel_Small"> This name can be your name, company name, or just a fun name like <em>The Ad King</em></small></Label>
         <div class="input-group">
-  				<TextBox Id="Seller_Name" CssClass="form-control required-field" MaxLength="150" DataField="Seller_Name" DataType="string" aria-describedby="basic-addon2" />
+  				<TextBox Id="Seller_Name" HtmlEncode="True" CssClass="form-control required-field" MaxLength="150" DataField="Seller_Name" DataType="string" aria-describedby="basic-addon2" />
           <span class="input-group-addon" id="basic-addon2">SellerID: <%#SelectData("SellerID")%></span>
         </div>
         <Validate Target="Seller_Name" CssClass="validate-error" Type="required" Text="*" Message="Name is required." />
@@ -419,7 +417,7 @@
       
       <div class="form-group">
         <Label For="Seller_Address">Seller Address |<small Class="HeaderLabel_Small"> This will be displayed on your ads if you choose to make it public.</small></Label>
-        <TextBox Id="Seller_Address" CssClass="form-control required-field" MaxLength="150" DataField="Seller_Address" DataType="string" />
+        <TextBox Id="Seller_Address" HtmlEncode="True" CssClass="form-control required-field" MaxLength="150" DataField="Seller_Address" DataType="string" />
         <Validate Target="Seller_Address" CssClass="validate-error" Type="required" Text="*" Message="Address is required." />
       </div>      
     
@@ -471,7 +469,7 @@
     
       <div class="form-group">
         <Label For="Seller_Phone">Seller Phone |<small Class="HeaderLabel_Small"> This is only displayed on your ads if you choose to make it public.</em></small></Label>
-        <TextBox Id="Seller_Phone" CssClass="form-control required-field" MaxLength="50" DataField="Seller_Phone" DataType="string" />
+        <TextBox Id="Seller_Phone" HtmlEncode="True" CssClass="form-control required-field" MaxLength="50" DataField="Seller_Phone" DataType="string" />
         <Validate Target="Seller_Phone" CssClass="validate-error" Type="required" Text="*" Message="Phone is required." />
       </div>
 
@@ -578,6 +576,4 @@
       </p>
     </div>    
   </ItemTemplate>
-</xmod:EditSuccess></EditSuccessTemplate>
-
-</xmod:FormView>
+</xmod:EditSuccess></EditSuccessTemplate></xmod:FormView>

@@ -172,13 +172,13 @@
 
         <div class="form-group">
           <Label For="Ad_Title">Ad Title |<small Class="HeaderLabel_Small"> The main title for your ad.</small></Label>
-          <TextBox Id="Ad_Title" CssClass="form-control required-field" Nullable="true" MaxLength="150" DataField="Ad_Title" DataType="string"/>
+          <TextBox Id="Ad_Title" HtmlEncode="True" CssClass="form-control required-field" Nullable="true" MaxLength="150" DataField="Ad_Title" DataType="string"/>
           <Validate Target="Ad_Title" CssClass="validate-error" Type="required" Text="*" Message="Ad Title is required." />
         </div>
 
         <div class="form-group">
           <Label For="Ad_Subtitle">Ad Subtitle |<small Class="HeaderLabel_Small"> You can use this like a <em>call-to-action</em> as well</small></Label>
-          <TextBox Id="Ad_Subtitle" CssClass="form-control" Nullable="true" MaxLength="150" DataField="Ad_Subtitle" DataType="string" />
+          <TextBox Id="Ad_Subtitle" HtmlEncode="True" CssClass="form-control" Nullable="true" MaxLength="150" DataField="Ad_Subtitle" DataType="string" />
         </div>
 
         <div class="form-group">
@@ -201,7 +201,7 @@
         <div class="panel-body">
             <div class="form-group">
               <Label For="Ad_summary">Ad Summary |<small Class="HeaderLabel_Small"> Think of this like a short teaser.</small></Label>
-              <TextArea Id="Ad_summary" MaxLength="250" CharacterCount="CountDown" CharacterCountLabel="remaining" CssClass="form-control" Nullable="true" DataField="Ad_Summary" DataType="string" />
+              <TextArea Id="Ad_summary" HtmlEncode="True" MaxLength="250" CharacterCount="CountDown" CharacterCountLabel="remaining" CssClass="form-control" Nullable="true" DataField="Ad_Summary" DataType="string" />
             </div>
 
             <div class="form-group">

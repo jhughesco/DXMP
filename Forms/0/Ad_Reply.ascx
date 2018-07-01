@@ -42,7 +42,7 @@
   
   <div class="form">
     <div class="form-group">
-      <TextArea Id="Message" MaxLength="500" DataField="Message" CssClass="form-control" Placeholder="Type your reply here..." Rows="7" autocomplete="off" DataType="String" />
+      <TextArea Id="Message" HtmlEncode="True" MaxLength="500" DataField="Message" CssClass="form-control" Placeholder="Type your reply here..." Rows="7" autocomplete="off" DataType="String" />
       <Validate Type="required" CssClass="validate-error" Target="Message" Text="Required" Message="Enter a message please." />          
     </div>      
     <AddButton class="btn btn-lg btn-primary btn-block" Text="Send Message" />    

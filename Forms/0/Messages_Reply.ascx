@@ -55,7 +55,7 @@
   </SubmitCommand>
   
   
-  <TextArea Id="Message" MaxLength="500" DataField="Message" CssClass="form-control" Placeholder="Type your reply here..." Rows="3" autocomplete="off" DataType="String" />
+  <TextArea Id="Message" HtmlEncode="True" MaxLength="500" DataField="Message" CssClass="form-control" Placeholder="Type your reply here..." Rows="3" autocomplete="off" DataType="String" />
   <Validate Type="required" CssClass="validate-error" Target="Message" />          
   <div class="text-right">
     <AddLink CssClass="send-msg bt btn-primary btn-xs" Text="Send" Redirect="/Dashboard/Messages/Reply?ConversationID=[[ConversationID]]&submit=1" RedirectMethod="Get" />
