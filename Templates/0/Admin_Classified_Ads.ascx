@@ -221,9 +221,11 @@
                 <td><%#Eval("Values")("CityState")%></td>
                 <td><%#Eval("Values")("Ad_Title")%></td>
                 <td>
-                    <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" /></td>
+                    <xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Ad_Price")%>' Pattern="c" />
+              	</td>
                 <td>
-                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" /></td>
+                    <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Created")%>' Pattern="MM/dd/yyyy" />
+              	</td>
                 <td><%#Eval("Values")("CreatedByUsername")%></td>
                 <td>
                     <xmod:Format runat="server" Type="Date" Value='<%#Eval("Values")("Date_Updated")%>' Pattern="MM/dd/yyyy" /></td>
@@ -380,6 +382,7 @@
                           <Command Name="RenewAd" Type="Custom">
                             <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
                             <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="Int32" />
+                            <Parameter Name="Updated_IP" Value='<%#RequestData("HostAddress")%>' DataType="string" />
                           </Command>
                         </xmod:CommandLink>
                       </li>    
@@ -583,6 +586,7 @@
                           <Command Name="RenewAd" Type="Custom">
                             <Parameter Name="AdID" Value='<%#Eval("Values")("AdID")%>' DataType="Int32" />
                             <Parameter Name="UserID" Value='<%#UserData("ID")%>' DataType="Int32" />
+                            <Parameter Name="Updated_IP" Value='<%#RequestData("HostAddress")%>' DataType="string" />
                           </Command>
                         </xmod:CommandLink>
                       </li>    
