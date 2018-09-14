@@ -38,7 +38,8 @@
       margin-bottom: 50px;
       display: block;
       margin-right: auto;
-      margin-left: auto;      
+      margin-left: auto;
+      font-style: italic;
     }
 
     
@@ -61,7 +62,7 @@
       Jeff Hughes
     </h1>
     <p class="bullet">
-      Customized DotNetNuke Web Development&nbsp;&nbsp;&#9679;&nbsp;&nbsp;System, Application, and SQL Administration&nbsp;&nbsp;&#9679;&nbsp;&nbsp;IT Project Management
+      Customized DotNetNuke Web Development&nbsp;&nbsp;&#9679;&nbsp;&nbsp;System, Application, and SQL Administration&nbsp;&nbsp;&#9679;&nbsp;&nbsp;Project Management
     </p>
 
   </div>
@@ -76,7 +77,7 @@
     </h4>
     <div class="about">
       <p>
-        I’m an independent Information Systems consultant located in beautiful Central Oregon. I help small companies and non-profits build focused, specialized IT solutions. Previously a Critical Care Registered Nurse in Northern California, I now partner with organizations to bring the same level of concern and care for their technology needs. Check out services below to see how I can help you.
+        I’m an independent Information Systems consultant located in beautiful Central Oregon. I help small companies and non-profits build focused, specialized IT solutions. Previously a Critical Care Registered Nurse in Northern California, I now partner with organizations to bring the same level of concern and care for their technology needs. Check out services below to see how I can best serve you.
       </p>
     </div>
 
