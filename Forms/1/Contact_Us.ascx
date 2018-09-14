@@ -1,59 +1,126 @@
 <%@ Control Language="vb" AutoEventWireup="false" Inherits="KnowBetter.XModPro.FormBase" %>
 <%@ Register Assembly="KnowBetter.XModPro.Web.Controls" Namespace="KnowBetter.XModPro.Web.Controls.Form" TagPrefix="xmod" %>
 <xmod:FormView runat="server"><AddItemTemplate><xmod:AddForm runat="server">
-  <Label CssClass="" For="Department">Department</Label>
-  <DropDownList Id="Department" DataField="Department">
-    <ListItem Value="">
-      - Please Select -
-    </ListItem>
-    <ListItem Value="Support">
-      Support
-    </ListItem>
-    <ListItem Value="Report Abuse">
-      Report Abuse
-    </ListItem>
-    <ListItem Value="General">
-      General
-    </ListItem>
-  </DropDownList>
-  <Validate Target="Department" CssClass="" Type="required" Text="*" Message="Please select a department." />
 
-  <Label CssClass="" For="Name">Name</Label>
-  <TextBox Id="Name" MaxLength="50" DataField="Name" />
-  <Validate Target="Name" CssClass="" Type="required" Text="*" Message="Please enter your name." />
+  <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
+    <style type="text/css">
+      .contact-form {
+        max-width: 800px;
+        margin: auto;
+      }
 
-  <Label CssClass="" For="Email">Email</Label>
-  <TextBox Id="Email" MaxLength="50" DataField="Email" />
-  <Validate Target="Email" CssClass="" Type="required" Text="*" Message="Please enter an email address." />
-  <Validate Target="Email" CssClass="" Type="email" Text="*" Message="Please enter a valid email address." />
+      .validate-error {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: red;
+      }
 
-  <Label CssClass="" For="Phone">Phone</Label>
-  <TextBox Id="Phone" MaxLength="20" DataField="Phone" />
+      .contact-radio input {
+        margin-right: 5px;
+      }
 
-  <Label CssClass="" For="Message">Message</Label>
-  <TextArea Id="Message" DataField="Message" />
-  <Validate Target="Message" CssClass="" Type="required" Text="*" Message="Please enter a message." />
+      .required-field {
+        border-left: 1px solid red;
+      }
 
-  <Label CssClass="xmp-form-label" For="ContactMethod">Please select a preferred contact method:</Label>
-  <RadioButtonList Id="ContactMethod" DataField="ContactMethod" RepeatDirection="Vertical" RepeatLayout="Table" SelectedItemsSeparator="|">
-    <ListItem Value="Email">
-      Email
-    </ListItem>
-    <ListItem Value="Phone">
-      Phone
-    </ListItem>
-    <ListItem Value="Either">
-      Either
-    </ListItem>
-    <ListItem Value="None">
-      None
-    </ListItem>
-  </RadioButtonList>
+    </style>
+  </ScriptBlock>
 
-  <ValidationSummary CssClass="" Id="ContactValidation" DisplayMode="BulletList" HeaderText="Please correct the following errors:" />
 
-  <AddButton Text="Send Message" />
-  <CancelButton Text="Cancel" style="margin-left: 12px;" Visible="false" />
+  <div class="form-horizontal contact-form" role="form">
+    <div class="form-group">
+      <Label CssClass="col-sm-2 control-label" For="Department">
+        Department
+      </Label>
+      <div class="col-sm-10">
+        <DropDownList Id="Department" CssClass="form-control required-field" DataField="Department">
+          <ListItem Value="">
+            - Please Select -
+          </ListItem>
+          <ListItem Value="Support">
+            Support
+          </ListItem>
+          <ListItem Value="Report Abuse">
+            Report Abuse
+          </ListItem>
+          <ListItem Value="General">
+            General
+          </ListItem>
+        </DropDownList>
+        <Validate Target="Department" CssClass="validate-error" Type="required" Text="*" Message="Please select a department." />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <Label CssClass="col-sm-2 control-label" For="Name">
+        Name
+      </Label>
+      <div class="col-sm-10">
+        <TextBox Id="Name" Value='<%#UserData("FirstName")%>' CssClass="form-control required-field" MaxLength="50" DataField="Name" />
+        <Validate Target="Name" CssClass="validate-error" Type="required" Text="*" Message="Please enter your name." />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <Label CssClass="col-sm-2 control-label" For="Email">
+        Email
+      </Label>
+      <div class="col-sm-10">
+        <TextBox Id="Email" Value='<%#UserData("Email")%>' CssClass="form-control required-field" MaxLength="50" DataField="Email" />
+        <Validate Target="Email" CssClass="validate-error" Type="required" Text="*" Message="Please enter an email address." />
+        <Validate Target="Email" CssClass="validate-error" Type="email" Text="*" Message="Please enter a valid email address." />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <Label CssClass="col-sm-2 control-label" For="Phone">
+        Phone
+      </Label>
+      <div class="col-sm-10">
+        <TextBox Id="Phone" CssClass="form-control" MaxLength="20" DataField="Phone" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <Label CssClass="col-sm-2 control-label" For="Message">
+        Message
+      </Label>
+      <div class="col-sm-10">
+        <TextArea Id="Message" CssClass="form-control required-field" DataField="Message" />
+        <Validate Target="Message" CssClass="validate-error" Type="required" Text="*" Message="Please enter a message." />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <Label CssClass="col-sm-2 control-label" For="ContactMethod">
+        Please select a preferred contact method:
+      </Label>
+      <div class="col-sm-10">
+        <RadioButtonList Id="ContactMethod" CssClass="contact-radio" DataField="ContactMethod" RepeatDirection="Vertical" RepeatLayout="Table" SelectedItemsSeparator="|">
+          <ListItem Value="Email" selected="True">
+            Email
+          </ListItem>
+          <ListItem Value="Phone">
+            Phone
+          </ListItem>
+          <ListItem Value="Either">
+            Either
+          </ListItem>
+          <ListItem Value="None">
+            None
+          </ListItem>
+        </RadioButtonList>
+      </div>
+    </div>
+
+    <ValidationSummary CssClass="col-sm-offset-2 col-sm-10 alert alert-info" Id="ContactValidation" DisplayMode="BulletList" HeaderText="Please correct the following errors:" />
+
+    <div class="col-sm-offset-2 col-sm-10">
+      <AddButton CssClass="btn btn-primary" Text="Send Message" />
+    </div>
+
+  </div>
 
   <Email To="admin@hughesco.org" CC="" BCC="" From="admin@hughesco.org" ReplyTo="[[Email]]" Format="text" Subject="[[Name]] has sent you a message">
     You received a message from [[Name]].
@@ -68,6 +135,25 @@
     Thank you!
   </Email>
 </xmod:AddForm></AddItemTemplate>
+
+<AddSuccessTemplate><xmod:AddSuccess runat="server">
+  <ItemTemplate>
+    <xmod:ScriptBlock runat="server" ScriptId="SuccessCSS" BlockType="HeadScript" RegisterOnce="true">
+      <style type="text/css">
+        .success-message {
+          max-width: 800px;
+          margin: auto;
+        }
+
+      </style>
+    </xmod:ScriptBlock>
+
+    <div class="alert alert-success success-message">
+      Thank you <%#Eval("Values")("Name")%>! We'll get back to you as soon as possible.
+    </div>
+
+  </ItemTemplate>
+</xmod:AddSuccess></AddSuccessTemplate>
 
 <EditItemTemplate><xmod:EditForm runat="server">
   <ScriptBlock BlockType="HeadScript" RegisterOnce="True" ScriptId="KBXM_Theme_none_Contact_Us">
