@@ -40,5 +40,5 @@
   </FooterTemplate>
 </xmod:Template>
 <div>
-  <xmod:AddLink runat="server" Text="New" />
+  <xmod:AddLink runat="server" CssClass="btn btn-primary" Text="New Location" />
 </div></xmod:masterview>
