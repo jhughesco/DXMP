@@ -10,6 +10,10 @@
         left: 0;
         color: red;
       }
+      
+      .validate-error-addon {
+        left: -15px;        
+      }
 
       .required-field {
         border-left: 1px solid red;
@@ -27,10 +31,10 @@
       <label for="Level_Name" CssClass="col-sm-2 control-label">Level Name</label>
       <div class="col-sm-10">
         <TextBox Id="Level_Name" CssClass="form-control required-field" Placeholder="Add level name..." MaxLength="20" DataField="Level_Name" DataType="string" />
-        <Validate Target="Level_Name" CssClass="validate-error" Type="Required" Text="**" Message="Level Name is required" />
+        <Validate Target="Level_Name" CssClass="validate-error" Type="Required" Text="*" Message="Level Name is required" />
       </div>
     </div>
-
+    
     <div class="form-group">
       <label for="Level_Description" CssClass="col-sm-2 control-label">Description</label>
       <div class="col-sm-10">
@@ -38,18 +42,18 @@
       </div>
     </div>
 
-
     <div class="form-group">
       <label for="Level_Price" CssClass="col-sm-2 control-label">Price</label>
       <div class="col-sm-10">
         <div class="input-group">
           <div class="input-group-addon">$</div>
-          <TextBox Id="Level_Price" CssClass="form-control" Width="150" Nullable="True" Placeholder="Level Price" DataField="Level_Price" DataType="decimal" />
+          <TextBox Id="Level_Price" CssClass="form-control" Width="150" Placeholder="Level Price" DataField="Level_Price" DataType="decimal" />
+          <Validate Target="Level_Price" CssClass="validate-error validate-error-addon" Type="regex" Message="Please enter a valid price only (1234.00)" Text="*" ValidationExpression="^\d{0,10}(\.\d{1,2})?$" />
+          <Validate Target="Level_Price" CssClass="validate-error validate-error-addon" Type="Required" Text="*" Message="Level Price is required" />
         </div>
       </div>
     </div>
-
-
+    
     <ValidationSummary CssClass="col-sm-offset-2 col-sm-10 alert alert-info" Id="vsXMP_Classified_Level" />
     
     <div class="form-group">
@@ -60,9 +64,7 @@
     </div>
 
   </div>
-</xmod:AddForm></AddItemTemplate>
-
-<EditItemTemplate><xmod:EditForm runat="server">
+</xmod:AddForm></AddItemTemplate><EditItemTemplate><xmod:EditForm runat="server">
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
     <style type="text/css">
 
@@ -72,13 +74,16 @@
         left: 0;
         color: red;
       }
+      
+      .validate-error-addon {
+        left: -15px;        
+      }
 
       .required-field {
         border-left: 1px solid red;
       }
 
-
-    </style>
+		</style>
   </ScriptBlock>
 
 
@@ -91,7 +96,7 @@
       <label for="Level_Name" CssClass="col-sm-2 control-label">Level Name</label>
       <div class="col-sm-10">
         <TextBox Id="Level_Name" CssClass="form-control required-field" Placeholder="Add level name..." MaxLength="20" DataField="Level_Name" DataType="string" />
-        <Validate Target="Level_Name" CssClass="validate-error" Type="Required" Text="**" Message="Level Name is required" />
+        <Validate Target="Level_Name" CssClass="validate-error" Type="Required" Text="*" Message="Level Name is required" />
       </div>
     </div>
 
@@ -102,17 +107,17 @@
       </div>
     </div>
 
-
     <div class="form-group">
       <label for="Level_Price" CssClass="col-sm-2 control-label">Price</label>
       <div class="col-sm-10">
         <div class="input-group">
           <div class="input-group-addon">$</div>
-          <TextBox Id="Level_Price" CssClass="form-control" Width="150" Nullable="True" Placeholder="Level Price" DataField="Level_Price" DataType="decimal" />
+          <TextBox Id="Level_Price" CssClass="form-control" Width="150" Placeholder="Level Price" DataField="Level_Price" DataType="decimal" />
+          <Validate Target="Level_Price" CssClass="validate-error validate-error-addon" Type="regex" Message="Please enter a valid price only (1234.00)" Text="*" ValidationExpression="^\d{0,10}(\.\d{1,2})?$" />
+          <Validate Target="Level_Price" CssClass="validate-error validate-error-addon" Type="Required" Text="*" Message="Level Price is required" />
         </div>
       </div>
     </div>
-
 
     <ValidationSummary CssClass="col-sm-offset-2 col-sm-10 alert alert-info" Id="vsXMP_Classified_Level" />
     
@@ -127,6 +132,4 @@
   
   <TextBox Visible="False" Id="LevelID" DataField="LevelID" />
   
-</xmod:EditForm></EditItemTemplate>
-
-</xmod:FormView>
+</xmod:EditForm></EditItemTemplate></xmod:FormView>

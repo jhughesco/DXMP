@@ -24,7 +24,7 @@
           <td><%#Eval("Values")("LevelID")%></td>
           <td><%#Eval("Values")("Level_Name")%></td>
           <td><%#Eval("Values")("Level_Description")%></td>
-          <td><%#Eval("Values")("Level_Price")%></td>
+          <td><xmod:Format runat="server" Type="Float" Value='<%#Eval("Values")("Level_Price")%>' Pattern="c" /></td>
           <td>
             <xmod:EditLink runat="server" Text="Edit">
               <Parameter Name="LevelID" Value='<%#Eval("Values")("LevelID")%>' />
