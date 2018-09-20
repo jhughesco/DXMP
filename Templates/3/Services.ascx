@@ -44,9 +44,9 @@
         <div class="panel-body">
           <p>
             <a href="http://www.blueboltsolutions.com/what-is-dotnetnuke-dnn" target="_blank">
-              DotNetNuke (DNN)
+              DotNetNuke (DNN),
             </a>
-            , an advanced Content Management System (CMS), can be customized to your specific needs. After launch, a Content Management Systems allow the website owner to update most text and images without assistance from me, the designer. This can lead to lower day-to-day cost while keeping your website content fresh and engaging.
+             an advanced Content Management System (CMS), can be customized to your specific needs. After launch, a Content Management Systems allow the website owner to update most text and images without assistance from me, the designer. This can lead to lower day-to-day cost while keeping your website content fresh and engaging.
           </p>
           <p>
             If a more advanced solution is needed, I am be available to provide the services you require.In addition to the excellent modules included in DNN, I utilize 
