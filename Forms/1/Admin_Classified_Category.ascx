@@ -70,9 +70,7 @@
       
   </div>
     
-</xmod:AddForm></AddItemTemplate>
-
-<EditItemTemplate><xmod:EditForm runat="server">
+</xmod:AddForm></AddItemTemplate><EditItemTemplate><xmod:EditForm runat="server">
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
     <style type="text/css">
       .validate-error {
@@ -144,6 +142,4 @@
   
   <TextBox Visible="False" Id="CategoryID" DataField="CategoryID" />
   
-</xmod:EditForm></EditItemTemplate>
-
-</xmod:FormView>
+</xmod:EditForm></EditItemTemplate></xmod:FormView>

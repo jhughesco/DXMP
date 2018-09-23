@@ -116,10 +116,8 @@
 
     <ValidationSummary CssClass="col-sm-offset-2 col-sm-10 alert alert-info" Id="ContactValidation" DisplayMode="BulletList" HeaderText="Please correct the following errors:" />
 
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <AddButton CssClass="btn btn-primary" Text="Send Message" />
-      </div>
+    <div class="col-sm-offset-2 col-sm-10">
+      <AddButton CssClass="btn btn-primary" Text="Send Message" />
     </div>
 
   </div>

@@ -88,4 +88,4 @@
 </xmod:Template>
 <div>
   <xmod:AddLink runat="server" CssClass="btn btn-primary" Text="New Category" />
-  </div></xmod:masterview>
+</div></xmod:masterview>
