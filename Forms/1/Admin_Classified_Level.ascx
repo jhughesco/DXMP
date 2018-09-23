@@ -47,10 +47,10 @@
       <div class="col-sm-10">
         <div class="input-group">
           <div class="input-group-addon">$</div>
-          <TextBox Id="Level_Price" CssClass="form-control" Width="150" Placeholder="Level Price" DataField="Level_Price" DataType="decimal" />
-          <Validate Target="Level_Price" CssClass="validate-error validate-error-addon" Type="regex" Message="Please enter a valid price only (1234.00)" Text="*" ValidationExpression="^\d{0,10}(\.\d{1,2})?$" />
-          <Validate Target="Level_Price" CssClass="validate-error validate-error-addon" Type="Required" Text="*" Message="Level Price is required" />
+          <TextBox Id="Level_Price" CssClass="form-control required-field" Width="150" Placeholder="Level Price" DataField="Level_Price" DataType="decimal" />
         </div>
+        	<Validate Target="Level_Price" CssClass="validate-error" Type="regex" Message="Please enter a valid price only (1234.00)" Text="*" ValidationExpression="^\d{0,10}(\.\d{1,2})?$" />
+          <Validate Target="Level_Price" CssClass="validate-error" Type="Required" Text="*" Message="Level Price is required" />	
       </div>
     </div>
     
@@ -64,7 +64,9 @@
     </div>
 
   </div>
-</xmod:AddForm></AddItemTemplate><EditItemTemplate><xmod:EditForm runat="server">
+</xmod:AddForm></AddItemTemplate>
+
+<EditItemTemplate><xmod:EditForm runat="server">
   <ScriptBlock ScriptId="CustomCSS" BlockType="HeadScript" RegisterOnce="true">
     <style type="text/css">
 
@@ -112,10 +114,10 @@
       <div class="col-sm-10">
         <div class="input-group">
           <div class="input-group-addon">$</div>
-          <TextBox Id="Level_Price" CssClass="form-control" Width="150" Placeholder="Level Price" DataField="Level_Price" DataType="decimal" />
-          <Validate Target="Level_Price" CssClass="validate-error validate-error-addon" Type="regex" Message="Please enter a valid price only (1234.00)" Text="*" ValidationExpression="^\d{0,10}(\.\d{1,2})?$" />
-          <Validate Target="Level_Price" CssClass="validate-error validate-error-addon" Type="Required" Text="*" Message="Level Price is required" />
+          <TextBox Id="Level_Price" CssClass="form-control required-field" Width="150" Placeholder="Level Price" DataField="Level_Price" DataType="decimal" />
         </div>
+        	<Validate Target="Level_Price" CssClass="validate-error" Type="regex" Message="Please enter a valid price only (1234.00)" Text="*" ValidationExpression="^\d{0,10}(\.\d{1,2})?$" />
+          <Validate Target="Level_Price" CssClass="validate-error" Type="Required" Text="*" Message="Level Price is required" />	
       </div>
     </div>
 
@@ -132,4 +134,6 @@
   
   <TextBox Visible="False" Id="LevelID" DataField="LevelID" />
   
-</xmod:EditForm></EditItemTemplate></xmod:FormView>
+</xmod:EditForm></EditItemTemplate>
+
+</xmod:FormView>
