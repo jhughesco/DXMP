@@ -1,8 +1,8 @@
 <%@ Control Language="vb" AutoEventWireup="false" Inherits="KnowBetter.XModPro.TemplateBase" %>
 <%@ Register Assembly="KnowBetter.XModPro.Web.Controls" Namespace="KnowBetter.XModPro.Web.Controls" TagPrefix="xmod" %>
 <xmod:masterview runat="server">
-<xmod:Template runat="server" UsePaging="True" Ajax="False" AddRoles="" EditRoles="" DeleteRoles="" DetailRoles="">
-  <ListDataSource CommandText="SELECT [SellerID], [UserID], [Date_Created], [Date_Updated], [UpdatedBy], [Seller_Name], [Seller_Address], [Seller_Location], [Seller_Phone], [Seller_Email], [Show_Address_By_Default], [Show_Phone_By_Default], [Seller_Image], [Seller_Level], [Approved_Ads], [Agree], [Banned], [IsDeleted] FROM XMP_Classified_Seller"/>
+<xmod:Template runat="server" UsePaging="True" Ajax="True" AddRoles="Administrators" EditRoles="Administrators" DeleteRoles="Administrators" DetailRoles="Administrators">
+  <ListDataSource CommandText="SELECT [SellerID], [UserID], [Date_Created], [Date_Updated], [UpdatedBy], [Seller_Name], [Seller_Location], [Seller_Level], [Banned], [IsDeleted] FROM XMP_Classified_Seller"/>
   <DetailDataSource CommandText="SELECT [SellerID], [UserID], [Date_Created], [Date_Updated], [UpdatedBy], [Seller_Name], [Seller_Address], [Seller_Location], [Seller_Phone], [Seller_Email], [Show_Address_By_Default], [Show_Phone_By_Default], [Seller_Image], [Seller_Level], [Approved_Ads], [Agree], [Banned], [IsDeleted] FROM XMP_Classified_Seller WHERE [SellerID] = @SellerID">
     <Parameter Name="SellerID" />
   </DetailDataSource>
@@ -10,28 +10,20 @@
     <Parameter Name="SellerID" />
   </DeleteCommand>
   <HeaderTemplate>
-    <table>
+    <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Seller ID</th>
+          <th>ID</th>
           <th>User ID</th>
-          <th>Date_Created</th>
-          <th>Date_Updated</th>
+          <th>Created</th>
+          <th>Updated</th>
           <th>Updated By</th>
-          <th>Seller_Name</th>
-          <th>Seller_Address</th>
-          <th>Seller_Location</th>
-          <th>Seller_Phone</th>
-          <th>Seller_Email</th>
-          <th>Show_Address_By_Default</th>
-          <th>Show_Phone_By_Default</th>
-          <th>Seller_Image</th>
-          <th>Seller_Level</th>
-          <th>Approved_Ads</th>
-          <th>Agree</th>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Level</th>
           <th>Banned</th>
           <th>Is Deleted</th>
-          <th>&nbsp;</th>
+          <th width="150">&nbsp;</th>
         </tr>
       </thead>
       <tbody>
@@ -44,16 +36,8 @@
           <td><%#Eval("Values")("Date_Updated")%></td>
           <td><%#Eval("Values")("UpdatedBy")%></td>
           <td><%#Eval("Values")("Seller_Name")%></td>
-          <td><%#Eval("Values")("Seller_Address")%></td>
           <td><%#Eval("Values")("Seller_Location")%></td>
-          <td><%#Eval("Values")("Seller_Phone")%></td>
-          <td><%#Eval("Values")("Seller_Email")%></td>
-          <td><%#Eval("Values")("Show_Address_By_Default")%></td>
-          <td><%#Eval("Values")("Show_Phone_By_Default")%></td>
-          <td><%#Eval("Values")("Seller_Image")%></td>
           <td><%#Eval("Values")("Seller_Level")%></td>
-          <td><%#Eval("Values")("Approved_Ads")%></td>
-          <td><%#Eval("Values")("Agree")%></td>
           <td><%#Eval("Values")("Banned")%></td>
           <td><%#Eval("Values")("IsDeleted")%></td>
           <td>
@@ -94,11 +78,10 @@
     <strong>Agree</strong> <%#Eval("Values")("Agree")%><br />
     <strong>Banned</strong> <%#Eval("Values")("Banned")%><br />
     <strong>IsDeleted</strong> <%#Eval("Values")("IsDeleted")%><br />
-    <xmod:ReturnLink runat="server" CssClass="dnnSecondaryAction" Text="&lt;&lt; Return" />
+    <xmod:ReturnLink runat="server" CssClass="btn btn-default" Text="&lt;&lt; Return" />
 
   </DetailTemplate>
 </xmod:Template>
 <div>
-  <xmod:AddLink runat="server" Text="New" />
-  </div>
-</xmod:masterview>
+  <xmod:AddLink runat="server" CssClass="btn btn-primary" Text="Ad Seller" />
+  </div></xmod:masterview>
